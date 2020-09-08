@@ -10,6 +10,10 @@
 [Ll]ogs/
 [Mm]emoryCaptures/
 .idea/
+2DAssets/
+2DAssets.meta
+TextMesh\ Pro/
+TextMesh\ Pro.meta
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
