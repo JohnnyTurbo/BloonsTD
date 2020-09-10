@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Stats
+namespace TMG.BloonsTD.Stats
 {
     public class CurrentGameStats
     {
@@ -28,6 +28,18 @@ namespace Stats
         {
             get => _lives;
             set => _lives = Mathf.Clamp(value, 0, 40);
+        }
+
+        public CurrentGameStats(int round, int money, int lives)
+        {
+            _round = round;
+            _money = money;
+            _lives = lives;
+        }
+
+        public CurrentGameStats()
+        {
+            
         }
     }
 }
