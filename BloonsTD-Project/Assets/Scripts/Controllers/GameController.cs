@@ -7,27 +7,38 @@ namespace TMG.BloonsTD.Controllers
 {
     public class GameController : MonoBehaviour
     {
-        [SerializeField] private StartingStats _startingStats;
+        [SerializeField] private GameStatistics _startingGameStatistics;
+        [SerializeField] private GameStatistics _currentGameStatistics;
         [SerializeField] private GeneralUIController _generalUIController;
-
-        private CurrentGameStats _currentGameStats;
+        
         private void Start()
         {
-            _currentGameStats = new CurrentGameStats
-            {
-                Round = _startingStats.StartingRound,
-                Money = _startingStats.StartingMoney,
-                Lives = _startingStats.StartingLives
-            };
+            // Will be called when New Game Button is clicked
+            SetupNewGame();
+        }
 
+        private void SetupNewGame()
+        {
+            InitializeStatistics();
             InitializeUI();
+        }
+
+        private void InitializeStatistics()
+        {
+            _currentGameStatistics.SetGameStatistics(_startingGameStatistics);
         }
 
         private void InitializeUI()
         {
-            _generalUIController.UpdateRoundValue(_currentGameStats.Round.ToString());
-            _generalUIController.UpdatedMoneyValue(_currentGameStats.Money.ToString());
-            _generalUIController.UpdateLivesValue(_currentGameStats.Lives.ToString());
+            _generalUIController.UpdateRoundValue(_currentGameStatistics.Round.ToString());
+            _generalUIController.UpdatedMoneyValue(_currentGameStatistics.Money.ToString());
+            _generalUIController.UpdateLivesValue(_currentGameStatistics.Lives.ToString());
+        }
+        
+        public void BeginNewRound()
+        {
+            _currentGameStatistics.Round++;
+            _generalUIController.UpdateRoundValue(_currentGameStatistics.Round.ToString());
         }
     }
 }

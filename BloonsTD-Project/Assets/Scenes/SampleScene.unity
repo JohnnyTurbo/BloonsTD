@@ -1689,7 +1689,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 676083266}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 956287832}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 956287833}
+        m_MethodName: BeginNewRound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &676083266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2126,6 +2148,7 @@ MonoBehaviour:
   _roundValue: {fileID: 2095715762}
   _moneyValue: {fileID: 336454710}
   _livesValue: {fileID: 1844559006}
+  _startRoundButton: {fileID: 676083265}
 --- !u!114 &956287833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2138,7 +2161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bbe931ffb46a864fa2e52c2716f0640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingStats: {fileID: 11400000, guid: c77285afdbfed494785781b56a4eabd4, type: 2}
+  _startingGameStatistics: {fileID: 11400000, guid: c77285afdbfed494785781b56a4eabd4,
+    type: 2}
+  _currentGameStatistics: {fileID: 11400000, guid: 5cf55be45e9cf674e90257539b3042fa,
+    type: 2}
   _generalUIController: {fileID: 956287832}
 --- !u!114 &956287834
 MonoBehaviour:
