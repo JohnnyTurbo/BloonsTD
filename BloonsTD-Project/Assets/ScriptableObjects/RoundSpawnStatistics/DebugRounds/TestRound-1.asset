@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe83f7289b8e44fd81cb55fe93c3ca0d, type: 3}
   m_Name: TestRound-1
   m_EditorClassIdentifier: 
+  _spawnGroups:
+  - _initialSpawnDelay: 0
+    _bloonType: 0
+    _numberInGroup: 10
+    _timeBetweenBloons: 1
