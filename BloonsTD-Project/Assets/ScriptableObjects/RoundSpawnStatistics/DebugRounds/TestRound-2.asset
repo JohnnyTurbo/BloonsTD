@@ -25,3 +25,7 @@ MonoBehaviour:
     _bloonType: 2
     _numberInGroup: 2
     _timeBetweenBloons: 0.1
+  - _initialSpawnDelay: 10
+    _bloonType: 2
+    _numberInGroup: 2
+    _timeBetweenBloons: 0.1
