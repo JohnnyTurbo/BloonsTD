@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20bcc4ee83ce4c958cffe70d6a0e8081, type: 3}
-  m_Name: CurrentPlayerStatistics
+  m_Name: CurrentGameStatistics
   m_EditorClassIdentifier: 
   _round: 50
   _money: 650

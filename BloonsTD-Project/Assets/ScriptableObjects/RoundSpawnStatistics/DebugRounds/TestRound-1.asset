@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20bcc4ee83ce4c958cffe70d6a0e8081, type: 3}
-  m_Name: StartingGameStatistics
+  m_Script: {fileID: 11500000, guid: fe83f7289b8e44fd81cb55fe93c3ca0d, type: 3}
+  m_Name: TestRound-1
   m_EditorClassIdentifier: 
-  _round: 0
-  _money: 650
-  _lives: 40
-  _maxGameStatistics: {fileID: 0}

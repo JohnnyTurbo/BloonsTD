@@ -10,6 +10,7 @@ namespace TMG.BloonsTD.Controllers
         [SerializeField] private GameStatistics _startingGameStatistics;
         [SerializeField] private GameStatistics _currentGameStatistics;
         [SerializeField] private GeneralUIController _generalUIController;
+        [SerializeField] private RoundController _roundController;
         
         private void Start()
         {
@@ -39,6 +40,7 @@ namespace TMG.BloonsTD.Controllers
         {
             _currentGameStatistics.Round++;
             _generalUIController.UpdateRoundValue(_currentGameStatistics.Round.ToString());
+            _roundController.StartRound(_currentGameStatistics.Round);
         }
     }
 }
