@@ -11,6 +11,7 @@ namespace TMG.BloonsTD.Controllers
         [SerializeField] private GameStatistics _currentGameStatistics;
         [SerializeField] private GeneralUIController _generalUIController;
         [SerializeField] private RoundController _roundController;
+        [SerializeField] private BloonSpawner _bloonSpawner;
         
         private void Start()
         {
@@ -20,8 +21,15 @@ namespace TMG.BloonsTD.Controllers
 
         private void SetupNewGame()
         {
+            InitializeControllers();
             InitializeStatistics();
             InitializeUI();
+        }
+
+        private void InitializeControllers()
+        {
+            //_roundController.PathController = _pathController;
+            _roundController.BloonSpawner = _bloonSpawner;
         }
 
         private void InitializeStatistics()

@@ -9,6 +9,14 @@ namespace TMG.BloonsTD.Controllers
     {
         [SerializeField] private List<RoundSpawnStatistics> _rounds;
 
+        private BloonSpawner _bloonSpawner;
+
+        public BloonSpawner BloonSpawner
+        {
+            get => _bloonSpawner;
+            set => _bloonSpawner = value;
+        }
+
         public void StartRound(int roundNumber)
         {
             int roundIndex = roundNumber - 1;
@@ -29,7 +37,7 @@ namespace TMG.BloonsTD.Controllers
             WaitForSeconds timeBetweenSpawns = new WaitForSeconds(spawnGroup.TimeBetweenBloons);
             for (int i = 0; i < spawnGroup.NumberInGroup; i++)
             {
-                Debug.Log($"Spawning {spawnGroup.BloonType.ToString()}");
+                _bloonSpawner.SpawnBloon(spawnGroup.BloonType);
                 yield return timeBetweenSpawns;
             }
         }
