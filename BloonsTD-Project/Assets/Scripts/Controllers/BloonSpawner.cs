@@ -6,12 +6,16 @@ namespace TMG.BloonsTD.Controllers
 {
     public class BloonSpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject _redBloonPrefab;
-        [SerializeField] private GameObject _blueBloonPrefab;
-        [SerializeField] private GameObject _greenBloonPrefab;
-        [SerializeField] private GameObject _yellowBloonPrefab;
-        [SerializeField] private GameObject _blackBloonPrefab;
-        [SerializeField] private GameObject _whiteBloonPrefab;
+        [SerializeField] private GameObject _bloonPrefab;
+        [SerializeField] private BloonProperties _bloonProperties;
+        
+        [SerializeField] private BloonProperties _redBloonProperties;
+        [SerializeField] private BloonProperties _blueBloonProperties;
+        [SerializeField] private BloonProperties _greenBloonProperties;
+        [SerializeField] private BloonProperties _yellowBloonProperties;
+        [SerializeField] private BloonProperties _blackBloonProperties;
+        [SerializeField] private BloonProperties _whiteBloonProperties;
+        
         [SerializeField] private PathController _pathController;
 
         private Vector3 _spawnPosition;
@@ -23,34 +27,36 @@ namespace TMG.BloonsTD.Controllers
 
         public void SpawnBloon(BloonTypes bloonType)
         {
-            GameObject newBloonGO;
+            Debug.Log($"Spawning {bloonType} bloon");
+            GameObject newBloon = Instantiate(_bloonPrefab, _spawnPosition, Quaternion.identity);
+            BloonController newBloonController = newBloon.GetComponent<BloonController>();
 
             switch (bloonType)
             {
                 case BloonTypes.Red:
-                    newBloonGO = _redBloonPrefab;
+                    newBloonController.BloonProperties = _redBloonProperties;
                     break;
                 case BloonTypes.Blue:
-                    newBloonGO = _blueBloonPrefab;
+                    newBloonController.BloonProperties = _blueBloonProperties;
                     break;
                 case BloonTypes.Green:
-                    newBloonGO = _greenBloonPrefab;
+                    newBloonController.BloonProperties = _greenBloonProperties;
                     break;
                 case BloonTypes.Yellow:
-                    newBloonGO = _yellowBloonPrefab;
+                    newBloonController.BloonProperties = _yellowBloonProperties;
                     break;
                 case BloonTypes.Black:
-                    newBloonGO = _blackBloonPrefab;
+                    newBloonController.BloonProperties = _blackBloonProperties;
                     break;
                 case BloonTypes.White:
-                    newBloonGO = _whiteBloonPrefab;
+                    newBloonController.BloonProperties = _whiteBloonProperties;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(bloonType), bloonType, null);
             }
             
-            Debug.Log($"Spawning {bloonType.ToString()}");
-            Instantiate(newBloonGO, _spawnPosition, Quaternion.identity);
+            newBloonController.Path = _pathController;
+            newBloonController.InitializeTargetPosition(0);
         }
     }
 }
