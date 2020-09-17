@@ -27,7 +27,7 @@ namespace TMG.BloonsTD.Controllers
 
         public void SpawnBloon(BloonTypes bloonType)
         {
-            Debug.Log($"Spawning {bloonType} bloon");
+            
             GameObject newBloon = Instantiate(_bloonPrefab, _spawnPosition, Quaternion.identity);
             BloonController newBloonController = newBloon.GetComponent<BloonController>();
 
@@ -54,7 +54,7 @@ namespace TMG.BloonsTD.Controllers
                 default:
                     throw new ArgumentOutOfRangeException(nameof(bloonType), bloonType, null);
             }
-            
+            Debug.Log($"Spawning {bloonType} with RBe {newBloonController.BloonProperties.RedBloonEquivalent}");
             newBloonController.Path = _pathController;
             newBloonController.InitializeTargetPosition(0);
         }

@@ -16,6 +16,7 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private float _moveSpeed;
         [SerializeField] private List<BloonProperties> _bloonsToSpawnWhenPopped;
 
+        
         //TODO add in collider size and/or shape
 
         public Color BloonColor => _bloonColor;
@@ -27,5 +28,20 @@ namespace TMG.BloonsTD.Stats
         public int NumberOfHitsToPop => _numberOfHitsToPop;
         public float MoveSpeed => _moveSpeed;
         public List<BloonProperties> BloonsToSpawnWhenPopped => _bloonsToSpawnWhenPopped;
+
+        public int RedBloonEquivalent
+        {
+            get
+            {
+                int rbe = _numberOfHitsToPop;
+                if (_bloonsToSpawnWhenPopped == null || _bloonsToSpawnWhenPopped.Count <= 0) return rbe;
+
+                foreach (var spawnedBloons in _bloonsToSpawnWhenPopped)
+                {
+                    rbe += spawnedBloons.RedBloonEquivalent;
+                }
+                return rbe;
+            }
+        }
     }
 }
