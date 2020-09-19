@@ -7,7 +7,7 @@ namespace TMG.BloonsTD.Controllers
 {
     public class GameController : MonoBehaviour
     {
-        public static GameController Instance;
+        //public static GameController Instance;
         
         [SerializeField] private GameStatistics _startingGameStatistics;
         [SerializeField] private GameStatistics _currentGameStatistics;
@@ -15,7 +15,7 @@ namespace TMG.BloonsTD.Controllers
         [SerializeField] private RoundController _roundController;
         [SerializeField] private BloonSpawner _bloonSpawner;
 
-        private void Awake()
+        /*private void Awake()
         {
             if (Instance != null)
             {
@@ -26,7 +26,7 @@ namespace TMG.BloonsTD.Controllers
             {
                 Instance = this;
             }
-        }
+        }*/
 
         private void Start()
         {
@@ -45,6 +45,12 @@ namespace TMG.BloonsTD.Controllers
         {
             //_roundController.PathController = _pathController;
             _roundController.BloonSpawner = _bloonSpawner;
+            _roundController.OnBloonSpawned += SetupBloonEvents;
+        }
+
+        private void SetupBloonEvents(BloonController bloonController)
+        {
+            bloonController.OnBloonReachedEndOfPath += DecrementLives;
         }
 
         private void InitializeStatistics()
@@ -66,7 +72,7 @@ namespace TMG.BloonsTD.Controllers
             _roundController.StartRound(_currentGameStatistics.Round);
         }
 
-        public void DecrementLives(int livesLost)
+        private void DecrementLives(int livesLost)
         {
             _currentGameStatistics.Lives -= livesLost;
             _generalUIController.UpdateLivesValue(_currentGameStatistics.Lives.ToString());

@@ -6,6 +6,9 @@ namespace TMG.BloonsTD.Controllers
 {
     public class BloonController : MonoBehaviour
     {
+        public delegate void EndOfPathDelegate (int livesLost);
+
+        public event EndOfPathDelegate OnBloonReachedEndOfPath;
         private BloonProperties _bloonProperties;
         private PathController _path;
         private int _targetWaypointIndex;
@@ -45,17 +48,16 @@ namespace TMG.BloonsTD.Controllers
             _targetWaypointIndex++;
             if (_targetWaypointIndex >= _path.Waypoints.Count)
             {
-                BloonReachedEndOfPath();
+                OnBloonReachedEndOfPath?.Invoke(_bloonProperties.RedBloonEquivalent);
+                Destroy(gameObject);
                 return;
             }
             _targetPosition = _path.Waypoints[_targetWaypointIndex].transform.position;
         }
 
-        private void BloonReachedEndOfPath()
+        private void DestroyBloon()
         {
-            GameController.Instance.DecrementLives(_bloonProperties.RedBloonEquivalent);
-            //TODO: change to return to OBJ pool.
-            Destroy(gameObject);
+            
         }
     }
 }

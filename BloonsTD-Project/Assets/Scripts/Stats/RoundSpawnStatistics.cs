@@ -9,5 +9,39 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private List<SpawnGroup> _spawnGroups;
 
         public List<SpawnGroup> SpawnGroups => _spawnGroups;
+
+        public float RoundTime
+        {
+            get
+            {
+                float maxGroupTime = 0f;
+
+                foreach (var spawnGroup in _spawnGroups)
+                {
+                    float groupTime = spawnGroup.InitialSpawnDelay +
+                                      spawnGroup.NumberInGroup * spawnGroup.TimeBetweenBloons;
+                    maxGroupTime = Mathf.Max(maxGroupTime, groupTime);
+                }
+                
+                return maxGroupTime;
+            }
+        }
+
+        public int NumberOfBloons
+        {
+            get
+            {
+                int numberOfBloons = 0;
+
+                foreach (var spawnGroup in _spawnGroups)
+                {
+                    numberOfBloons += spawnGroup.NumberInGroup;
+                }
+
+                return numberOfBloons;
+            }
+        }
+
+        //TODO: Implement total round RBE
     }
 }
