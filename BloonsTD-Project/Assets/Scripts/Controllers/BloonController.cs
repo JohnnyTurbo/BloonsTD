@@ -43,8 +43,19 @@ namespace TMG.BloonsTD.Controllers
         private void SetNextTargetPosition()
         {
             _targetWaypointIndex++;
-            if (_targetWaypointIndex >= _path.Waypoints.Count) {return;}
+            if (_targetWaypointIndex >= _path.Waypoints.Count)
+            {
+                BloonReachedEndOfPath();
+                return;
+            }
             _targetPosition = _path.Waypoints[_targetWaypointIndex].transform.position;
+        }
+
+        private void BloonReachedEndOfPath()
+        {
+            GameController.Instance.DecrementLives(_bloonProperties.RedBloonEquivalent);
+            //TODO: change to return to OBJ pool.
+            Destroy(gameObject);
         }
     }
 }
