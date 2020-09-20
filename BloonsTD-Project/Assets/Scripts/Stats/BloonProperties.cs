@@ -19,15 +19,59 @@ namespace TMG.BloonsTD.Stats
         
         //TODO add in collider size and/or shape
 
-        public Color BloonColor => _bloonColor;
-        public bool CanBePoppedByDarts => _canBePoppedByDarts;
-        public bool CanBePoppedByTacks => _canBePoppedByTacks;
-        public bool CanBePoppedByBombs => _canBePoppedByBombs;
-        public bool CanBeFrozen => _canBeFrozen;
-        public bool CanBeDetected => _canBeDetected;
-        public int NumberOfHitsToPop => _numberOfHitsToPop;
-        public float MoveSpeed => _moveSpeed;
-        public List<BloonProperties> BloonsToSpawnWhenPopped => _bloonsToSpawnWhenPopped;
+        public Color BloonColor
+        {
+            get => _bloonColor;
+            set => _bloonColor = value;
+        }
+
+        public bool CanBePoppedByDarts
+        {
+            get => _canBePoppedByDarts;
+            set => _canBePoppedByDarts = value;
+        }
+
+        public bool CanBePoppedByTacks
+        {
+            get => _canBePoppedByTacks;
+            set => _canBePoppedByTacks = value;
+        }
+
+        public bool CanBePoppedByBombs
+        {
+            get => _canBePoppedByBombs;
+            set => _canBePoppedByBombs = value;
+        }
+
+        public bool CanBeFrozen
+        {
+            get => _canBeFrozen;
+            set => _canBeFrozen = value;
+        }
+
+        public bool CanBeDetected
+        {
+            get => _canBeDetected;
+            set => _canBeDetected = value;
+        }
+
+        public int NumberOfHitsToPop
+        {
+            get => _numberOfHitsToPop;
+            set => _numberOfHitsToPop = value;
+        }
+
+        public float MoveSpeed
+        {
+            get => _moveSpeed;
+            set => _moveSpeed = value;
+        }
+
+        public List<BloonProperties> BloonsToSpawnWhenPopped
+        {
+            get => _bloonsToSpawnWhenPopped;
+            set => _bloonsToSpawnWhenPopped = value;
+        }
 
         public int RedBloonEquivalent
         {
@@ -42,6 +86,7 @@ namespace TMG.BloonsTD.Stats
                 }
                 return rbe;
             }
+            set => throw new System.NotImplementedException();
         }
     }
 }

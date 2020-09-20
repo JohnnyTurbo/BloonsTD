@@ -1,0 +1,15 @@
+{
+    "name": "TestInfrastructure",
+    "references": [
+        "GUID:f5342ff64c606ae44bd6babb8c850766"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

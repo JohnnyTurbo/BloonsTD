@@ -38,6 +38,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Map
+    uniqueID: 3404117679
+    locked: 0
+  - name: Bloons
+    uniqueID: 2196671699
+    locked: 0
+  - name: Towers
+    uniqueID: 2282881601
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: SidebarUI
+    uniqueID: 4037427469
+    locked: 0
+  - name: MainUI
+    uniqueID: 1016942367
     locked: 0
