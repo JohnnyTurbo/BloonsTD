@@ -22,4 +22,4 @@ MonoBehaviour:
   _moveSpeed: 1.25
   _bloonsToSpawnWhenPopped:
   - {fileID: 11400000, guid: cd259e645b4a9f54688a3fc4b632e272, type: 2}
-  _redBloonEquivalent: 0
+  _bloonType: 1

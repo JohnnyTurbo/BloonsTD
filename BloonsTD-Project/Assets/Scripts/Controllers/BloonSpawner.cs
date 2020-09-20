@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using TMG.BloonsTD.Stats;
+using TMG.BloonsTD.Helpers;
 
 namespace TMG.BloonsTD.Controllers
 {
@@ -31,31 +32,8 @@ namespace TMG.BloonsTD.Controllers
             GameObject newBloon = Instantiate(_bloonPrefab, _spawnPosition, Quaternion.identity);
             BloonController newBloonController = newBloon.GetComponent<BloonController>();
 
-            switch (bloonType)
-            {
-                case BloonTypes.Red:
-                    newBloonController.BloonProperties = _redBloonProperties;
-                    break;
-                case BloonTypes.Blue:
-                    newBloonController.BloonProperties = _blueBloonProperties;
-                    break;
-                case BloonTypes.Green:
-                    newBloonController.BloonProperties = _greenBloonProperties;
-                    break;
-                case BloonTypes.Yellow:
-                    newBloonController.BloonProperties = _yellowBloonProperties;
-                    break;
-                case BloonTypes.Black:
-                    newBloonController.BloonProperties = _blackBloonProperties;
-                    break;
-                case BloonTypes.White:
-                    newBloonController.BloonProperties = _whiteBloonProperties;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(bloonType), bloonType, null);
-            }
-            //Debug.Log($"Spawning {bloonType} with RBe {newBloonController.BloonProperties.RedBloonEquivalent}");
-            
+            newBloonController.BloonProperties = BloonPropertiesProcessor.GetBloonPropertiesFromBloonType(bloonType);
+
             newBloonController.Path = _pathController;
             newBloonController.InitializeTargetPosition(0);
             return newBloonController;

@@ -16,8 +16,8 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private int _numberOfHitsToPop;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private List<BloonProperties> _bloonsToSpawnWhenPopped;
+        [SerializeField] private BloonTypes _bloonType;
 
-        
         //TODO add in collider size and/or shape
 
         public Color BloonColor
@@ -74,6 +74,12 @@ namespace TMG.BloonsTD.Stats
             set => _bloonsToSpawnWhenPopped = value;
         }
 
+        public BloonTypes BloonType
+        {
+            get => _bloonType;
+            set => _bloonType = value;
+        }
+        
         public int RedBloonEquivalent
         {
             get

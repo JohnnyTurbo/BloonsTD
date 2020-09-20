@@ -21,3 +21,4 @@ MonoBehaviour:
   _numberOfHitsToPop: 1
   _moveSpeed: 1
   _bloonsToSpawnWhenPopped: []
+  _bloonType: 0
