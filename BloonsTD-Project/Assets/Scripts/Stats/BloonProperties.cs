@@ -81,9 +81,9 @@ namespace TMG.BloonsTD.Stats
                 int rbe = _numberOfHitsToPop;
                 if (_bloonsToSpawnWhenPopped == null || _bloonsToSpawnWhenPopped.Count <= 0) return rbe;
 
-                foreach (var spawnedBloons in _bloonsToSpawnWhenPopped)
+                foreach (var spawnedBloon in _bloonsToSpawnWhenPopped)
                 {
-                    rbe += spawnedBloons.RedBloonEquivalent;
+                    rbe += spawnedBloon.RedBloonEquivalent;
                 }
                 return rbe;
             }
@@ -96,9 +96,9 @@ namespace TMG.BloonsTD.Stats
                 int totalBloonCount = 1;
                 if (_bloonsToSpawnWhenPopped == null || _bloonsToSpawnWhenPopped.Count <= 0) return totalBloonCount;
 
-                foreach (var spawnedBloons in _bloonsToSpawnWhenPopped)
+                foreach (var spawnedBloon in _bloonsToSpawnWhenPopped)
                 {
-                    totalBloonCount += TotalBloonCount;
+                    totalBloonCount += spawnedBloon.TotalBloonCount;
                 }
 
                 return totalBloonCount;
