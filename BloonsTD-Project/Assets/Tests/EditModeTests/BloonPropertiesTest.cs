@@ -59,5 +59,43 @@ namespace EditModeTests
             BloonProperties bloonPropertiesC = A.BloonProperties.ThatSpawnsBloon(bloonPropertiesB);
             bloonPropertiesC.RedBloonEquivalent.Should().Be(4);
         }
+
+        [Test]
+        public void Test_Total_Bloon_Count_With_1_HP()
+        {
+            BloonProperties bloonPropertiesA = A.BloonProperties.WithHitsToPop(1);
+            bloonPropertiesA.TotalBloonCount.Should().Be(1);
+        }
+        
+        [Test]
+        public void Test_Total_Bloon_Count_With_2_HP()
+        {
+            BloonProperties bloonPropertiesA = A.BloonProperties.WithHitsToPop(2);
+            bloonPropertiesA.TotalBloonCount.Should().Be(1);
+        }
+        
+        [Test]
+        public void Test_Total_Bloon_Count_On_Bloon_That_Spawns_1_Bloon_With_1_HP()
+        {
+            BloonProperties bloonPropertiesA = A.BloonProperties.WithHitsToPop(1);
+            BloonProperties bloonPropertiesB = A.BloonProperties.WithHitsToPop(1).ThatSpawnsBloon(bloonPropertiesA);
+            bloonPropertiesB.TotalBloonCount.Should().Be(2);
+        }
+        
+        [Test]
+        public void Test_Total_Bloon_Count_On_Bloon_That_Spawns_1_Bloon_With_2_HP()
+        {
+            BloonProperties bloonPropertiesA = A.BloonProperties.WithHitsToPop(1);
+            BloonProperties bloonPropertiesB = A.BloonProperties.WithHitsToPop(2).ThatSpawnsBloon(bloonPropertiesA);
+            bloonPropertiesB.TotalBloonCount.Should().Be(2);
+        }
+        
+        [Test]
+        public void Test_Total_Bloon_Count_On_Bloon_That_Spawns_2_Bloons_With_1_HP()
+        {
+            BloonProperties bloonPropertiesA = A.BloonProperties.WithHitsToPop(1);
+            BloonProperties bloonPropertiesB = A.BloonProperties.WithHitsToPop(1).ThatSpawnsBloon(bloonPropertiesA).ThatSpawnsBloon(bloonPropertiesA);
+            bloonPropertiesB.TotalBloonCount.Should().Be(3);
+        }
     }
 }

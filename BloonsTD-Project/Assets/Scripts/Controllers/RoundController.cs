@@ -11,7 +11,7 @@ namespace TMG.BloonsTD.Controllers
 
         private BloonSpawner _bloonSpawner;
         private bool _allBloonsSpawned;
-
+        //private int 
         public delegate void BloonSpawnedDelegate(BloonController bloonController);
 
         public event BloonSpawnedDelegate OnBloonSpawned;

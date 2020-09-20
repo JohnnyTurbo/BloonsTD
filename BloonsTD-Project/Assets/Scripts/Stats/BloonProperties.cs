@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,7 +59,7 @@ namespace TMG.BloonsTD.Stats
         public int NumberOfHitsToPop
         {
             get => _numberOfHitsToPop;
-            set => _numberOfHitsToPop = value;
+            set => _numberOfHitsToPop = Math.Max(1, value);
         }
 
         public float MoveSpeed
@@ -86,7 +87,22 @@ namespace TMG.BloonsTD.Stats
                 }
                 return rbe;
             }
-            set => throw new System.NotImplementedException();
+        }
+
+        public int TotalBloonCount
+        {
+            get
+            {
+                int totalBloonCount = 1;
+                if (_bloonsToSpawnWhenPopped == null || _bloonsToSpawnWhenPopped.Count <= 0) return totalBloonCount;
+
+                foreach (var spawnedBloons in _bloonsToSpawnWhenPopped)
+                {
+                    totalBloonCount += TotalBloonCount;
+                }
+
+                return totalBloonCount;
+            }
         }
     }
 }

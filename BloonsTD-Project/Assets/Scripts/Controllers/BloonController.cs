@@ -54,10 +54,5 @@ namespace TMG.BloonsTD.Controllers
             }
             _targetPosition = _path.Waypoints[_targetWaypointIndex].transform.position;
         }
-
-        private void DestroyBloon()
-        {
-            
-        }
     }
 }

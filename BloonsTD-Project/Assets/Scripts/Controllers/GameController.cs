@@ -7,26 +7,11 @@ namespace TMG.BloonsTD.Controllers
 {
     public class GameController : MonoBehaviour
     {
-        //public static GameController Instance;
-        
         [SerializeField] private GameStatistics _startingGameStatistics;
         [SerializeField] private GameStatistics _currentGameStatistics;
         [SerializeField] private GeneralUIController _generalUIController;
         [SerializeField] private RoundController _roundController;
         [SerializeField] private BloonSpawner _bloonSpawner;
-
-        /*private void Awake()
-        {
-            if (Instance != null)
-            {
-                Destroy(this);
-                return;
-            }
-            else
-            {
-                Instance = this;
-            }
-        }*/
 
         private void Start()
         {
@@ -43,7 +28,6 @@ namespace TMG.BloonsTD.Controllers
 
         private void InitializeControllers()
         {
-            //_roundController.PathController = _pathController;
             _roundController.BloonSpawner = _bloonSpawner;
             _roundController.OnBloonSpawned += SetupBloonEvents;
         }
@@ -58,6 +42,7 @@ namespace TMG.BloonsTD.Controllers
             _currentGameStatistics.SetGameStatistics(_startingGameStatistics);
         }
 
+        //TODO: Change UI updating to an event
         private void InitializeUI()
         {
             _generalUIController.UpdateRoundValue(_currentGameStatistics.Round.ToString());
