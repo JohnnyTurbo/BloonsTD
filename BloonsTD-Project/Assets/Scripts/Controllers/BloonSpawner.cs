@@ -8,15 +8,6 @@ namespace TMG.BloonsTD.Controllers
     public class BloonSpawner : MonoBehaviour
     {
         [SerializeField] private GameObject _bloonPrefab;
-        [SerializeField] private BloonProperties _bloonProperties;
-        
-        [SerializeField] private BloonProperties _redBloonProperties;
-        [SerializeField] private BloonProperties _blueBloonProperties;
-        [SerializeField] private BloonProperties _greenBloonProperties;
-        [SerializeField] private BloonProperties _yellowBloonProperties;
-        [SerializeField] private BloonProperties _blackBloonProperties;
-        [SerializeField] private BloonProperties _whiteBloonProperties;
-        
         [SerializeField] private PathController _pathController;
 
         private Vector3 _spawnPosition;

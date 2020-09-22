@@ -26,9 +26,39 @@ namespace TMG.BloonsTD.TestInfrastructure
             return this;
         }
 
+        public BloonPropertiesBuilder CannotPopFromTacks()
+        {
+            _canBePoppedByTacks = false;
+            return this;
+        }
+
+        public BloonPropertiesBuilder CannotPopFromBombs()
+        {
+            _canBePoppedByBombs = false;
+            return this;
+        }
+
+        public BloonPropertiesBuilder CannotBeFrozen()
+        {
+            _canBeFrozen = false;
+            return this;
+        }
+
+        public BloonPropertiesBuilder CannotBeDetected()
+        {
+            _canBeDetected = false;
+            return this;
+        }
+        
         public BloonPropertiesBuilder WithHitsToPop(int numberOfHitsToPop)
         {
             _numberOfHitsToPop = numberOfHitsToPop;
+            return this;
+        }
+
+        public BloonPropertiesBuilder WithMoveSpeed(float moveSpeed)
+        {
+            _moveSpeed = moveSpeed;
             return this;
         }
 
@@ -48,6 +78,11 @@ namespace TMG.BloonsTD.TestInfrastructure
         private BloonProperties Build()
         {
             var newBloonProperties = ScriptableObject.CreateInstance<BloonProperties>();
+            newBloonProperties.CanBePoppedByDarts = _canBePoppedByDarts;
+            newBloonProperties.CanBePoppedByTacks = _canBePoppedByTacks;
+            newBloonProperties.CanBePoppedByBombs = _canBePoppedByBombs;
+            newBloonProperties.CanBeFrozen = _canBeFrozen;
+            newBloonProperties.CanBeDetected = _canBeDetected;
             newBloonProperties.MoveSpeed = _moveSpeed;
             newBloonProperties.NumberOfHitsToPop = _numberOfHitsToPop;
             if (_bloonsToSpawnWhenPopped != null)
