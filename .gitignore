@@ -11,15 +11,15 @@
 [Mm]emoryCaptures/
 .idea/
 2DAssets/
-# 2DAssets.meta
+2DAssets.meta
 TextMesh\ Pro/
-# TextMesh\ Pro.meta
+TextMesh\ Pro.meta
 Plugins/
 FluentAssertions.5.10.3/
+FluentAssertions.dll.meta
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
-!/BloonsTD-Project/[Aa]ssets/**/*.meta
-!/BloonsTD-Project/[Aa]ssets/*.meta
+!/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
