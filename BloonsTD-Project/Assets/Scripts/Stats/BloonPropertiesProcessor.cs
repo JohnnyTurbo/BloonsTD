@@ -17,8 +17,7 @@ namespace TMG.BloonsTD.Stats
                 foreach (var bloonProperties in allBloonProperties)
                 {
                     _bloons.Add(bloonProperties.BloonType, bloonProperties);
-                }
-                Debug.Log(allBloonProperties.Length);
+                } 
             }
             _initialized = true;
         }

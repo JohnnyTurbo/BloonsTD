@@ -263,6 +263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 13387425}
+  - component: {fileID: 13387426}
   m_Layer: 5
   m_Name: General
   m_TagString: Untagged
@@ -292,6 +293,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &13387426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 13387424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734e997b09e61b24dad1f093af6519e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roundValue: {fileID: 2095715762}
+  _moneyValue: {fileID: 336454710}
+  _livesValue: {fileID: 1844559006}
+  _startRoundButton: {fileID: 676083265}
+  _gameController: {fileID: 956287833}
+  _roundController: {fileID: 956287835}
 --- !u!1 &88842518
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,6 +1005,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 390539953}
+  - component: {fileID: 390539954}
   m_Layer: 0
   m_Name: UICanvases
   m_TagString: Untagged
@@ -1009,6 +1029,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &390539954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390539952}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734e997b09e61b24dad1f093af6519e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roundValue: {fileID: 2095715762}
+  _moneyValue: {fileID: 336454710}
+  _livesValue: {fileID: 1844559006}
+  _startRoundButton: {fileID: 676083265}
+  _gameController: {fileID: 956287833}
+  _roundController: {fileID: 956287835}
 --- !u!1 &392979870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,7 +1894,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 956287832}
+      - m_Target: {fileID: 0}
         m_MethodName: HideStartRoundButton
         m_Mode: 1
         m_Arguments:
@@ -1954,6 +1992,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 756749474}
+  - component: {fileID: 756749475}
   m_Layer: 5
   m_Name: BuildTowersSection
   m_TagString: Untagged
@@ -1983,6 +2022,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -65}
   m_SizeDelta: {x: 0, y: -130}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &756749475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756749473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb3c7befa434062987905c1ba38d239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _towerInformationPanel: {fileID: 1207606537}
+  _towerName: {fileID: 1483241893}
+  _towerCost: {fileID: 9506078}
+  _towerSpeed: {fileID: 1971883863}
+  _towerDescription: {fileID: 517226468}
 --- !u!1 &809533711
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,7 +2422,6 @@ GameObject:
   m_Component:
   - component: {fileID: 956287831}
   - component: {fileID: 956287833}
-  - component: {fileID: 956287832}
   - component: {fileID: 956287834}
   - component: {fileID: 956287835}
   m_Layer: 0
@@ -2391,24 +2446,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &956287832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 956287830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734e997b09e61b24dad1f093af6519e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _roundValue: {fileID: 2095715762}
-  _moneyValue: {fileID: 336454710}
-  _livesValue: {fileID: 1844559006}
-  _startRoundButton: {fileID: 676083265}
-  _gameController: {fileID: 956287833}
-  _roundController: {fileID: 956287835}
 --- !u!114 &956287833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2434,7 +2471,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956287830}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acb3c7befa434062987905c1ba38d239, type: 3}
   m_Name: 
