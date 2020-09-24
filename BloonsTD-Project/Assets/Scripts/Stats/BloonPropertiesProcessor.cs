@@ -13,18 +13,21 @@ namespace TMG.BloonsTD.Stats
             _bloons.Clear();
 
             if (Resources.FindObjectsOfTypeAll(typeof(BloonProperties)) is BloonProperties[] allBloonProperties)
+            {
                 foreach (var bloonProperties in allBloonProperties)
                 {
                     _bloons.Add(bloonProperties.BloonType, bloonProperties);
                 }
-
+                Debug.Log(allBloonProperties.Length);
+            }
             _initialized = true;
         }
 
         public static BloonProperties GetBloonPropertiesFromBloonType(BloonTypes bloonType)
         {
+            
             if(!_initialized){Initialize();}
-
+            
             return _bloons[bloonType];
         }
     }

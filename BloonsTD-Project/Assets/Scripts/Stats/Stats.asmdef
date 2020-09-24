@@ -1,8 +1,6 @@
 {
     "name": "Stats",
-    "references": [
-        "GUID:549ce7bbb1d65f74b88957d20ee8a4f0"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

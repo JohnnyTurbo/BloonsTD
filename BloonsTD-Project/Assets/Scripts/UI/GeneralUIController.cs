@@ -1,3 +1,5 @@
+using System;
+using TMG.BloonsTD.Controllers;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -10,15 +12,33 @@ namespace TMG.BloonsTD.UI
         [SerializeField] private TMP_Text _moneyValue;
         [SerializeField] private TMP_Text _livesValue;
         [SerializeField] private Button _startRoundButton;
+        [SerializeField] private GameController _gameController;
+        [SerializeField] private RoundController _roundController;
 
-        public void UpdateRoundValue(string currentRound) =>
+        private void OnEnable()
+        {
+            _gameController.OnRoundChanged += UpdateRoundChangedValue;
+            _gameController.OnMoneyChanged += UpdatedMoneyValue;
+            _gameController.OnLivesChanged += UpdateLivesValue;
+            _roundController.OnRoundComplete += ShowStartRoundButton;
+        }
+
+        private void OnDisable()
+        {
+            _gameController.OnRoundChanged -= UpdateRoundChangedValue;
+            _gameController.OnMoneyChanged -= UpdatedMoneyValue;
+            _gameController.OnLivesChanged -= UpdateLivesValue;
+            _roundController.OnRoundComplete -= ShowStartRoundButton;
+        }
+
+        private void UpdateRoundChangedValue(string currentRound) =>
             _roundValue.text = currentRound.Equals(0.ToString()) ? 1.ToString() : currentRound;
 
-        public void UpdatedMoneyValue(string currentMoney) => _moneyValue.text = currentMoney;
+        private void UpdatedMoneyValue(string currentMoney) => _moneyValue.text = currentMoney;
 
-        public void UpdateLivesValue(string currentLives) => _livesValue.text = currentLives;
+        private void UpdateLivesValue(string currentLives) => _livesValue.text = currentLives;
 
-        public void ShowStartRoundButton() => _startRoundButton.gameObject.SetActive(true);
+        private void ShowStartRoundButton() => _startRoundButton.gameObject.SetActive(true);
 
         public void HideStartRoundButton() => _startRoundButton.gameObject.SetActive(false);
     }

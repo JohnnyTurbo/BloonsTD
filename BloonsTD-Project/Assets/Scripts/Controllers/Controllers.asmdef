@@ -1,9 +1,7 @@
 {
     "name": "Controllers",
     "references": [
-        "GUID:f5342ff64c606ae44bd6babb8c850766",
-        "GUID:3ecca4bda34c60c4e99968a843aae279",
-        "GUID:549ce7bbb1d65f74b88957d20ee8a4f0"
+        "GUID:f5342ff64c606ae44bd6babb8c850766"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
