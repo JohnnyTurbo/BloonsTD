@@ -19,6 +19,7 @@ FluentAssertions.5.10.3/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/BloonsTD-Project/[Aa]ssets/**/*.meta
+!/BloonsTD-Project/[Aa]ssets/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
