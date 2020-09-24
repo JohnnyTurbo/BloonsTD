@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Reflection;
-using TMG.BloonsTD.Stats;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Helpers
+namespace TMG.BloonsTD.Stats
 {
     public static class BloonPropertiesProcessor
     {

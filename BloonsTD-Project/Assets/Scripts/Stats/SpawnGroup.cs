@@ -37,5 +37,25 @@ namespace TMG.BloonsTD.Stats
             get => _timeBetweenBloons;
             set => _timeBetweenBloons = value;
         }
+
+        public int RedBloonEquivalent
+        {
+            get
+            {
+                var bloonProperties = BloonPropertiesProcessor.GetBloonPropertiesFromBloonType(_bloonType);
+                var redBloonEquivalent = bloonProperties.RedBloonEquivalent * _numberInGroup;
+                return redBloonEquivalent;
+            }
+        }
+
+        public int TotalBloonCount
+        {
+            get
+            {
+                var bloonProperties = BloonPropertiesProcessor.GetBloonPropertiesFromBloonType(_bloonType);
+                var totalBloonCount = bloonProperties.TotalBloonCount * _numberInGroup;
+                return totalBloonCount;
+            }
+        }
     }
 }

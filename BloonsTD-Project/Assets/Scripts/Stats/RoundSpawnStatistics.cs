@@ -27,21 +27,34 @@ namespace TMG.BloonsTD.Stats
             }
         }
 
-        public int NumberOfBloons
+        public int RedBloonEquivalent
         {
             get
             {
-                int numberOfBloons = 0;
+                int redBloonEquivalent = 0;
 
                 foreach (var spawnGroup in _spawnGroups)
                 {
-                    numberOfBloons += spawnGroup.NumberInGroup;
+                    redBloonEquivalent += spawnGroup.RedBloonEquivalent;
                 }
 
-                return numberOfBloons;
+                return redBloonEquivalent;
             }
         }
+        
+        public int TotalBloonCount
+        {
+            get
+            {
+                int totalBloonCount = 0;
 
-        //TODO: Implement total round RBE
+                foreach (var spawnGroup in _spawnGroups)
+                {
+                    totalBloonCount += spawnGroup.TotalBloonCount;
+                }
+
+                return totalBloonCount;
+            }
+        }
     }
 }

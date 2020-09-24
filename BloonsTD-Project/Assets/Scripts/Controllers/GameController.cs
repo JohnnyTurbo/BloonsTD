@@ -30,6 +30,7 @@ namespace TMG.BloonsTD.Controllers
         {
             _roundController.BloonSpawner = _bloonSpawner;
             _roundController.OnBloonSpawned += SetupBloonEvents;
+            _roundController.OnRoundComplete += _generalUIController.ShowStartRoundButton;
         }
 
         private void SetupBloonEvents(BloonController bloonController)
@@ -57,9 +58,9 @@ namespace TMG.BloonsTD.Controllers
             _roundController.StartRound(_currentGameStatistics.Round);
         }
 
-        private void DecrementLives(int livesLost)
+        private void DecrementLives(int livesToLose)
         {
-            _currentGameStatistics.Lives -= livesLost;
+            _currentGameStatistics.Lives -= livesToLose;
             _generalUIController.UpdateLivesValue(_currentGameStatistics.Lives.ToString());
             if (_currentGameStatistics.Lives <= 0)
             {

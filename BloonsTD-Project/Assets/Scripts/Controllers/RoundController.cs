@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMG.BloonsTD.Stats;
@@ -11,10 +12,24 @@ namespace TMG.BloonsTD.Controllers
 
         private BloonSpawner _bloonSpawner;
         private bool _allBloonsSpawned;
-        //private int 
+        private int _bloonsLeft;
         public delegate void BloonSpawnedDelegate(BloonController bloonController);
 
+        public delegate void RoundCompleteDelegate();
+        
+        private void OnEnable()
+        {
+            OnBloonSpawned += SetupBloonEvents;
+        }
+
+        private void OnDisable()
+        {
+            OnBloonSpawned -= SetupBloonEvents;
+        }
+
         public event BloonSpawnedDelegate OnBloonSpawned;
+        public event RoundCompleteDelegate OnRoundComplete;
+        
         public BloonSpawner BloonSpawner
         {
             get => _bloonSpawner;
@@ -24,7 +39,8 @@ namespace TMG.BloonsTD.Controllers
         public void StartRound(int roundNumber)
         {
             int roundIndex = roundNumber - 1;
-            //Debug.Log($"Starting Round: {_rounds[roundIndex].RoundTime}");
+            //Debug.Log($"Round RBE: {_rounds[roundIndex].RedBloonEquivalent}\nNumBloons: {_rounds[roundIndex].TotalBloonCount}");
+            _bloonsLeft = _rounds[roundIndex].TotalBloonCount;
             StartCoroutine(SpawnBloonGroups(_rounds[roundIndex]));
         }
 
@@ -45,6 +61,20 @@ namespace TMG.BloonsTD.Controllers
                 BloonController newBloonController = _bloonSpawner.SpawnBloon(spawnGroup.BloonType);
                 OnBloonSpawned?.Invoke(newBloonController);
                 yield return timeBetweenSpawns;
+            }
+        }
+
+        private void SetupBloonEvents(BloonController bloonController)
+        {
+            bloonController.OnBloonReachedEndOfPath += DecrementBloonsLeftCount;
+        }
+
+        private void DecrementBloonsLeftCount(int numberToDecrement)
+        {
+            _bloonsLeft -= numberToDecrement;
+            if (_bloonsLeft <= 0)
+            {
+                OnRoundComplete?.Invoke();
             }
         }
     }

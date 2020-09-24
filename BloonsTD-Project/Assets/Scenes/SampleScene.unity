@@ -1610,19 +1610,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bloonPrefab: {fileID: 6884444075326204570, guid: 881ff8656c135974483a3e294d331f03,
     type: 3}
-  _bloonProperties: {fileID: 11400000, guid: cd259e645b4a9f54688a3fc4b632e272, type: 2}
-  _redBloonProperties: {fileID: 11400000, guid: cd259e645b4a9f54688a3fc4b632e272,
-    type: 2}
-  _blueBloonProperties: {fileID: 11400000, guid: d9fac38a61b412c42bb561f640770ef1,
-    type: 2}
-  _greenBloonProperties: {fileID: 11400000, guid: 9f2acdaf924447a47a84e7ce3ee26612,
-    type: 2}
-  _yellowBloonProperties: {fileID: 11400000, guid: 190a1ed32d5a6c5449d5f680645b5ef4,
-    type: 2}
-  _blackBloonProperties: {fileID: 11400000, guid: cdddea76a8250054b8a944eb3eadde65,
-    type: 2}
-  _whiteBloonProperties: {fileID: 11400000, guid: 77689e3a2a3e28344a7cc688ad9eca94,
-    type: 2}
   _pathController: {fileID: 1019711852}
 --- !u!1 &454360598
 GameObject:
@@ -1870,7 +1857,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 956287832}
-        m_MethodName: 
+        m_MethodName: HideStartRoundButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
