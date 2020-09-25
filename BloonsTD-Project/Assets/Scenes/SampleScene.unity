@@ -1005,7 +1005,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 390539953}
-  - component: {fileID: 390539954}
   m_Layer: 0
   m_Name: UICanvases
   m_TagString: Untagged
@@ -1029,24 +1028,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &390539954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 390539952}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734e997b09e61b24dad1f093af6519e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _roundValue: {fileID: 2095715762}
-  _moneyValue: {fileID: 336454710}
-  _livesValue: {fileID: 1844559006}
-  _startRoundButton: {fileID: 676083265}
-  _gameController: {fileID: 956287833}
-  _roundController: {fileID: 956287835}
 --- !u!1 &392979870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,7 +1875,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 13387426}
         m_MethodName: HideStartRoundButton
         m_Mode: 1
         m_Arguments:
@@ -2494,7 +2475,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rounds:
+  - {fileID: 11400000, guid: adea0836ed2a16e45ae4b690ddaf732d, type: 2}
   - {fileID: 11400000, guid: 6ddbc338e158c64499d64403fdf263f7, type: 2}
+  - {fileID: 11400000, guid: cad61d96ec8bf6741a66f18141ff24fa, type: 2}
+  - {fileID: 11400000, guid: 4da022bb5e8cb6f4ab66443db0d5f270, type: 2}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

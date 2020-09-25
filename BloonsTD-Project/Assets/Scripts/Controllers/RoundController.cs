@@ -14,9 +14,9 @@ namespace TMG.BloonsTD.Controllers
         private bool _allBloonsSpawned;
         private int _bloonsLeft;
         public delegate void BloonSpawnedDelegate(BloonController bloonController);
-
+        public event BloonSpawnedDelegate OnBloonSpawned;
         public delegate void RoundCompleteDelegate();
-        
+        public event RoundCompleteDelegate OnRoundComplete;
         private void OnEnable()
         {
             OnBloonSpawned += SetupBloonEvents;
@@ -26,9 +26,6 @@ namespace TMG.BloonsTD.Controllers
         {
             OnBloonSpawned -= SetupBloonEvents;
         }
-
-        public event BloonSpawnedDelegate OnBloonSpawned;
-        public event RoundCompleteDelegate OnRoundComplete;
         
         public BloonSpawner BloonSpawner
         {

@@ -17,24 +17,24 @@ namespace TMG.BloonsTD.UI
 
         private void OnEnable()
         {
-            _gameController.OnRoundChanged += UpdateRoundChangedValue;
-            _gameController.OnMoneyChanged += UpdatedMoneyValue;
+            _gameController.OnRoundChanged += UpdateRoundValue;
+            _gameController.OnMoneyChanged += UpdateMoneyValue;
             _gameController.OnLivesChanged += UpdateLivesValue;
             _roundController.OnRoundComplete += ShowStartRoundButton;
         }
 
         private void OnDisable()
         {
-            _gameController.OnRoundChanged -= UpdateRoundChangedValue;
-            _gameController.OnMoneyChanged -= UpdatedMoneyValue;
+            _gameController.OnRoundChanged -= UpdateRoundValue;
+            _gameController.OnMoneyChanged -= UpdateMoneyValue;
             _gameController.OnLivesChanged -= UpdateLivesValue;
             _roundController.OnRoundComplete -= ShowStartRoundButton;
         }
 
-        private void UpdateRoundChangedValue(string currentRound) =>
+        private void UpdateRoundValue(string currentRound) =>
             _roundValue.text = currentRound.Equals(0.ToString()) ? 1.ToString() : currentRound;
 
-        private void UpdatedMoneyValue(string currentMoney) => _moneyValue.text = currentMoney;
+        private void UpdateMoneyValue(string currentMoney) => _moneyValue.text = currentMoney;
 
         private void UpdateLivesValue(string currentLives) => _livesValue.text = currentLives;
 
