@@ -48,16 +48,16 @@ namespace TMG.BloonsTD.Controllers
         
         private void InitializeUI()
         {
-            OnRoundChanged?.Invoke(_currentGameStatistics.Round.ToString());
+            OnRoundChanged?.Invoke(_currentGameStatistics.Rounds.ToString());
             OnMoneyChanged?.Invoke(_currentGameStatistics.Money.ToString());
             OnLivesChanged?.Invoke(_currentGameStatistics.Lives.ToString());
         }
         
         public void BeginNewRound()
         {
-            _currentGameStatistics.Round++;
-            OnRoundChanged?.Invoke(_currentGameStatistics.Round.ToString());
-            _roundController.StartRound(_currentGameStatistics.Round);
+            _currentGameStatistics.Rounds++;
+            OnRoundChanged?.Invoke(_currentGameStatistics.Rounds.ToString());
+            _roundController.StartRound(_currentGameStatistics.Rounds);
         }
 
         private void DecrementLives(int livesToLose)

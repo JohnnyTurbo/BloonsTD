@@ -1,27 +1,28 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TMG.BloonsTD.Stats
 {
     [CreateAssetMenu(fileName = "GameStatistics", menuName = "Game Statistics", order = 0)]
     public class GameStatistics : ScriptableObject
     {
-        [SerializeField] private int _round;
+        [SerializeField] private int _rounds;
         [SerializeField] private int _money;
         [SerializeField] private int _lives;
         [SerializeField] private GameStatistics _maxGameStatistics;
         
-        public int Round
+        public int Rounds
         {
-            get => _round;
+            get => _rounds;
             set
             {
                 if (_maxGameStatistics != null)
                 {
-                    _round = _maxGameStatistics.Round.Equals(0) ? value : Mathf.Min(value, _maxGameStatistics.Round);
+                    _rounds = _maxGameStatistics.Rounds.Equals(0) ? value : Mathf.Clamp(value,0, _maxGameStatistics.Rounds);
                 }
                 else
                 {
-                    _round = value;
+                    _rounds = Mathf.Max(0,value);
                 }
             }
         }
@@ -33,11 +34,11 @@ namespace TMG.BloonsTD.Stats
             {
                 if (_maxGameStatistics != null)
                 {
-                    _money = _maxGameStatistics.Money.Equals(0) ? value : Mathf.Min(value, _maxGameStatistics.Money);
+                    _money = _maxGameStatistics.Money.Equals(0) ? value : Mathf.Clamp(value,0, _maxGameStatistics.Money);
                 }
                 else
                 {
-                    _money = value;
+                    _money = Mathf.Max(0,value);
                 }
             }
         }
@@ -49,11 +50,11 @@ namespace TMG.BloonsTD.Stats
             {
                 if (_maxGameStatistics != null)
                 {
-                    _lives = _maxGameStatistics.Lives.Equals(0) ? value : Mathf.Min(value, _maxGameStatistics.Lives);
+                    _lives = _maxGameStatistics.Lives.Equals(0) ? value : Mathf.Clamp(value,0, _maxGameStatistics.Lives);
                 }
                 else
                 {
-                    _lives = value;
+                    _lives = Mathf.Max(0, value);
                 }
             } 
         }
@@ -66,7 +67,7 @@ namespace TMG.BloonsTD.Stats
 
         public void SetGameStatistics(GameStatistics newGameStatistics)
         {
-            Round = newGameStatistics.Round;
+            Rounds = newGameStatistics.Rounds;
             Money = newGameStatistics.Money;
             Lives = newGameStatistics.Lives;
         }
