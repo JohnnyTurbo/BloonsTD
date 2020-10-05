@@ -8,7 +8,11 @@ namespace TMG.BloonsTD.Stats
     {
         [SerializeField] private List<SpawnGroup> _spawnGroups;
 
-        public List<SpawnGroup> SpawnGroups => _spawnGroups;
+        public List<SpawnGroup> SpawnGroups
+        {
+            get => _spawnGroups;
+            set => _spawnGroups = value;
+        }
 
         public float RoundTime
         {

@@ -9,7 +9,6 @@ namespace TMG.BloonsTD.Stats
     {
         [Tooltip("Time delay between the first Bloon spawn of the previous group and this group.")]
         [SerializeField] private float _initialSpawnDelay;
-        
         [SerializeField] private BloonTypes _bloonType;
         [SerializeField] private int _numberInGroup;
         [SerializeField] private float _timeBetweenBloons;
