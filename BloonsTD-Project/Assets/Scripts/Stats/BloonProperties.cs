@@ -71,9 +71,43 @@ namespace TMG.BloonsTD.Stats
         public List<BloonProperties> BloonsToSpawnWhenPopped
         {
             get => _bloonsToSpawnWhenPopped;
-            set => _bloonsToSpawnWhenPopped = value;
+            set
+            {
+                var initialBloonsToSpawn = _bloonsToSpawnWhenPopped;
+                _bloonsToSpawnWhenPopped = value;
+                var parentList = new List<BloonProperties>();
+                if (!ValidateChildBloons(parentList))
+                {
+                    _bloonsToSpawnWhenPopped = initialBloonsToSpawn;
+                    throw new ArgumentException(
+                        "Error: Loop detected in Bloons to spawn list. Reverting changes.");
+                }
+                //_bloonsToSpawnWhenPopped = value;
+            }
         }
 
+        private void OnValidate()
+        {
+            BloonsToSpawnWhenPopped = _bloonsToSpawnWhenPopped;
+        }
+
+        // TODO: Properly revert changes upon failed attempt to set bloons to spawn.
+        private bool ValidateChildBloons(List<BloonProperties> parentBloons)
+        {
+            if (_bloonsToSpawnWhenPopped == null || _bloonsToSpawnWhenPopped.Count <= 0) return true;
+            if (parentBloons.Contains(this)) return false;
+            parentBloons.Add(this);
+            foreach (var childBloon in _bloonsToSpawnWhenPopped)
+            {
+                if(childBloon == null) continue;
+                if (!childBloon.ValidateChildBloons(parentBloons))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
         public BloonTypes BloonType
         {
             get => _bloonType;
