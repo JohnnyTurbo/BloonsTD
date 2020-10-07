@@ -18,6 +18,8 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private List<BloonProperties> _bloonsToSpawnWhenPopped;
         [SerializeField] private BloonTypes _bloonType;
 
+        private List<BloonProperties> _previousBloonsToSpawnWhenPopped;
+        
         //TODO add in collider size and/or shape
 
         public Color BloonColor
@@ -73,25 +75,24 @@ namespace TMG.BloonsTD.Stats
             get => _bloonsToSpawnWhenPopped;
             set
             {
-                var initialBloonsToSpawn = _bloonsToSpawnWhenPopped;
                 _bloonsToSpawnWhenPopped = value;
                 var parentList = new List<BloonProperties>();
                 if (!ValidateChildBloons(parentList))
                 {
-                    _bloonsToSpawnWhenPopped = initialBloonsToSpawn;
+                    _bloonsToSpawnWhenPopped.Clear();
+                    _bloonsToSpawnWhenPopped = new List<BloonProperties>(_previousBloonsToSpawnWhenPopped);
                     throw new ArgumentException(
                         "Error: Loop detected in Bloons to spawn list. Reverting changes.");
                 }
-                //_bloonsToSpawnWhenPopped = value;
             }
         }
 
         private void OnValidate()
         {
             BloonsToSpawnWhenPopped = _bloonsToSpawnWhenPopped;
+            _previousBloonsToSpawnWhenPopped = new List<BloonProperties>(_bloonsToSpawnWhenPopped);
         }
-
-        // TODO: Properly revert changes upon failed attempt to set bloons to spawn.
+        
         private bool ValidateChildBloons(List<BloonProperties> parentBloons)
         {
             if (_bloonsToSpawnWhenPopped == null || _bloonsToSpawnWhenPopped.Count <= 0) return true;
