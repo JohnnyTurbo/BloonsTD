@@ -4,11 +4,6 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.TestInfrastructure
 {
-    public class BloonBuilder
-    {
-
-    }
-
     public class BloonPropertiesBuilder
     {
         private bool _canBePoppedByDarts = true;

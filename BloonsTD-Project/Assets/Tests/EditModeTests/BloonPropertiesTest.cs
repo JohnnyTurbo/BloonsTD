@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
+﻿using NUnit.Framework;
 using FluentAssertions;
 using TMG.BloonsTD.Stats;
 using TMG.BloonsTD.TestInfrastructure;
@@ -28,7 +25,7 @@ namespace EditModeTests
         public void Test_RBE_On_Bloon_That_Spawns_1_Bloon()
         {
             BloonProperties redBloonProperties = A.BloonProperties.WithHitsToPop(1);
-            BloonProperties blueBloonProperties =
+            BloonProperties blueBloonProperties = 
                 A.BloonProperties.WithHitsToPop(1).ThatSpawnsBloon(redBloonProperties);
             blueBloonProperties.RedBloonEquivalent.Should().Be(2);
         }
@@ -94,7 +91,8 @@ namespace EditModeTests
         public void Test_Total_Bloon_Count_On_Bloon_That_Spawns_2_Bloons_With_1_HP()
         {
             BloonProperties bloonPropertiesA = A.BloonProperties.WithHitsToPop(1);
-            BloonProperties bloonPropertiesB = A.BloonProperties.WithHitsToPop(1).ThatSpawnsBloon(bloonPropertiesA).ThatSpawnsBloon(bloonPropertiesA);
+            BloonProperties bloonPropertiesB = A.BloonProperties.WithHitsToPop(1).ThatSpawnsBloon(bloonPropertiesA)
+                .ThatSpawnsBloon(bloonPropertiesA);
             bloonPropertiesB.TotalBloonCount.Should().Be(3);
         }
     }
