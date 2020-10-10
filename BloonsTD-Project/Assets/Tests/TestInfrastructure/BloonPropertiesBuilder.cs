@@ -13,6 +13,7 @@ namespace TMG.BloonsTD.TestInfrastructure
         private bool _canBeDetected = true;
         private int _numberOfHitsToPop = 1;
         private float _moveSpeed = 1f;
+        private BloonTypes _bloonType = BloonTypes.Red;
         private List<BloonProperties> _bloonsToSpawnWhenPopped;
         
         public BloonPropertiesBuilder CannotPopFromDarts()
@@ -57,6 +58,12 @@ namespace TMG.BloonsTD.TestInfrastructure
             return this;
         }
 
+        public BloonProperties WithBloonType(BloonTypes bloonType)
+        {
+            _bloonType = bloonType;
+            return this;
+        }
+        
         public BloonPropertiesBuilder ThatSpawnsBloon(BloonProperties bloonToSpawnWhenPopped)
         {
             if(_bloonsToSpawnWhenPopped == null){_bloonsToSpawnWhenPopped = new List<BloonProperties>();}
@@ -80,6 +87,7 @@ namespace TMG.BloonsTD.TestInfrastructure
             newBloonProperties.CanBeDetected = _canBeDetected;
             newBloonProperties.MoveSpeed = _moveSpeed;
             newBloonProperties.NumberOfHitsToPop = _numberOfHitsToPop;
+            newBloonProperties.BloonType = _bloonType;
             if (_bloonsToSpawnWhenPopped != null)
             {
                 newBloonProperties.BloonsToSpawnWhenPopped = new List<BloonProperties>(_bloonsToSpawnWhenPopped);

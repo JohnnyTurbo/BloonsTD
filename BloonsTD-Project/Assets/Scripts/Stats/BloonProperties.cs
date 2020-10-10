@@ -76,11 +76,15 @@ namespace TMG.BloonsTD.Stats
             set
             {
                 _bloonsToSpawnWhenPopped = value;
-                var parentList = new List<BloonProperties>();
+                var parentList = new List<BloonTypes>();
                 if (!ValidateChildBloons(parentList))
                 {
                     _bloonsToSpawnWhenPopped.Clear();
-                    _bloonsToSpawnWhenPopped = new List<BloonProperties>(_previousBloonsToSpawnWhenPopped);
+                    if (_previousBloonsToSpawnWhenPopped != null && _previousBloonsToSpawnWhenPopped.Count == 0)
+                    {
+                        _bloonsToSpawnWhenPopped = new List<BloonProperties>(_previousBloonsToSpawnWhenPopped);
+                    }
+
                     throw new ArgumentException(
                         "Error: Loop detected in Bloons to spawn list. Reverting changes.");
                 }
@@ -93,15 +97,15 @@ namespace TMG.BloonsTD.Stats
             _previousBloonsToSpawnWhenPopped = new List<BloonProperties>(_bloonsToSpawnWhenPopped);
         }
         
-        private bool ValidateChildBloons(List<BloonProperties> parentBloons)
+        private bool ValidateChildBloons(List<BloonTypes> parentBloons)
         {
             if (_bloonsToSpawnWhenPopped == null || _bloonsToSpawnWhenPopped.Count <= 0) return true;
-            if (parentBloons.Contains(this)) return false;
-            parentBloons.Add(this);
+            if (parentBloons.Contains(_bloonType)) return false;
+            parentBloons.Add(_bloonType);
             foreach (var childBloon in _bloonsToSpawnWhenPopped)
             {
                 if(childBloon == null) continue;
-                if (!childBloon.ValidateChildBloons(new List<BloonProperties>(parentBloons)))
+                if (!childBloon.ValidateChildBloons(new List<BloonTypes>(parentBloons)))
                 {
                     return false;
                 }
@@ -109,6 +113,7 @@ namespace TMG.BloonsTD.Stats
             return true;
         }
         
+        //TODO: Validate existence of only one Scriptable Object per Bloon Type.
         public BloonTypes BloonType
         {
             get => _bloonType;

@@ -1,7 +1,10 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using FluentAssertions;
 using TMG.BloonsTD.Stats;
 using TMG.BloonsTD.TestInfrastructure;
+using UnityEngine;
 
 namespace EditModeTests
 {
@@ -94,6 +97,25 @@ namespace EditModeTests
             BloonProperties bloonPropertiesB = A.BloonProperties.WithHitsToPop(1).ThatSpawnsBloon(bloonPropertiesA)
                 .ThatSpawnsBloon(bloonPropertiesA);
             bloonPropertiesB.TotalBloonCount.Should().Be(3);
+        }
+
+        [Test]
+        public void Test_Child_Bloon_Validation()
+        {
+            BloonProperties bloonPropertiesA = A.BloonProperties;
+            Action act = () =>
+                A.BloonProperties.ThatSpawnsBloon(bloonPropertiesA).WithBloonType(BloonTypes.Blue);
+            act.Should().NotThrow<ArgumentException>();
+        }
+        
+        [Test]
+        public void Test_Incorrect_Child_Bloon_Validation()
+        {
+            BloonProperties bloonPropertiesA = A.BloonProperties.WithBloonType(BloonTypes.Red);
+            BloonProperties bloonPropertiesB =
+                A.BloonProperties.ThatSpawnsBloon(bloonPropertiesA).WithBloonType(BloonTypes.Blue);
+            Action act = () => A.BloonProperties.ThatSpawnsBloon(bloonPropertiesB).WithBloonType(BloonTypes.Blue);
+            act.Should().Throw<ArgumentException>();
         }
     }
 }
