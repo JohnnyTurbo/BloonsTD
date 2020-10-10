@@ -86,7 +86,7 @@ namespace TMG.BloonsTD.Stats
                 }
             }
         }
-
+        
         private void OnValidate()
         {
             BloonsToSpawnWhenPopped = _bloonsToSpawnWhenPopped;
@@ -101,7 +101,7 @@ namespace TMG.BloonsTD.Stats
             foreach (var childBloon in _bloonsToSpawnWhenPopped)
             {
                 if(childBloon == null) continue;
-                if (!childBloon.ValidateChildBloons(parentBloons))
+                if (!childBloon.ValidateChildBloons(new List<BloonProperties>(parentBloons)))
                 {
                     return false;
                 }
