@@ -25,49 +25,49 @@ namespace TMG.BloonsTD.Stats
         public Color BloonColor
         {
             get => _bloonColor;
-            set => _bloonColor = value;
+            private set => _bloonColor = value;
         }
 
         public bool CanBePoppedByDarts
         {
             get => _canBePoppedByDarts;
-            set => _canBePoppedByDarts = value;
+            private set => _canBePoppedByDarts = value;
         }
 
         public bool CanBePoppedByTacks
         {
             get => _canBePoppedByTacks;
-            set => _canBePoppedByTacks = value;
+            private set => _canBePoppedByTacks = value;
         }
 
         public bool CanBePoppedByBombs
         {
             get => _canBePoppedByBombs;
-            set => _canBePoppedByBombs = value;
+            private set => _canBePoppedByBombs = value;
         }
 
         public bool CanBeFrozen
         {
             get => _canBeFrozen;
-            set => _canBeFrozen = value;
+            private set => _canBeFrozen = value;
         }
 
         public bool CanBeDetected
         {
             get => _canBeDetected;
-            set => _canBeDetected = value;
+            private set => _canBeDetected = value;
         }
 
         public int NumberOfHitsToPop
         {
             get => _numberOfHitsToPop;
-            set => _numberOfHitsToPop = Math.Max(1, value);
+            private set => _numberOfHitsToPop = Math.Max(1, value);
         }
 
         public float MoveSpeed
         {
             get => _moveSpeed;
-            set => _moveSpeed = value;
+            private set => _moveSpeed = value;
         }
 
         public List<BloonProperties> BloonsToSpawnWhenPopped
@@ -117,7 +117,7 @@ namespace TMG.BloonsTD.Stats
         public BloonTypes BloonType
         {
             get => _bloonType;
-            set => _bloonType = value;
+            private set => _bloonType = value;
         }
         
         public int RedBloonEquivalent

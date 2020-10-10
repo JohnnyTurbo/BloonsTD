@@ -80,14 +80,14 @@ namespace TMG.BloonsTD.TestInfrastructure
         private BloonProperties Build()
         {
             var newBloonProperties = ScriptableObject.CreateInstance<BloonProperties>();
-            newBloonProperties.CanBePoppedByDarts = _canBePoppedByDarts;
-            newBloonProperties.CanBePoppedByTacks = _canBePoppedByTacks;
-            newBloonProperties.CanBePoppedByBombs = _canBePoppedByBombs;
-            newBloonProperties.CanBeFrozen = _canBeFrozen;
-            newBloonProperties.CanBeDetected = _canBeDetected;
-            newBloonProperties.MoveSpeed = _moveSpeed;
-            newBloonProperties.NumberOfHitsToPop = _numberOfHitsToPop;
-            newBloonProperties.BloonType = _bloonType;
+            newBloonProperties.SetPrivate(bp => bp.CanBePoppedByDarts, _canBePoppedByDarts);
+            newBloonProperties.SetPrivate(bp => bp.CanBePoppedByTacks, _canBePoppedByTacks);
+            newBloonProperties.SetPrivate(bp => bp.CanBePoppedByBombs, _canBePoppedByBombs);
+            newBloonProperties.SetPrivate(bp => bp.CanBeFrozen, _canBeFrozen);
+            newBloonProperties.SetPrivate(bp => bp.CanBeDetected, _canBeDetected);
+            newBloonProperties.SetPrivate(bp => bp.MoveSpeed, _moveSpeed);
+            newBloonProperties.SetPrivate(bp => bp.NumberOfHitsToPop, _numberOfHitsToPop);
+            newBloonProperties.SetPrivate(bp => bp.BloonType, _bloonType);
             if (_bloonsToSpawnWhenPopped != null)
             {
                 newBloonProperties.BloonsToSpawnWhenPopped = new List<BloonProperties>(_bloonsToSpawnWhenPopped);
