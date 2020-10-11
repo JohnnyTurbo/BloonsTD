@@ -55,8 +55,9 @@ namespace EditModeTests
         {
             BloonProperties bloonPropertiesA = A.BloonProperties.WithHitsToPop(1);
             BloonProperties bloonPropertiesB = A.BloonProperties.ThatSpawnsBloon(bloonPropertiesA)
-                .ThatSpawnsBloon(bloonPropertiesA);
-            BloonProperties bloonPropertiesC = A.BloonProperties.ThatSpawnsBloon(bloonPropertiesB);
+                .ThatSpawnsBloon(bloonPropertiesA).WithBloonType(BloonTypes.Blue);
+            BloonProperties bloonPropertiesC =
+                A.BloonProperties.ThatSpawnsBloon(bloonPropertiesB).WithBloonType(BloonTypes.Green);
             bloonPropertiesC.RedBloonEquivalent.Should().Be(4);
         }
 
@@ -102,20 +103,40 @@ namespace EditModeTests
         [Test]
         public void Test_Child_Bloon_Validation()
         {
-            BloonProperties bloonPropertiesA = A.BloonProperties;
-            Action act = () =>
-                A.BloonProperties.ThatSpawnsBloon(bloonPropertiesA).WithBloonType(BloonTypes.Blue);
+            var bloonPropertiesA = A.BloonProperties;
+            Action act = () => A.BloonProperties.ThatSpawnsBloon(bloonPropertiesA).WithBloonType(BloonTypes.Blue);
             act.Should().NotThrow<ArgumentException>();
         }
         
         [Test]
         public void Test_Incorrect_Child_Bloon_Validation()
         {
-            BloonProperties bloonPropertiesA = A.BloonProperties.WithBloonType(BloonTypes.Red);
-            BloonProperties bloonPropertiesB =
-                A.BloonProperties.ThatSpawnsBloon(bloonPropertiesA).WithBloonType(BloonTypes.Blue);
+            var bloonPropertiesA = A.BloonProperties.WithBloonType(BloonTypes.Red);
+            var bloonPropertiesB = A.BloonProperties.ThatSpawnsBloon(bloonPropertiesA).WithBloonType(BloonTypes.Blue);
             Action act = () => A.BloonProperties.ThatSpawnsBloon(bloonPropertiesB).WithBloonType(BloonTypes.Blue);
             act.Should().Throw<ArgumentException>();
+        }
+
+        [Test]
+        public void Test_Changing_To_Valid_Child()
+        {
+            var bloonPropertiesA = A.BloonProperties.WithBloonType(BloonTypes.Red);
+            var bloonPropertiesB = A.BloonProperties.ThatSpawnsBloon(bloonPropertiesA).WithBloonType(BloonTypes.Blue);
+            var bloonPropertiesC = A.BloonProperties.ThatSpawnsBloon(bloonPropertiesB).WithBloonType(BloonTypes.Green);
+            Action act = () => bloonPropertiesC.BloonsToSpawnWhenPopped = new List<BloonProperties>() {bloonPropertiesA};
+            act.Should().NotThrow<ArgumentException>();
+            bloonPropertiesC.BloonsToSpawnWhenPopped.Should().Equal(new List<BloonProperties>() {bloonPropertiesA});
+        }
+        
+        [Test]
+        public void Test_Changing_To_Invalid_Child()
+        {
+            var bloonPropertiesA = A.BloonProperties.WithBloonType(BloonTypes.Red);
+            var bloonPropertiesB = A.BloonProperties.ThatSpawnsBloon(bloonPropertiesA).WithBloonType(BloonTypes.Blue);
+            var bloonPropertiesC = A.BloonProperties.ThatSpawnsBloon(bloonPropertiesB).WithBloonType(BloonTypes.Green);
+            Action act = () => bloonPropertiesB.BloonsToSpawnWhenPopped = new List<BloonProperties>() {bloonPropertiesC};
+            act.Should().Throw<ArgumentException>();
+            bloonPropertiesB.BloonsToSpawnWhenPopped.Should().Equal(new List<BloonProperties>(){bloonPropertiesA});
         }
     }
 }

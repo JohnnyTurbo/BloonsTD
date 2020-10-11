@@ -80,13 +80,17 @@ namespace TMG.BloonsTD.Stats
                 if (!ValidateChildBloons(parentList))
                 {
                     _bloonsToSpawnWhenPopped.Clear();
-                    if (_previousBloonsToSpawnWhenPopped != null && _previousBloonsToSpawnWhenPopped.Count == 0)
+                    if (_previousBloonsToSpawnWhenPopped != null && _previousBloonsToSpawnWhenPopped.Count > 0)
                     {
                         _bloonsToSpawnWhenPopped = new List<BloonProperties>(_previousBloonsToSpawnWhenPopped);
                     }
 
                     throw new ArgumentException(
                         "Error: Loop detected in Bloons to spawn list. Reverting changes.");
+                }
+                else
+                {
+                    _previousBloonsToSpawnWhenPopped = _bloonsToSpawnWhenPopped;
                 }
             }
         }
