@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Stats
 {
-    [CreateAssetMenu(fileName = "Round-", menuName = "Round Spawn Statistics", order = 0)]
+    [CreateAssetMenu(fileName = "Round-", menuName = "ScriptableObjects/Round Spawn Statistics", order = 0)]
     public class RoundSpawnStatistics : ScriptableObject
     {
         [SerializeField] private List<SpawnGroup> _spawnGroups;

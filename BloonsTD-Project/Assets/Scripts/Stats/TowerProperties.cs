@@ -10,8 +10,8 @@ namespace TMG.BloonsTD.Stats
         Hypersonic
     };
     
-    [CreateAssetMenu(fileName = "TowerInfo", menuName = "Tower Information", order = 0)]
-    public class TowerInformation : ScriptableObject
+    [CreateAssetMenu(fileName = "TowerProperties", menuName = "ScriptableObjects/Tower Properties", order = 0)]
+    public class TowerProperties : ScriptableObject
     {
         [SerializeField] private string _name;
         [SerializeField] private int _cost;

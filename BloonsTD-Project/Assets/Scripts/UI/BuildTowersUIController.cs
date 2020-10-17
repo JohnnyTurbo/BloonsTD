@@ -18,14 +18,14 @@ namespace TMG.BloonsTD.UI
             HideTowerInformation();
         }
 
-        public void ShowTowerInformation(TowerInformation towerInformation)
+        public void ShowTowerInformation(TowerProperties towerProperties)
         {
             _towerInformationPanel.SetActive(true);
 
-            _towerName.text = towerInformation.Name;
-            _towerCost.text = $"<b>Cost:</b> {towerInformation.Cost.ToString()}";
-            _towerSpeed.text = $"<b>Speed:</b> {towerInformation.Speed}";
-            _towerDescription.text = towerInformation.Description;
+            _towerName.text = towerProperties.Name;
+            _towerCost.text = $"<b>Cost:</b> {towerProperties.Cost.ToString()}";
+            _towerSpeed.text = $"<b>Speed:</b> {towerProperties.Speed}";
+            _towerDescription.text = towerProperties.Description;
         }
 
         public void HideTowerInformation()
