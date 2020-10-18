@@ -30,6 +30,14 @@ namespace TMG.BloonsTD.Controllers
             InitializeUI();
         }
 
+        public int Money => _currentGameStatistics.Money;
+
+        public void DecrementMoney(int amount)
+        {
+            _currentGameStatistics.Money -= amount;
+            OnMoneyChanged?.Invoke(_currentGameStatistics.Money.ToString());
+        }
+        
         private void InitializeControllers()
         {
             _roundController.BloonSpawner = _bloonSpawner;
@@ -41,6 +49,11 @@ namespace TMG.BloonsTD.Controllers
             bloonController.OnBloonReachedEndOfPath += DecrementLives;
         }
 
+        private void SetupTowerEvents(TowerController towerController)
+        {
+            
+        }
+        
         private void InitializeStatistics()
         {
             _currentGameStatistics.SetGameStatistics(_startingGameStatistics);

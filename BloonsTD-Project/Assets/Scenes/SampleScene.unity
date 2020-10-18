@@ -830,6 +830,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87611532b2b0447f96b144a0ac1d6dfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameController: {fileID: 956287833}
+  _towerPrefab: {fileID: 4109992581747090589, guid: 18eb79cf8f3d0d243bc815939705b351,
+    type: 3}
 --- !u!1 &336454708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,7 +1319,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 412255888}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 222423991}
+        m_MethodName: SpawnTower
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: de267a0f732e68949a8fcd1e65509be6,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties, Stats
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &412255888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1377,7 +1392,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: de267a0f732e68949a8fcd1e65509be6,
               type: 2}
-            m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerInformation,
+            m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties,
               Stats
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -2831,7 +2846,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 982827475}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 222423991}
+        m_MethodName: SpawnTower
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 2564397655ccf5447bbd0580ad340be2,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties, Stats
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &982827475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2892,7 +2919,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: 2564397655ccf5447bbd0580ad340be2,
               type: 2}
-            m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerInformation,
+            m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties,
               Stats
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -3455,7 +3482,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1086185636}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 222423991}
+        m_MethodName: SpawnTower
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: b20b165c82b039f4c9e5bad064fe996a,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties, Stats
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1086185636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3516,7 +3555,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: b20b165c82b039f4c9e5bad064fe996a,
               type: 2}
-            m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerInformation,
+            m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties,
               Stats
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -4651,7 +4690,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1713326674}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 222423991}
+        m_MethodName: SpawnTower
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 99575c1f1e3079343a5c13eae0645fd5,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties, Stats
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1713326674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4712,7 +4763,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: 99575c1f1e3079343a5c13eae0645fd5,
               type: 2}
-            m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerInformation,
+            m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties,
               Stats
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -4816,7 +4867,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1758297157}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 222423991}
+        m_MethodName: SpawnTower
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 0da1ab4f8d76b3c4bbf9849a827747a8,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties, Stats
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1758297157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4877,7 +4940,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 11400000, guid: 0da1ab4f8d76b3c4bbf9849a827747a8,
               type: 2}
-            m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerInformation,
+            m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties,
               Stats
             m_IntArgument: 0
             m_FloatArgument: 0
