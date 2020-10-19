@@ -3178,7 +3178,7 @@ MonoBehaviour:
   - {fileID: 976550307}
   - {fileID: 1770587684}
   - {fileID: 1404367859}
-  _pathWidth: 0.35
+  _pathWidth: 0.7
 --- !u!1 &1025266271
 GameObject:
   m_ObjectHideFlags: 0
