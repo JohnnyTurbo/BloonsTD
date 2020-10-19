@@ -7,13 +7,12 @@ namespace Helpers
     public class PathVisualization : MonoBehaviour
     {
         [SerializeField] private PathController _pathController;
-
         private void OnDrawGizmos()
         {
             if (_pathController == null ||
                 (_pathController.Waypoints == null || _pathController.Waypoints.Count == 0)) return;
 
-            var pathRadius = _pathController.PathWidth / 2f;
+            var pathRadius = _pathController.PathRadius;
             
             for (int i = 0; i < _pathController.Waypoints.Count; i++)
             {
