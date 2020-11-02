@@ -16,7 +16,7 @@ namespace TMG.BloonsTD.Controllers
         public event UpdateUITextDelegate OnRoundChanged;
         public event UpdateUITextDelegate OnMoneyChanged;
         public event UpdateUITextDelegate OnLivesChanged;
-        
+
         private void Start()
         {
             // Will be called when New Game Button is clicked

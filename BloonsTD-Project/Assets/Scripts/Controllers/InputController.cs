@@ -3,13 +3,20 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Controllers
 {
+    //TODO Make options for different platforms
     public static class InputController
     {
-        public static bool ReadPlaceTower()
-        {
-            //TODO Make options for different platforms
+        private static Camera _mainCamera;
+        
+        public static bool PlaceTowerFlag => Input.GetMouseButtonDown(0);
 
-            return Input.GetMouseButtonDown(0);
+        public static Vector2 TowerPlacementPosition
+        {
+            get
+            {
+                if(_mainCamera == null){_mainCamera = Camera.main;}
+                return _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            }
         }
     }
 }

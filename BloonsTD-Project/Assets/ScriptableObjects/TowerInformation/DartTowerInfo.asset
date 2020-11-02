@@ -18,5 +18,5 @@ MonoBehaviour:
   _description: Shoots a single dart. Can upgrade to piercing darts and long range
     darts.
   _colliderRadius: 0.36
-  _canBePlacedOffPath: 0
+  _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0

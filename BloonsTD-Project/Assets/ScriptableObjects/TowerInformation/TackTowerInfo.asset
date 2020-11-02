@@ -18,5 +18,5 @@ MonoBehaviour:
   _description: Shoots volley of tacks in 8 directions. Can upgrade its shoot speed
     and its range.
   _colliderRadius: 0.36
-  _canBePlacedOffPath: 0
+  _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0

@@ -108,9 +108,8 @@ namespace TMG.BloonsTD.Controllers
 
         public bool ValidatePlacementPosition()
         {
-            Debug.Log("Validating Placement Position");
+            //Debug.Log("Validating Placement Position");
             if (_outOfBounds) { return false;}
-            
             if (_towerProperties.CanBePlacedOffPath && _fullyOffPath)
             {
                 return true;

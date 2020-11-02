@@ -19,5 +19,5 @@ MonoBehaviour:
     but bombs will destroy them. Can upgrade to increased freeze time, and larger
     freeze radius.
   _colliderRadius: 0.36
-  _canBePlacedOffPath: 0
+  _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
