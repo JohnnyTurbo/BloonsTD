@@ -18,3 +18,6 @@ MonoBehaviour:
   _description: Freezes nearby bloons. Frozen bloons are immune to darts and tacks,
     but bombs will destroy them. Can upgrade to increased freeze time, and larger
     freeze radius.
+  _colliderRadius: 0.36
+  _canBePlacedOffPath: 0
+  _canBePlacedOnPath: 0

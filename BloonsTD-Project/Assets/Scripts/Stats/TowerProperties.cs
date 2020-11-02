@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TMG.BloonsTD.Stats
@@ -17,10 +18,12 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private int _cost;
         [SerializeField] private TowerSpeed _speed;
         [TextArea][SerializeField] private string _description;
-
+        [SerializeField] private float _colliderRadius;
+        [SerializeField] private bool _canBePlacedOffPath;
+        [SerializeField] private bool _canBePlacedOnPath;
+        
         public string Name => _name;
         public int Cost => _cost;
-
         public string Speed
         {
             get
@@ -46,5 +49,19 @@ namespace TMG.BloonsTD.Stats
         }
 
         public string Description => _description;
+        public float ColliderRadius
+        {
+            get => _colliderRadius;
+            set => _colliderRadius = Mathf.Max(0.0001f, value);
+        }
+
+        public bool CanBePlacedOffPath => _canBePlacedOffPath;
+
+        public bool CanBePlacedOnPath => _canBePlacedOnPath;
+
+        private void OnValidate()
+        {
+            ColliderRadius = _colliderRadius;
+        }
     }
 }

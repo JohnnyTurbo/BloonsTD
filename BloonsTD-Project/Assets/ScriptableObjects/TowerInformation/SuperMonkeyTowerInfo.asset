@@ -17,3 +17,6 @@ MonoBehaviour:
   _speed: 3
   _description: Super monkey shoots a continuous stream of darts and can mow down
     even the fastest and most stubborn bloons.
+  _colliderRadius: 0.36
+  _canBePlacedOffPath: 0
+  _canBePlacedOnPath: 0

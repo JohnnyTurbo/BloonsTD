@@ -20,6 +20,9 @@ namespace TMG.BloonsTD.Controllers
         private TowerPlacementState _towerPlacementState;
         private TowerController _currentTowerController;
 
+        private bool IsPlacingTower =>
+            _towerPlacementState == TowerPlacementState.PlacingTower && _currentTowerController != null;
+        private bool CanPlaceTower => IsPlacingTower && _currentTowerController.ValidatePlacementPosition();
         private void Start()
         {
             _towerPlacementState = TowerPlacementState.NotPlacingTower;
@@ -60,7 +63,7 @@ namespace TMG.BloonsTD.Controllers
         //TODO: Valid Placement Checking
         private void Update()
         {
-            if (_towerPlacementState == TowerPlacementState.PlacingTower && InputController.ReadPlaceTower())
+            if (InputController.ReadPlaceTower() && CanPlaceTower)
             {
                 Debug.Log($"Placing tower: {_currentTowerController.TowerProperties.Name}");
                 _towerPlacementState = TowerPlacementState.NotPlacingTower;
@@ -70,4 +73,3 @@ namespace TMG.BloonsTD.Controllers
         }
     }
 }
-/**/
