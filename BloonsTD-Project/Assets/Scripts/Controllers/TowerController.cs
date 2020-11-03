@@ -15,6 +15,9 @@ namespace TMG.BloonsTD.Controllers
         private bool _outOfBounds;
 
         private Vector3[] _edgePoints;
+
+        private float _colliderRadius;
+
         // TODO: Maybe place somewhere better??
         private int PathLayer => LayerMask.NameToLayer("BloonPath");
         private int OutOfBoundsLayer => LayerMask.NameToLayer("OutOfBounds");
@@ -59,17 +62,26 @@ namespace TMG.BloonsTD.Controllers
 
         private void Start()
         {
-            _collider.radius = _towerProperties.ColliderRadius;
+            _colliderRadius = _towerProperties.ColliderRadius;
+            _collider.radius = _colliderRadius;
             _fullyOffPath = true;
             _outOfBounds = true;
-            float colliderRadius = _towerProperties.ColliderRadius;
-            _edgePoints = new[]
+            SetupEdgePoints();
+        }
+
+        private void SetupEdgePoints()
+        {
+            _edgePoints = new Vector3[9];
+            _edgePoints[0] = Vector3.zero;
+            for (int i = 1; i < _edgePoints.Length; i++)
             {
-                new Vector3(0, colliderRadius), 
-                new Vector3(colliderRadius, 0), 
-                new Vector3(0, -colliderRadius),
-                new Vector3(-colliderRadius, 0)
-            };
+                var degree = (i - 1) * 45f;
+                var x = _colliderRadius * Mathf.Cos(degree * Mathf.Deg2Rad);
+                var y = _colliderRadius * Mathf.Sin(degree * Mathf.Deg2Rad);
+                Debug.Log($"X: {x}\nY: {y}");
+                _edgePoints[i] = new Vector3(x, y);
+                Debug.Log(_edgePoints[i]);
+            }
         }
 
         private void OnTriggerStay2D(Collider2D other)
