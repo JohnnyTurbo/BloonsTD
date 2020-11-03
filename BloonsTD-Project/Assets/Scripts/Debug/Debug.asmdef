@@ -1,15 +1,14 @@
 {
-    "name": "Controllers",
+    "name": "Debug",
     "references": [
-        "GUID:f5342ff64c606ae44bd6babb8c850766",
-        "GUID:6ffb5550eb271ec43bf9ee4005cd49fd"
+        "GUID:1bafdd36b4128234cb14e81de1ad6dcf"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": true,
+    "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

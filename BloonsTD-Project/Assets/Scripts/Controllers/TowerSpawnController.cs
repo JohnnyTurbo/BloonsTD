@@ -19,15 +19,15 @@ namespace TMG.BloonsTD.Controllers
         
         private TowerPlacementState _towerPlacementState;
         private GameObject _currentTowerGO;
-        private TowerController _currentTowerController;
+        private TowerPlacementController _currentTowerPlacementController;
 
         private bool IsPlacingTower =>
-            _towerPlacementState == TowerPlacementState.PlacingTower && _currentTowerController != null;
-        private bool CanPlaceTower => IsPlacingTower && _currentTowerController.ValidatePlacementPosition();
+            _towerPlacementState == TowerPlacementState.PlacingTower && _currentTowerPlacementController != null;
+        private bool CanPlaceTower => IsPlacingTower && _currentTowerPlacementController.IsValidPlacementPosition;
         private void Start()
         {
             _towerPlacementState = TowerPlacementState.NotPlacingTower;
-            _currentTowerController = null;
+            _currentTowerPlacementController = null;
         }
 
         public void OnButtonSpawnTower(TowerProperties tower)
@@ -45,7 +45,7 @@ namespace TMG.BloonsTD.Controllers
                     break;
                 
                 case TowerPlacementState.PlacingTower:
-                    Debug.Log($"No longer placing tower: {_currentTowerController.TowerProperties.Name}");
+                    Debug.Log($"No longer placing tower: {_currentTowerPlacementController.TowerProperties.Name}");
                     break;
                 
                 case TowerPlacementState.CannotPlaceTower:
@@ -57,8 +57,8 @@ namespace TMG.BloonsTD.Controllers
 
             Debug.Log($"Spawning {tower.Name}");
             _currentTowerGO = Instantiate(_towerPrefab, Vector3.zero, Quaternion.identity);
-            _currentTowerController = _currentTowerGO.GetComponent<TowerController>();
-            _currentTowerController.TowerProperties = tower;
+            _currentTowerPlacementController = _currentTowerGO.GetComponent<TowerPlacementController>();
+            _currentTowerPlacementController.TowerProperties = tower;
             //TODO: Call some setup method to set renderer, collider, etc.
         }
 
@@ -67,14 +67,14 @@ namespace TMG.BloonsTD.Controllers
         {
             if (IsPlacingTower)
             {
-                _currentTowerController.transform.position = InputController.TowerPlacementPosition;
+                _currentTowerPlacementController.transform.position = InputController.TowerPlacementPosition;
             }
             if (InputController.PlaceTowerFlag && CanPlaceTower)
             {
-                Debug.Log($"Placing tower: {_currentTowerController.TowerProperties.Name}");
+                Debug.Log($"Placing tower: {_currentTowerPlacementController.TowerProperties.Name}");
                 _towerPlacementState = TowerPlacementState.NotPlacingTower;
-                Debug.Log($"Decrementing money by {_currentTowerController.TowerProperties.Cost}");
-                _gameController.DecrementMoney(_currentTowerController.TowerProperties.Cost);
+                Debug.Log($"Decrementing money by {_currentTowerPlacementController.TowerProperties.Cost}");
+                _gameController.DecrementMoney(_currentTowerPlacementController.TowerProperties.Cost);
             }
         }
     }

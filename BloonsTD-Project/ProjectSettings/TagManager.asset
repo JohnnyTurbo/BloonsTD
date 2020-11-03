@@ -15,9 +15,9 @@ TagManager:
   - 
   - BloonPath
   - OutOfBounds
-  - 
-  - 
-  - 
+  - Towers
+  - Bloons
+  - Hazards
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Bloons
     uniqueID: 2196671699
+    locked: 0
+  - name: TowerRangeIndicators
+    uniqueID: 3352324331
     locked: 0
   - name: Towers
     uniqueID: 2282881601

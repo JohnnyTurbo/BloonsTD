@@ -2,7 +2,7 @@ using System;
 using TMG.BloonsTD.Controllers;
 using UnityEngine;
 
-namespace Helpers
+namespace TMG.BloonsTD.Debug
 {
     public class PathVisualization : MonoBehaviour
     {

@@ -49,7 +49,7 @@ namespace TMG.BloonsTD.Controllers
             bloonController.OnBloonReachedEndOfPath += DecrementLives;
         }
 
-        private void SetupTowerEvents(TowerController towerController)
+        private void SetupTowerEvents(TowerPlacementController towerPlacementController)
         {
             
         }

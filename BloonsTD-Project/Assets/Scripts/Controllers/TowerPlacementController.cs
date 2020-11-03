@@ -1,11 +1,10 @@
-using System;
-using JetBrains.Annotations;
 using TMG.BloonsTD.Stats;
+using TMG.BloonsTD.Helpers;
 using UnityEngine;
 
 namespace TMG.BloonsTD.Controllers
 {
-    public class TowerController : MonoBehaviour
+    public class TowerPlacementController : MonoBehaviour
     {
         private TowerProperties _towerProperties;
         private CircleCollider2D _collider;
@@ -13,42 +12,28 @@ namespace TMG.BloonsTD.Controllers
         private bool _fullyOffPath;
         private bool _partiallyOnPath;
         private bool _outOfBounds;
-
+        private bool _overlappingTower;
         private Vector3[] _edgePoints;
-
         private float _colliderRadius;
 
-        // TODO: Maybe place somewhere better??
-        private int PathLayer => LayerMask.NameToLayer("BloonPath");
-        private int OutOfBoundsLayer => LayerMask.NameToLayer("OutOfBounds");
-
-        private bool FullyOnPath
+        public bool IsValidPlacementPosition
         {
             get
             {
-                if (!_partiallyOnPath)
-                {
-                    return false;
-                }
-
-                return CheckEdgePoints();
+                if (_outOfBounds) { return false; }
+                if (_overlappingTower) { return false; }
+                if (_towerProperties.CanBePlacedOffPath && _fullyOffPath) { return true; }
+                if (_towerProperties.CanBePlacedOnPath && FullyOnPath) { return true; }
+                return false;
             }
         }
 
-        private bool CheckEdgePoints()
+        private bool FullyOnPath => _partiallyOnPath && CheckEdgePoints();
+
+        public TowerProperties TowerProperties
         {
-            foreach (var edgePoint in _edgePoints)
-            {
-                Vector3 pointToCheck = transform.position + edgePoint;
-
-                Collider2D pathCollider = Physics2D.OverlapPoint(pointToCheck, 1 << PathLayer);
-
-                if (pathCollider == null)
-                {
-                    return false;
-                }
-            }
-            return true;
+            get => _towerProperties;
+            set => _towerProperties = value;
         }
 
         private void Awake()
@@ -78,61 +63,62 @@ namespace TMG.BloonsTD.Controllers
                 var degree = (i - 1) * 45f;
                 var x = _colliderRadius * Mathf.Cos(degree * Mathf.Deg2Rad);
                 var y = _colliderRadius * Mathf.Sin(degree * Mathf.Deg2Rad);
-                Debug.Log($"X: {x}\nY: {y}");
                 _edgePoints[i] = new Vector3(x, y);
-                Debug.Log(_edgePoints[i]);
             }
+        }
+
+        private bool CheckEdgePoints()
+        {
+            foreach (var edgePoint in _edgePoints)
+            {
+                Vector3 pointToCheck = transform.position + edgePoint;
+
+                Collider2D pathCollider = Physics2D.OverlapPoint(pointToCheck, 1 << BloonsReferences.PathLayer);
+
+                if (pathCollider == null)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.gameObject.layer.Equals(PathLayer))
+            if (other.gameObject.layer.Equals(BloonsReferences.PathLayer))
             {
                 _partiallyOnPath = true;
                 _fullyOffPath = false;
             }
 
-            if (other.gameObject.layer.Equals(OutOfBoundsLayer))
+            if (other.gameObject.layer.Equals(BloonsReferences.OutOfBoundsLayer))
             {
                 _outOfBounds = true;
+            }
+
+            if (other.gameObject.layer.Equals(BloonsReferences.TowerLayer))
+            {
+                _overlappingTower = true;
             }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.layer.Equals(PathLayer))
+            if (other.gameObject.layer.Equals(BloonsReferences.PathLayer))
             {
                 _partiallyOnPath = false;
                 _fullyOffPath = true;
             }
             
-            if (other.gameObject.layer.Equals(OutOfBoundsLayer))
+            if (other.gameObject.layer.Equals(BloonsReferences.OutOfBoundsLayer))
             {
                 _outOfBounds = false;
             }
-        }
-
-        public TowerProperties TowerProperties
-        {
-            get => _towerProperties;
-            set => _towerProperties = value;
-        }
-
-        public bool ValidatePlacementPosition()
-        {
-            //Debug.Log("Validating Placement Position");
-            if (_outOfBounds) { return false;}
-            if (_towerProperties.CanBePlacedOffPath && _fullyOffPath)
-            {
-                return true;
-            }
-
-            if (_towerProperties.CanBePlacedOnPath && FullyOnPath)
-            {
-                return true;
-            }
             
-            return false;
+            if (other.gameObject.layer.Equals(BloonsReferences.TowerLayer))
+            {
+                _overlappingTower = false;
+            }
         }
     }
 }
