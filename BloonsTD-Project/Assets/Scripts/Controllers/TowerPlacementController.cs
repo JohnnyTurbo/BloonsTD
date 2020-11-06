@@ -23,12 +23,12 @@ namespace TMG.BloonsTD.Controllers
                 if (_outOfBounds) { return false; }
                 if (_overlappingTower) { return false; }
                 if (_towerProperties.CanBePlacedOffPath && _fullyOffPath) { return true; }
-                if (_towerProperties.CanBePlacedOnPath && FullyOnPath) { return true; }
+                if (_towerProperties.CanBePlacedOnPath && IsFullyOnPath) { return true; }
                 return false;
             }
         }
 
-        private bool FullyOnPath => _partiallyOnPath && CheckEdgePoints();
+        private bool IsFullyOnPath => _partiallyOnPath && CheckIfFullyOnPath();
 
         public TowerProperties TowerProperties
         {
@@ -67,7 +67,7 @@ namespace TMG.BloonsTD.Controllers
             }
         }
 
-        private bool CheckEdgePoints()
+        private bool CheckIfFullyOnPath()
         {
             foreach (var edgePoint in _edgePoints)
             {
@@ -83,7 +83,7 @@ namespace TMG.BloonsTD.Controllers
             return true;
         }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.layer.Equals(BloonsReferences.PathLayer))
             {
