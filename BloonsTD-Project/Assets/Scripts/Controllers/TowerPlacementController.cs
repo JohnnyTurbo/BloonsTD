@@ -1,3 +1,4 @@
+using System;
 using TMG.BloonsTD.Stats;
 using TMG.BloonsTD.Helpers;
 using UnityEngine;
@@ -13,9 +14,18 @@ namespace TMG.BloonsTD.Controllers
         private bool _partiallyOnPath;
         private bool _outOfBounds;
         private bool _overlappingTower;
+        private bool _lastPlacementStatus;
         private Vector3[] _edgePoints;
         private float _colliderRadius;
+        //private TowerSpawnManager _towerSpawnManager;
 
+        public delegate void ChangeRangeIndicator(bool isValidPosition);
+
+        public delegate void HideRangeIndicator();
+
+        public event ChangeRangeIndicator OnChangeRangeIndicator;
+        public event HideRangeIndicator OnHideRangeIndicator;
+        
         public bool IsValidPlacementPosition
         {
             get
@@ -51,7 +61,13 @@ namespace TMG.BloonsTD.Controllers
             _collider.radius = _colliderRadius;
             _fullyOffPath = true;
             _outOfBounds = true;
+            _lastPlacementStatus = true;
             SetupEdgePoints();
+        }
+
+        private void OnEnable()
+        {
+            TowerSpawnManager.Instance.OnTowerPlaced += OnTowerPlaced;
         }
 
         private void SetupEdgePoints()
@@ -81,6 +97,17 @@ namespace TMG.BloonsTD.Controllers
                 }
             }
             return true;
+        }
+
+        private void Update()
+        {
+            var isValidPlacementPosition = IsValidPlacementPosition;
+            
+            if (_lastPlacementStatus != isValidPlacementPosition)
+            {
+                OnChangeRangeIndicator?.Invoke(isValidPlacementPosition);
+                _lastPlacementStatus = isValidPlacementPosition;
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -119,6 +146,12 @@ namespace TMG.BloonsTD.Controllers
             {
                 _overlappingTower = false;
             }
+        }
+        
+        private void OnTowerPlaced()
+        {
+            OnHideRangeIndicator?.Invoke();
+            enabled = false;
         }
     }
 }

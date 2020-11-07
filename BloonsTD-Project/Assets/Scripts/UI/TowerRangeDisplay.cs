@@ -8,9 +8,9 @@ namespace TMG.BloonsTD.UI
     {
         [SerializeField] private Color _regularTowerRange;
         [SerializeField] private Color _invalidTowerRange;
+        [SerializeField] private TowerPlacementController _towerPlacementController;
         private SpriteRenderer _towerRangeIndicator;
         private bool _showTowerRange;
-        private TowerPlacementController _towerPlacementController;
 
         private void Awake()
         {
@@ -21,25 +21,32 @@ namespace TMG.BloonsTD.UI
                 _towerRangeIndicator = gameObject.AddComponent<SpriteRenderer>();
             }
 
-            _towerPlacementController = GetComponentInParent<TowerPlacementController>();
             if (_towerPlacementController == null)
             {
-                Debug.LogWarning("Warning, no TowerPlacementController found on parent.");
+                Debug.LogWarning("Warning, no TowerPlacementController set", gameObject);
             }
         }
 
-        private void Start()
+        private void OnEnable()
         {
-            _showTowerRange = true;
+            _towerPlacementController.OnChangeRangeIndicator += ShowTowerRange;
+            _towerPlacementController.OnHideRangeIndicator += HideTowerRange;
+        }
+        
+        private void OnDisable()
+        {
+            _towerPlacementController.OnChangeRangeIndicator -= ShowTowerRange;
+            _towerPlacementController.OnHideRangeIndicator -= HideTowerRange;
         }
 
-        private void Update()
+        private void ShowTowerRange(bool isValidPosition)
         {
-            if (!_showTowerRange || _towerPlacementController == null) { return; }
+            _towerRangeIndicator.color = isValidPosition ? _regularTowerRange : _invalidTowerRange;
+        }
 
-            _towerRangeIndicator.color = _towerPlacementController.IsValidPlacementPosition
-                ? _regularTowerRange
-                : _invalidTowerRange;
+        private void HideTowerRange()
+        {
+            _towerRangeIndicator.color = Color.clear;
         }
     }
 }

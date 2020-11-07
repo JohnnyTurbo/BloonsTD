@@ -1,19 +1,20 @@
 using System;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 namespace TMG.BloonsTD.Controllers
 {
-    public class TowerSpawnController : MonoBehaviour
+    public enum TowerPlacementState
     {
-        private enum TowerPlacementState
-        {
-            NotPlacingTower,
-            PlacingTower,
-            CannotPlaceTower
-        }
+        NotPlacingTower,
+        PlacingTower,
+        CannotPlaceTower
+    }
+    public class TowerSpawnManager : MonoBehaviour
+    {
+        public static TowerSpawnManager Instance;
+        
+        
         [SerializeField] private GameController _gameController;
         [SerializeField] private GameObject _towerPrefab;
         
@@ -21,9 +22,21 @@ namespace TMG.BloonsTD.Controllers
         private GameObject _currentTowerGO;
         private TowerPlacementController _currentTowerPlacementController;
 
+        public TowerPlacementState TowerPlacementState => _towerPlacementState;
+
         private bool IsPlacingTower =>
             _towerPlacementState == TowerPlacementState.PlacingTower && _currentTowerPlacementController != null;
         private bool CanPlaceTower => IsPlacingTower && _currentTowerPlacementController.IsValidPlacementPosition;
+
+        public delegate void TowerPlaced();
+
+        public TowerPlaced OnTowerPlaced;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         private void Start()
         {
             _towerPlacementState = TowerPlacementState.NotPlacingTower;
@@ -71,6 +84,7 @@ namespace TMG.BloonsTD.Controllers
             }
             if (InputController.PlaceTowerFlag && CanPlaceTower)
             {
+                OnTowerPlaced?.Invoke();
                 Debug.Log($"Placing tower: {_currentTowerPlacementController.TowerProperties.Name}");
                 _towerPlacementState = TowerPlacementState.NotPlacingTower;
                 Debug.Log($"Decrementing money by {_currentTowerPlacementController.TowerProperties.Cost}");
