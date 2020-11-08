@@ -10,6 +10,7 @@ namespace TMG.BloonsTD.Controllers
         
         public static bool PlaceTowerFlag => Input.GetMouseButtonDown(0);
         public static bool ScreenSelectionFlag => Input.GetMouseButtonDown(0);
+        public static bool CancelSelection => Input.GetKeyDown(KeyCode.Escape);
         public static Vector2 TowerPlacementPosition
         {
             get

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4031305817515989674}
   - component: {fileID: 6386205617560038322}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: New Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,10 +90,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5333067472398021517}
-  - component: {fileID: 5406305718706432473}
   - component: {fileID: -7403622102891721167}
   - component: {fileID: 1823076338853019286}
-  m_Layer: 0
+  - component: {fileID: 5406305718706432473}
+  - component: {fileID: 7214463616775058173}
+  m_Layer: 10
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,19 +117,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5406305718706432473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4109992581747090589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b71a2585fff411abb62363ed9f48d0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _towerSpawnManager: {fileID: 0}
 --- !u!58 &-7403622102891721167
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -166,6 +154,30 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5406305718706432473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4109992581747090589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b71a2585fff411abb62363ed9f48d0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7214463616775058173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4109992581747090589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ca79fc050643ca8075732911b8f8d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8024143311881052092
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7682130712284533983}
   - component: {fileID: 7775395667820585237}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: New Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +270,7 @@ GameObject:
   - component: {fileID: 15755987048962478}
   - component: {fileID: 5723861689405472623}
   - component: {fileID: 7763383348337319477}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RangeIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,6 +306,8 @@ MonoBehaviour:
   _regularTowerRange: {r: 1, g: 1, b: 1, a: 0.5019608}
   _invalidTowerRange: {r: 1, g: 0, b: 0, a: 0.5019608}
   _towerPlacementController: {fileID: 5406305718706432473}
+  _towerSelectionController: {fileID: 7214463616775058173}
+  _towerProperties: {fileID: 0}
 --- !u!212 &7763383348337319477
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -353,7 +367,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1058054076421568445}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

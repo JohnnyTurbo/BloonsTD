@@ -9,8 +9,8 @@ namespace TMG.BloonsTD.Controllers
     {
         [SerializeField] private TowerSpawnManager _towerSpawnManager;
 
-        //private 
-        
+        private TowerSelectionController _selectedTower;
+
         private void Update()
         {
             if(_towerSpawnManager.TowerPlacementState == TowerPlacementState.PlacingTower){ return; }
@@ -19,14 +19,38 @@ namespace TMG.BloonsTD.Controllers
             {
                 var worldSelectionPosition = InputController.WorldSelectionPosition;
                 var selectedCollider = Physics2D.OverlapPoint(worldSelectionPosition, 1 << BloonsReferences.TowerLayer);
-                var selectedTower = selectedCollider.GetComponent<TowerProperties>();
-                SelectTower(selectedTower);
+                if(selectedCollider != null)
+                {
+                    var selectionController = selectedCollider.GetComponent<TowerSelectionController>();
+                    SelectTower(selectionController);
+                }
+                else
+                {
+                    DeselectTower();
+                }
+            }
+
+            if (InputController.CancelSelection)
+            {
+                DeselectTower();
             }
         }
 
-        private void SelectTower(TowerProperties selectedTower)
+        private void SelectTower(TowerSelectionController selectedTower)
         {
-            
+            if (_selectedTower != null)
+            {
+                DeselectTower();
+            }
+
+            selectedTower.SelectTower();
+            _selectedTower = selectedTower;
+        }
+
+        private void DeselectTower()
+        {
+            if (_selectedTower == null) { return; }
+            _selectedTower.DeselectTower();
         }
     }
 }

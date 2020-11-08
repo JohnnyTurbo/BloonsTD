@@ -1,5 +1,6 @@
 using System;
 using TMG.BloonsTD.Controllers;
+using TMG.BloonsTD.Stats;
 using UnityEngine;
 
 namespace TMG.BloonsTD.UI
@@ -9,6 +10,9 @@ namespace TMG.BloonsTD.UI
         [SerializeField] private Color _regularTowerRange;
         [SerializeField] private Color _invalidTowerRange;
         [SerializeField] private TowerPlacementController _towerPlacementController;
+        [SerializeField] private TowerSelectionController _towerSelectionController;
+        //[SerializeField] private TowerProperties _towerProperties;
+        
         private SpriteRenderer _towerRangeIndicator;
         private bool _showTowerRange;
 
@@ -31,14 +35,23 @@ namespace TMG.BloonsTD.UI
         {
             _towerPlacementController.OnChangeRangeIndicator += ShowTowerRange;
             _towerPlacementController.OnHideRangeIndicator += HideTowerRange;
+            _towerSelectionController.OnTowerSelected += ShowTowerRange;
+            _towerSelectionController.OnTowerDeselected += HideTowerRange;
         }
         
         private void OnDisable()
         {
             _towerPlacementController.OnChangeRangeIndicator -= ShowTowerRange;
             _towerPlacementController.OnHideRangeIndicator -= HideTowerRange;
+            _towerSelectionController.OnTowerSelected -= ShowTowerRange;
+            _towerSelectionController.OnTowerDeselected -= HideTowerRange;
         }
 
+        private void ShowTowerRange()
+        {
+            _towerRangeIndicator.color = _regularTowerRange;
+        }
+        
         private void ShowTowerRange(bool isValidPosition)
         {
             _towerRangeIndicator.color = isValidPosition ? _regularTowerRange : _invalidTowerRange;
