@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 namespace TMG.BloonsTD.Stats
 {
-    [CreateAssetMenu(fileName = "GameStatistics", menuName = "ScriptableObjects/Game Statistics", order = 0)]
+    [CreateAssetMenu(fileName = "GameStatistics", menuName = "Scriptable Objects/Game Statistics", order = 0)]
     public class GameStatistics : ScriptableObject
     {
         [SerializeField] private int _rounds;

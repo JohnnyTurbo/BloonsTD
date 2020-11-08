@@ -47,8 +47,9 @@ namespace TMG.BloonsTD.UI
             _towerSelectionController.OnTowerDeselected -= HideTowerRange;
         }
 
-        private void ShowTowerRange()
+        private void ShowTowerRange(TowerStatistics towerStatistics)
         {
+            Debug.Log($"Showing range size: {towerStatistics.Range}");
             _towerRangeIndicator.color = _regularTowerRange;
         }
         

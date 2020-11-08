@@ -148,7 +148,7 @@ namespace TMG.BloonsTD.Controllers
             }
         }
         
-        private void OnTowerPlaced()
+        private void OnTowerPlaced(TowerController towerController)
         {
             OnHideRangeIndicator?.Invoke();
             enabled = false;

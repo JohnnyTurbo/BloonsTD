@@ -11,7 +11,7 @@ namespace TMG.BloonsTD.Stats
         Hypersonic
     };
     
-    [CreateAssetMenu(fileName = "TowerProperties", menuName = "ScriptableObjects/Tower Properties", order = 0)]
+    [CreateAssetMenu(fileName = "TowerProperties", menuName = "Scriptable Objects/Tower Properties", order = 0)]
     public class TowerProperties : ScriptableObject
     {
         [SerializeField] private string _name;
@@ -19,8 +19,11 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private TowerSpeed _speed;
         [TextArea][SerializeField] private string _description;
         [SerializeField] private float _colliderRadius;
+        [SerializeField] private float _range;
         [SerializeField] private bool _canBePlacedOffPath;
         [SerializeField] private bool _canBePlacedOnPath;
+        [SerializeField] private TowerUpgrade _towerUpgradePath1;
+        [SerializeField] private TowerUpgrade _towerUpgradePath2;
         
         public string Name => _name;
         public int Cost => _cost;
@@ -54,11 +57,12 @@ namespace TMG.BloonsTD.Stats
             get => _colliderRadius;
             set => _colliderRadius = Mathf.Max(0.0001f, value);
         }
-
+        public float Range => _range;
         public bool CanBePlacedOffPath => _canBePlacedOffPath;
-
         public bool CanBePlacedOnPath => _canBePlacedOnPath;
-
+        public TowerUpgrade TowerUpgradePath1 => _towerUpgradePath1;
+        public TowerUpgrade TowerUpgradePath2 => _towerUpgradePath2;
+        
         private void OnValidate()
         {
             ColliderRadius = _colliderRadius;

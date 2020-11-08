@@ -5,15 +5,21 @@ namespace TMG.BloonsTD.Controllers
 {
     public class TowerSelectionController : MonoBehaviour
     {
-        public delegate void TowerSelection();
+        private TowerStatistics _towerStatistics;
+        public TowerStatistics TowerStatistics
+        {
+            get => _towerStatistics;
+            set => _towerStatistics = value;
+        }
+        public delegate void TowerSelected(TowerStatistics towerStatistics);
+        public event TowerSelected OnTowerSelected;
 
-        public event TowerSelection OnTowerSelected;
-        public event TowerSelection OnTowerDeselected;
+        public delegate void TowerDeselected();
+        public event TowerDeselected OnTowerDeselected;
 
         public void SelectTower()
         {
-            Debug.Log("SELECT TOWER");
-            OnTowerSelected?.Invoke();
+            OnTowerSelected?.Invoke(_towerStatistics);
         }
 
         public void DeselectTower()

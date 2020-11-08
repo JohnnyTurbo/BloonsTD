@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Stats
 {
-    [CreateAssetMenu(fileName = "BloonProperties", menuName = "ScriptableObjects/Bloon Properties", order = 0)]
+    [CreateAssetMenu(fileName = "BloonProperties", menuName = "Scriptable Objects/Bloon Properties", order = 0)]
     public class BloonProperties : ScriptableObject
     {
         [SerializeField] private Color _bloonColor;

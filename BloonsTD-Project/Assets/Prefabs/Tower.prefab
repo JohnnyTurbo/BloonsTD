@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 1823076338853019286}
   - component: {fileID: 5406305718706432473}
   - component: {fileID: 7214463616775058173}
+  - component: {fileID: 1286149916486008385}
   m_Layer: 10
   m_Name: Tower
   m_TagString: Untagged
@@ -176,6 +177,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7ca79fc050643ca8075732911b8f8d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1286149916486008385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4109992581747090589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3beae8ca2d6d4d6ab2a38a78088b7ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8024143311881052092
@@ -307,7 +320,6 @@ MonoBehaviour:
   _invalidTowerRange: {r: 1, g: 0, b: 0, a: 0.5019608}
   _towerPlacementController: {fileID: 5406305718706432473}
   _towerSelectionController: {fileID: 7214463616775058173}
-  _towerProperties: {fileID: 0}
 --- !u!212 &7763383348337319477
 SpriteRenderer:
   m_ObjectHideFlags: 0
