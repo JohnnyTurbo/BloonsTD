@@ -78,14 +78,14 @@ namespace TMG.BloonsTD.Controllers
             _curTowerController = _currentTowerGO.GetComponent<TowerController>();
             _curTowerController.InitializeTower(tower);
         }
-
-        //TODO: Valid Placement Checking
+        
         private void Update()
         {
             if (IsPlacingTower)
             {
                 _curTowerController.transform.position = InputController.TowerPlacementPosition;
             }
+            //TODO: Check if cur tower controller is not null
             if (InputController.PlaceTowerFlag && CanPlaceTower)
             {
                 OnTowerPlaced?.Invoke(_curTowerController);

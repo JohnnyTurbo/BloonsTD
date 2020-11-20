@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c3ef47b37d44e2a27597a8445c10f4, type: 3}
   m_Name: ExtraRangeDarts
   m_EditorClassIdentifier: 
-  _name: 
+  _name: Extra Range Darts
   _upgradeType: 0
-  _cost: 0
+  _cost: 150
   _description: 
   _upgradeValue: 0
   _weapon: {fileID: 0}

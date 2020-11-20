@@ -18,5 +18,8 @@ MonoBehaviour:
   _description: Shoots a single dart. Can upgrade to piercing darts and long range
     darts.
   _colliderRadius: 0.36
+  _range: 5
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
+  _towerUpgradePath1: {fileID: 11400000, guid: 4e0e4ab56b21fd748965259503a9a29f, type: 2}
+  _towerUpgradePath2: {fileID: 11400000, guid: e6931368d6032d94a8d5f3abec65b104, type: 2}
