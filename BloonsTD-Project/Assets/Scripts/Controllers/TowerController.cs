@@ -34,6 +34,7 @@ namespace TMG.BloonsTD.Controllers
         public TowerPlacementController Placement => _placement;
         public TowerSelectionController SelectionController => _selectionController;
         public TowerState TowerState => _towerState;
+        public TowerTargetType TowerTargetType => _towerTargetType;
         
         private void Awake()
         {

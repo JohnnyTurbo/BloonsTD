@@ -17,12 +17,12 @@ namespace TMG.BloonsTD.Debug
             for (int i = 0; i < _pathController.Waypoints.Count; i++)
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawWireSphere(_pathController.Waypoints[i].transform.position, pathRadius);
+                Gizmos.DrawWireSphere(_pathController.Waypoints[i], pathRadius);
                 
                 if (i == _pathController.Waypoints.Count - 1) break;
-                
-                var pathStartPos = _pathController.Waypoints[i].transform.position;
-                var pathEndPos = _pathController.Waypoints[i + 1].transform.position;
+
+                var pathStartPos = _pathController.Waypoints[i];
+                var pathEndPos = _pathController.Waypoints[i + 1];
 
                 Gizmos.DrawLine(pathStartPos, pathEndPos);
                 

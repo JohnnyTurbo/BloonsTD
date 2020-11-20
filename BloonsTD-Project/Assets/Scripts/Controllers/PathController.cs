@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace TMG.BloonsTD.Controllers
@@ -10,7 +11,7 @@ namespace TMG.BloonsTD.Controllers
         [SerializeField] private float _pathWidth;
         [SerializeField] private EdgeCollider2D _edgeCollider;
         
-        public List<GameObject> Waypoints => _waypoints;
+        public List<Vector3> Waypoints => _waypoints.Select(wp => wp.transform.position) as List<Vector3>;
 
         public float PathWidth => _pathWidth;
         public float PathRadius => _pathWidth / 2;
