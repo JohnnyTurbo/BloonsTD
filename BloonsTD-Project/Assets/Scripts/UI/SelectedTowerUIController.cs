@@ -26,8 +26,8 @@ namespace TMG.BloonsTD.UI
         
         private void DisplaySelectedTowerUI(TowerStatistics towerStatistics)
         {
-            Debug.Log($"Upgrade 1: {towerStatistics.TowerUpgradePath1.Name} costs: {towerStatistics.TowerUpgradePath1.Cost}");
-            Debug.Log($"Upgrade 2: {towerStatistics.TowerUpgradePath2.Name} costs: {towerStatistics.TowerUpgradePath2.Cost}");
+            //Debug.Log($"Upgrade 1: {towerStatistics.TowerUpgradePath1.Name} costs: {towerStatistics.TowerUpgradePath1.Cost}");
+            //Debug.Log($"Upgrade 2: {towerStatistics.TowerUpgradePath2.Name} costs: {towerStatistics.TowerUpgradePath2.Cost}");
         }
     }
 }

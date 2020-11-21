@@ -10,7 +10,7 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
     public class TowerAttackController : MonoBehaviour
     {
         private Collider2D _attackRadius;
-        private TowerController _towerController;
+        protected TowerController _towerController;
         private void Awake()
         {
             _attackRadius = transform.Find("DetectionRadius").GetComponent<Collider2D>();

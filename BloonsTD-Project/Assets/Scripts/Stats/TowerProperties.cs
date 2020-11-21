@@ -23,6 +23,7 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private float _range;
         [SerializeField] private bool _canBePlacedOffPath;
         [SerializeField] private bool _canBePlacedOnPath;
+        [SerializeField] private GameObject _projectilePrefab;
         [SerializeField] private TowerUpgrade _towerUpgradePath1;
         [SerializeField] private TowerUpgrade _towerUpgradePath2;
         
@@ -61,6 +62,7 @@ namespace TMG.BloonsTD.Stats
         public float Range => _range;
         public bool CanBePlacedOffPath => _canBePlacedOffPath;
         public bool CanBePlacedOnPath => _canBePlacedOnPath;
+        public GameObject ProjectilePrefab => _projectilePrefab;
         public TowerUpgrade TowerUpgradePath1 => _towerUpgradePath1;
         public TowerUpgrade TowerUpgradePath2 => _towerUpgradePath2;
         
