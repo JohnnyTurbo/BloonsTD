@@ -8,8 +8,7 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
     {
         protected override void Attack(Vector3 targetLocation)
         {
-            //base.Attack(targetLocation);
-            Debug.Log("Projectile Attack");
+            //Debug.Log($"Projectile Attack at {targetLocation.ToString()}");
         }
     }
 }

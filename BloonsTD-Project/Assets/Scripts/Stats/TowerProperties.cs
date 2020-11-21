@@ -17,6 +17,7 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private string _name;
         [SerializeField] private int _cost;
         [SerializeField] private TowerSpeed _speed;
+        [SerializeField] private float _attackFrequency;
         [TextArea][SerializeField] private string _description;
         [SerializeField] private float _colliderRadius;
         [SerializeField] private float _range;
@@ -50,7 +51,7 @@ namespace TMG.BloonsTD.Stats
                 }
             }
         }
-
+        public float AttackFrequency => _attackFrequency;
         public string Description => _description;
         public float ColliderRadius
         {

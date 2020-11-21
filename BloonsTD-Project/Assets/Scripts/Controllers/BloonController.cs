@@ -23,7 +23,7 @@ namespace TMG.BloonsTD.Controllers
         private float DistanceToNextWaypoint =>
             Vector3.Distance(transform.position, _bloonPath[_targetWaypointIndex]);
         public float PercentToNextWaypoint =>
-            _targetWaypointIndex == 0f ? 0 : DistanceToNextWaypoint / PathSegmentDistance;
+            _targetWaypointIndex == 0f ? 0 : (PathSegmentDistance - DistanceToNextWaypoint) / PathSegmentDistance;
 
         public int RBE => _bloonProperties.RedBloonEquivalent;
         public BloonProperties BloonProperties

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMG.BloonsTD.Controllers.TowerAttackControllers;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
@@ -17,7 +19,8 @@ namespace TMG.BloonsTD.Controllers
         First,
         Last,
         Strongest,
-        Weakest
+        Weakest,
+        NoTarget
     }
     
     public class TowerController : MonoBehaviour
@@ -29,6 +32,7 @@ namespace TMG.BloonsTD.Controllers
         private TowerState _towerState;
         private TowerAttackController _towerAttackController;
         private TowerTargetType _towerTargetType;
+        private WaitForSeconds _cooldownTime;
         public TowerProperties TowerProperties => _towerProperties;
         public TowerStatistics TowerStatistics => _towerStatistics;
         public TowerPlacementController Placement => _placement;
@@ -46,6 +50,11 @@ namespace TMG.BloonsTD.Controllers
 
             _selectionController = GetComponent<TowerSelectionController>();
             _towerAttackController = GetComponent<TowerAttackController>();
+        }
+
+        private void Start()
+        {
+            _cooldownTime = new WaitForSeconds(_towerStatistics.AttackFrequency);
         }
 
         private void OnEnable()
@@ -66,9 +75,24 @@ namespace TMG.BloonsTD.Controllers
         public void OnBloonEnter()
         {
             if(_towerState != TowerState.Idle) {return;}
-            _towerAttackController.TryAttack();
+
+            TryAttack();
         }
 
+        private void TryAttack()
+        {
+            if (!_towerAttackController.TryAttack()) return;
+            _towerState = TowerState.Cooldown;
+            StartCoroutine(CooldownTimer());
+        }
+
+        private IEnumerator CooldownTimer()
+        {
+            yield return _cooldownTime;
+            _towerState = TowerState.Idle;
+            TryAttack();
+        }
+        
         public void OnChangeTargetType(TowerTargetType newTargetType)
         {
             _towerTargetType = newTargetType;

@@ -1895,7 +1895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b5fa0e594a4dde81d86eb45f6f6a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pathController: {fileID: 1019711852}
+  _bloonPath: {fileID: 1019711852}
 --- !u!1 &652489609
 GameObject:
   m_ObjectHideFlags: 0

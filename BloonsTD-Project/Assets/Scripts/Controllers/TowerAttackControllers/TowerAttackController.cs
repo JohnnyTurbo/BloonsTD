@@ -20,14 +20,13 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
         public bool TryAttack()
         {
             var bloonCollidersInRange = new List<Collider2D>();
-            var bloonFilter = new ContactFilter2D {layerMask = 1 << BloonsReferences.BloonsLayer};
+            var bloonFilter = new ContactFilter2D {layerMask = 1 << BloonsReferences.BloonsLayer, useLayerMask = true};
             var numBloonsInRange = _attackRadius.OverlapCollider(bloonFilter, bloonCollidersInRange);
             if (numBloonsInRange <= 0)
             {
                 return false;
             }
-            var bloonsInRange =
-                bloonCollidersInRange.Select(bloon => bloon.GetComponent<BloonController>()) as List<BloonController>;
+            var bloonsInRange = bloonCollidersInRange.Select(bloon => bloon.GetComponent<BloonController>()).ToList();
             var targetLocation = DetermineTarget(bloonsInRange);
             Attack(targetLocation);
             return true;
@@ -45,11 +44,11 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
                     return GetStrongestBloonPosition(bloons);
                 case TowerTargetType.Weakest:
                     return GetWeakestBloonPosition(bloons);
+                case TowerTargetType.NoTarget:
+                    return Vector3.zero;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            var targetPosition = bloons[0].transform.position;
-            return targetPosition;
         }
 
         private Vector3 GetFirstBloonPosition(List<BloonController> bloons)
@@ -116,7 +115,7 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
 
         protected virtual void Attack(Vector3 targetLocation)
         {
-            Debug.Log("Base Attack");
+            //Debug.Log("Base Attack");
         }
     }
 }
