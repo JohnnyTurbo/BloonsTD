@@ -10,18 +10,18 @@ namespace TMG.BloonsTD.Controllers
 
         public event EndOfPathDelegate OnBloonReachedEndOfPath;
         private BloonProperties _bloonProperties;
-        private PathController _path;
+        private PathController _bloonPath;
         private int _targetWaypointIndex;
         private Vector3 _targetPosition;
 
         public int TargetWaypointIndex => _targetWaypointIndex;
-        private Vector3 CurrentWaypoint => _path.Waypoints[_targetWaypointIndex];
+        private Vector3 CurrentWaypoint => _bloonPath[_targetWaypointIndex];
         private Vector3 PreviousWaypoint =>
-            _targetWaypointIndex == 0f ? Vector3.zero : _path.Waypoints[_targetWaypointIndex - 1];
+            _targetWaypointIndex == 0f ? Vector3.zero : _bloonPath[_targetWaypointIndex - 1];
         private float PathSegmentDistance =>
             _targetWaypointIndex == 0f ? 0 : Vector3.Distance(PreviousWaypoint, CurrentWaypoint);
         private float DistanceToNextWaypoint =>
-            Vector3.Distance(transform.position, _path.Waypoints[_targetWaypointIndex]);
+            Vector3.Distance(transform.position, _bloonPath[_targetWaypointIndex]);
         public float PercentToNextWaypoint =>
             _targetWaypointIndex == 0f ? 0 : DistanceToNextWaypoint / PathSegmentDistance;
 
@@ -34,14 +34,14 @@ namespace TMG.BloonsTD.Controllers
 
         public PathController Path
         {
-            get => _path;
-            set => _path = value;
+            get => _bloonPath;
+            set => _bloonPath = value;
         }
 
         public void InitializeTargetPosition(int targetWaypointIndex)
         {
             _targetWaypointIndex = targetWaypointIndex;
-            _targetPosition = _path.Waypoints[_targetWaypointIndex];
+            _targetPosition = _bloonPath[_targetWaypointIndex];
             GetComponent<SpriteRenderer>().color = _bloonProperties.BloonColor;
         }
 
@@ -59,14 +59,14 @@ namespace TMG.BloonsTD.Controllers
         private void SetNextTargetPosition()
         {
             _targetWaypointIndex++;
-            if (_targetWaypointIndex >= _path.Waypoints.Count)
+            if (_targetWaypointIndex >= _bloonPath.WaypointCount)
             {
                 OnBloonReachedEndOfPath?.Invoke(_bloonProperties.TotalBloonCount);
                 Destroy(gameObject);
                 return;
             }
 
-            _targetPosition = _path.Waypoints[_targetWaypointIndex];
+            _targetPosition = _bloonPath[_targetWaypointIndex];
         }
     }
 }

@@ -10,9 +10,8 @@ namespace TMG.BloonsTD.Controllers
         [SerializeField] private List<GameObject> _waypoints;
         [SerializeField] private float _pathWidth;
         [SerializeField] private EdgeCollider2D _edgeCollider;
-        
-        public List<Vector3> Waypoints => _waypoints.Select(wp => wp.transform.position) as List<Vector3>;
-
+        public int WaypointCount => _waypoints?.Count ?? 0;
+        public Vector3 this[int i] => _waypoints[i].transform.position;
         public float PathWidth => _pathWidth;
         public float PathRadius => _pathWidth / 2;
         private void Start()

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMG.BloonsTD.Controllers;
 using UnityEngine;
 
@@ -6,23 +8,22 @@ namespace TMG.BloonsTD.Debug
 {
     public class PathVisualization : MonoBehaviour
     {
-        [SerializeField] private PathController _pathController;
+        [SerializeField] private PathController _bloonPath;
         private void OnDrawGizmos()
         {
-            if (_pathController == null ||
-                (_pathController.Waypoints == null || _pathController.Waypoints.Count == 0)) return;
+            if (_bloonPath == null || _bloonPath.WaypointCount == 0) return;
 
-            var pathRadius = _pathController.PathRadius;
+            var pathRadius = _bloonPath.PathRadius;
             
-            for (int i = 0; i < _pathController.Waypoints.Count; i++)
+            for (int i = 0; i < _bloonPath.WaypointCount; i++)
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawWireSphere(_pathController.Waypoints[i], pathRadius);
+                Gizmos.DrawWireSphere(_bloonPath[i], pathRadius);
                 
-                if (i == _pathController.Waypoints.Count - 1) break;
+                if (i == _bloonPath.WaypointCount - 1) break;
 
-                var pathStartPos = _pathController.Waypoints[i];
-                var pathEndPos = _pathController.Waypoints[i + 1];
+                var pathStartPos = _bloonPath[i];
+                var pathEndPos = _bloonPath[i + 1];
 
                 Gizmos.DrawLine(pathStartPos, pathEndPos);
                 

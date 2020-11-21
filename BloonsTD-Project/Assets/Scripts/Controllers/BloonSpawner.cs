@@ -13,7 +13,7 @@ namespace TMG.BloonsTD.Controllers
 
         private void Start()
         {
-            _spawnPosition = _pathController.Waypoints[0];
+            _spawnPosition = _pathController[0];
         }
 
         public BloonController SpawnBloon(BloonTypes bloonType)
