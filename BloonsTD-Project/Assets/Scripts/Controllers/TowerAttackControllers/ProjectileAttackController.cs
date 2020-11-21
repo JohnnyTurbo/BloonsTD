@@ -25,7 +25,9 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
             //Debug.DrawLine(transform.position, targetLocation, Color.red, 1f);
             var towerToTarget = targetLocation - transform.position;
             var angle = Vector3.SignedAngle(Vector3.up, towerToTarget, Vector3.forward);
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = rotation;
+            Instantiate(_projectile, transform.position, rotation);
         }
     }
 }
