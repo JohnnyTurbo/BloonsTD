@@ -19,6 +19,7 @@ MonoBehaviour:
   _canBeFrozen: 1
   _canBeDetected: 1
   _numberOfHitsToPop: 1
+  _moneyWhenPopped: 1
   _moveSpeed: 2
   _bloonsToSpawnWhenPopped:
   - {fileID: 11400000, guid: 9f2acdaf924447a47a84e7ce3ee26612, type: 2}

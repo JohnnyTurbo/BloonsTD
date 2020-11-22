@@ -4,7 +4,7 @@ using UnityEngine;
 namespace TMG.BloonsTD.Controllers
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class BasicProjectileController : MonoBehaviour
+    public class BasicProjectileController : Hazard
     {
         [SerializeField] private float _speed;
         [SerializeField] private float _maxRange;
@@ -18,8 +18,9 @@ namespace TMG.BloonsTD.Controllers
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _startPosition = transform.position;
             _rigidbody.AddForce(transform.up * _speed, ForceMode2D.Impulse);
         }
@@ -28,8 +29,13 @@ namespace TMG.BloonsTD.Controllers
         {
             if (DistanceTraveled > _maxRange)
             {
-                Destroy(gameObject);
+                DestroyHazard();
             }
+        }
+
+        public override void HitBloon()
+        {
+            base.HitBloon();
         }
     }
 }

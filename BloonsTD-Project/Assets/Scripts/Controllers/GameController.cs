@@ -32,6 +32,12 @@ namespace TMG.BloonsTD.Controllers
 
         public int Money => _currentGameStatistics.Money;
 
+        private void IncrementMoney(int amount)
+        {
+            _currentGameStatistics.Money += amount;
+            OnMoneyChanged?.Invoke(_currentGameStatistics.Money.ToString());
+        }
+        
         public void DecrementMoney(int amount)
         {
             _currentGameStatistics.Money -= amount;
@@ -47,8 +53,15 @@ namespace TMG.BloonsTD.Controllers
         private void SetupBloonEvents(BloonController bloonController)
         {
             bloonController.OnBloonReachedEndOfPath += DecrementLives;
+            bloonController.OnBloonPopped += BloonPopped;
         }
 
+        private void BloonPopped(BloonProperties bloonProperties)
+        {
+            IncrementMoney(bloonProperties.MoneyWhenPopped);
+            _currentGameStatistics.NumBloonsPopped++;
+        }
+        
         private void SetupTowerEvents(TowerPlacementController towerPlacementController)
         {
             

@@ -10,6 +10,8 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private int _money;
         [SerializeField] private int _lives;
         [SerializeField] private GameStatistics _maxGameStatistics;
+
+        private int _numBloonsPopped;
         
         public int Rounds
         {
@@ -59,6 +61,12 @@ namespace TMG.BloonsTD.Stats
             } 
         }
 
+        public int NumBloonsPopped
+        {
+            get => _numBloonsPopped;
+            set => _numBloonsPopped = Mathf.Max(0, value);
+        }
+        
         public GameStatistics MaxGameStatistics
         {
             get => _maxGameStatistics;
@@ -70,6 +78,7 @@ namespace TMG.BloonsTD.Stats
             Rounds = newGameStatistics.Rounds;
             Money = newGameStatistics.Money;
             Lives = newGameStatistics.Lives;
+            NumBloonsPopped = newGameStatistics.NumBloonsPopped;
         }
     }
 }

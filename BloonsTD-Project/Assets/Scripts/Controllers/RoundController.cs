@@ -55,7 +55,7 @@ namespace TMG.BloonsTD.Controllers
             WaitForSeconds timeBetweenSpawns = new WaitForSeconds(spawnGroup.TimeBetweenBloons);
             for (int i = 0; i < spawnGroup.NumberInGroup; i++)
             {
-                BloonController newBloonController = _bloonSpawner.SpawnBloon(spawnGroup.BloonType);
+                BloonController newBloonController = _bloonSpawner.SpawnBloonOfType(spawnGroup.BloonType);
                 OnBloonSpawned?.Invoke(newBloonController);
                 yield return timeBetweenSpawns;
             }

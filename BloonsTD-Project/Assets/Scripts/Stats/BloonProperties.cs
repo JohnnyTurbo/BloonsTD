@@ -14,6 +14,7 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private bool _canBeFrozen;
         [SerializeField] private bool _canBeDetected;
         [SerializeField] private int _numberOfHitsToPop;
+        [SerializeField] private int _moneyWhenPopped;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private List<BloonProperties> _bloonsToSpawnWhenPopped;
         [SerializeField] private BloonTypes _bloonType;
@@ -64,6 +65,8 @@ namespace TMG.BloonsTD.Stats
             private set => _numberOfHitsToPop = Math.Max(1, value);
         }
 
+        public int MoneyWhenPopped => _moneyWhenPopped;
+        
         public float MoveSpeed
         {
             get => _moveSpeed;
