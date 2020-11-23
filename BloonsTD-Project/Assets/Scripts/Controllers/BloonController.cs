@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMG.BloonsTD.Helpers;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
@@ -6,13 +8,12 @@ using UnityEngine;
 namespace TMG.BloonsTD.Controllers
 {
     [RequireComponent(typeof(Collider2D))]
-    //[RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class BloonController : MonoBehaviour
     {
-        public delegate void EndOfPathDelegate(int livesToLose);
-        public delegate void BloonPoppedDelegate(BloonProperties bloonProperties);
-        public event EndOfPathDelegate OnBloonReachedEndOfPath;
-        public event BloonPoppedDelegate OnBloonPopped;
+        public delegate void BloonEndOfLife(BloonProperties bloonProperties);
+        public event BloonEndOfLife OnBloonReachedEndOfPath;
+        public event BloonEndOfLife OnBloonPopped;
         private BloonProperties _bloonProperties;
         private PathController _bloonPath;
         private int _targetWaypointIndex;
@@ -73,7 +74,7 @@ namespace TMG.BloonsTD.Controllers
             _targetWaypointIndex++;
             if (_targetWaypointIndex >= _bloonPath.WaypointCount)
             {
-                OnBloonReachedEndOfPath?.Invoke(_bloonProperties.TotalBloonCount);
+                OnBloonReachedEndOfPath?.Invoke(_bloonProperties);
                 Destroy(gameObject);
                 return;
             }
@@ -81,23 +82,8 @@ namespace TMG.BloonsTD.Controllers
             _targetPosition = _bloonPath[_targetWaypointIndex];
         }
 
-        /*private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.gameObject.layer.Equals(BloonsReferences.HazardsLayer))
-            {
-                var curHazard = other.gameObject.GetComponent<Hazard>();
-                curHazard.HitBloon();
-                _hitsRemaining--;
-                if (_hitsRemaining <= 0)
-                {
-                    PopBloon();
-                }
-            }
-        }*/
-
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("OTE");
             if (other.gameObject.layer.Equals(BloonsReferences.HazardsLayer))
             {
                 var curHazard = other.gameObject.GetComponent<Hazard>();
@@ -124,8 +110,53 @@ namespace TMG.BloonsTD.Controllers
         {
             foreach (var bloonToSpawn in _bloonProperties.BloonsToSpawnWhenPopped)
             {
-                BloonSpawner.Instance.SpawnBloon(bloonToSpawn);
+                BloonSpawner.Instance.SpawnBloon(bloonToSpawn, transform.position, _targetWaypointIndex);
             }
+        }
+
+        public static BloonController CompareGreaterPathProgress(BloonController bloon1, BloonController bloon2)
+        {
+            if (bloon1.TargetWaypointIndex > bloon2.TargetWaypointIndex)
+                return bloon1;
+            if (bloon1.TargetWaypointIndex < bloon2.TargetWaypointIndex)
+                return bloon2;
+            if (bloon1.PercentToNextWaypoint > bloon2.PercentToNextWaypoint)
+                return bloon1;
+            if (bloon1.TargetWaypointIndex < bloon2.TargetWaypointIndex)
+                return bloon2;
+            else
+                return bloon1;
+        }
+        public static BloonController CompareLeastPathProgress(BloonController bloon1, BloonController bloon2)
+        {
+            if (bloon1.TargetWaypointIndex < bloon2.TargetWaypointIndex)
+                return bloon1;
+            if (bloon1.TargetWaypointIndex > bloon2.TargetWaypointIndex)
+                return bloon2;
+            if (bloon1.PercentToNextWaypoint < bloon2.PercentToNextWaypoint)
+                return bloon1;
+            if (bloon1.TargetWaypointIndex > bloon2.TargetWaypointIndex)
+                return bloon2;
+            else
+                return bloon1;
+        }
+
+        public static BloonController CompareStrongest(BloonController bloon1, BloonController bloon2)
+        {
+            if (bloon1.RBE > bloon2.RBE)
+                return bloon1;
+            if (bloon1.RBE < bloon2.RBE)
+                return bloon2;
+            return CompareGreaterPathProgress(bloon1, bloon2);
+        }
+        
+        public static BloonController CompareWeakest(BloonController bloon1, BloonController bloon2)
+        {
+            if (bloon1.RBE < bloon2.RBE)
+                return bloon1;
+            if (bloon1.RBE > bloon2.RBE)
+                return bloon2;
+            return CompareGreaterPathProgress(bloon1, bloon2);
         }
     }
 }

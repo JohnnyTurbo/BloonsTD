@@ -7,10 +7,13 @@ namespace TMG.BloonsTD.Controllers
     public class BloonSpawner : MonoBehaviour
     {
         public static BloonSpawner Instance;
+
+        public delegate void BloonSpawnedDelegate(BloonController bloonController);
+        public event BloonSpawnedDelegate OnBloonSpawned;                          
         
         [SerializeField] private GameObject _bloonPrefab;
         [SerializeField] private PathController _pathController;
-
+        
         private Vector3 _spawnPosition;
 
         private void Awake()
@@ -23,22 +26,22 @@ namespace TMG.BloonsTD.Controllers
             _spawnPosition = _pathController[0];
         }
 
-        public BloonController SpawnBloonOfType(BloonTypes bloonType)
+        public void SpawnBloonOfType(BloonTypes bloonType)
         { 
             var bloonProperties = BloonPropertiesProcessor.GetBloonPropertiesFromBloonType(bloonType);
-            return SpawnBloon(bloonProperties);
+            SpawnBloon(bloonProperties, _spawnPosition, 0);
         }
 
-        public BloonController SpawnBloon(BloonProperties bloonProperties)
+        public void SpawnBloon(BloonProperties bloonProperties, Vector3 spawnPosition, int waypointIndex)
         {
-            GameObject newBloon = Instantiate(_bloonPrefab, _spawnPosition, Quaternion.identity);
+            GameObject newBloon = Instantiate(_bloonPrefab, spawnPosition, Quaternion.identity);
             BloonController newBloonController = newBloon.GetComponent<BloonController>();
 
             newBloonController.BloonProperties = bloonProperties;
 
             newBloonController.Path = _pathController;
-            newBloonController.InitializeTargetPosition(0);
-            return newBloonController;
+            newBloonController.InitializeTargetPosition(waypointIndex);
+            OnBloonSpawned?.Invoke(newBloonController);
         }
     }
 }

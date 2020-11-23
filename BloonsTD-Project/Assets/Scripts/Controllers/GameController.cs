@@ -46,14 +46,18 @@ namespace TMG.BloonsTD.Controllers
         
         private void InitializeControllers()
         {
-            _roundController.BloonSpawner = _bloonSpawner;
-            _roundController.OnBloonSpawned += SetupBloonEvents;
+            BloonSpawner.Instance.OnBloonSpawned += SetupBloonEvents;
         }
 
         private void SetupBloonEvents(BloonController bloonController)
         {
-            bloonController.OnBloonReachedEndOfPath += DecrementLives;
+            bloonController.OnBloonReachedEndOfPath += BloonEndOfPath;
             bloonController.OnBloonPopped += BloonPopped;
+        }
+
+        private void BloonEndOfPath(BloonProperties bloonProperties)
+        {
+            DecrementLives(bloonProperties.TotalBloonCount);
         }
 
         private void BloonPopped(BloonProperties bloonProperties)

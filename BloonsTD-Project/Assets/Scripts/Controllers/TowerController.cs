@@ -20,6 +20,7 @@ namespace TMG.BloonsTD.Controllers
         Last,
         Strongest,
         Weakest,
+        Closest,
         NoTarget
     }
     
@@ -31,7 +32,7 @@ namespace TMG.BloonsTD.Controllers
         private TowerSelectionController _selectionController;
         private TowerState _towerState;
         private TowerAttackController _towerAttackController;
-        private TowerTargetType _towerTargetType;
+        [SerializeField]private TowerTargetType _towerTargetType;
         private WaitForSeconds _cooldownTime;
         public TowerProperties TowerProperties => _towerProperties;
         public TowerStatistics TowerStatistics => _towerStatistics;
@@ -70,6 +71,7 @@ namespace TMG.BloonsTD.Controllers
         private void OnTowerPlaced(TowerController towerController)
         {
             _towerState = TowerState.Idle;
+            TryAttack();
         }
 
         public void OnBloonEnter()

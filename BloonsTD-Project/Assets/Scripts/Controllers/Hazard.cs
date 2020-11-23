@@ -14,7 +14,6 @@ namespace TMG.BloonsTD.Controllers
 
         public virtual void HitBloon()
         {
-            Debug.Log("Hit Bloon");
             _bloonHitsRemaining--;
             if (_bloonHitsRemaining <= 0)
             {

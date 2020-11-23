@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.UI
 {
+    [RequireComponent(typeof(SpriteRenderer))]
     public class TowerRangeDisplay : MonoBehaviour
     {
         [SerializeField] private Color _regularTowerRange;
         [SerializeField] private Color _invalidTowerRange;
         [SerializeField] private TowerPlacementController _towerPlacementController;
         [SerializeField] private TowerSelectionController _towerSelectionController;
-        //[SerializeField] private TowerProperties _towerProperties;
         
         private SpriteRenderer _towerRangeIndicator;
         private bool _showTowerRange;
@@ -19,11 +19,6 @@ namespace TMG.BloonsTD.UI
         private void Awake()
         {
             _towerRangeIndicator = GetComponent<SpriteRenderer>();
-            if (_towerRangeIndicator == null)
-            {
-                Debug.LogWarning("Warning, no SpriteRenderer on Tower Range Indicator. Adding default one", gameObject);
-                _towerRangeIndicator = gameObject.AddComponent<SpriteRenderer>();
-            }
 
             if (_towerPlacementController == null)
             {
@@ -49,7 +44,7 @@ namespace TMG.BloonsTD.UI
 
         private void ShowTowerRange(TowerStatistics towerStatistics)
         {
-            Debug.Log($"Showing range size: {towerStatistics.Range}");
+            //Debug.Log($"Showing range size: {towerStatistics.Range}");
             _towerRangeIndicator.color = _regularTowerRange;
         }
         

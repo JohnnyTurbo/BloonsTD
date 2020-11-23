@@ -13,24 +13,24 @@ namespace TMG.BloonsTD.Controllers
         private BloonSpawner _bloonSpawner;
         private bool _allBloonsSpawned;
         private int _bloonsLeft;
-        public delegate void BloonSpawnedDelegate(BloonController bloonController);
-        public event BloonSpawnedDelegate OnBloonSpawned;
+        //public delegate void BloonSpawnedDelegate(BloonController bloonController);
+        //public event BloonSpawnedDelegate OnBloonSpawned;
         public delegate void RoundCompleteDelegate();
         public event RoundCompleteDelegate OnRoundComplete;
+
+        private void Awake()
+        {
+            _bloonSpawner = BloonSpawner.Instance;
+        }
+
         private void OnEnable()
         {
-            OnBloonSpawned += SetupBloonEvents;
+            _bloonSpawner.OnBloonSpawned += SetupBloonEvents;
         }
 
         private void OnDisable()
         {
-            OnBloonSpawned -= SetupBloonEvents;
-        }
-        
-        public BloonSpawner BloonSpawner
-        {
-            get => _bloonSpawner;
-            set => _bloonSpawner = value;
+            _bloonSpawner.OnBloonSpawned -= SetupBloonEvents;
         }
 
         public void StartRound(int roundNumber)
@@ -55,17 +55,27 @@ namespace TMG.BloonsTD.Controllers
             WaitForSeconds timeBetweenSpawns = new WaitForSeconds(spawnGroup.TimeBetweenBloons);
             for (int i = 0; i < spawnGroup.NumberInGroup; i++)
             {
-                BloonController newBloonController = _bloonSpawner.SpawnBloonOfType(spawnGroup.BloonType);
-                OnBloonSpawned?.Invoke(newBloonController);
+                _bloonSpawner.SpawnBloonOfType(spawnGroup.BloonType);
                 yield return timeBetweenSpawns;
             }
         }
 
         private void SetupBloonEvents(BloonController bloonController)
         {
-            bloonController.OnBloonReachedEndOfPath += DecrementBloonsLeftCount;
+            bloonController.OnBloonReachedEndOfPath += BloonEndOfPath;
+            bloonController.OnBloonPopped += BloonPopped;
         }
 
+        private void BloonPopped(BloonProperties bloonProperties)
+        {
+            DecrementBloonsLeftCount(1);
+        }
+
+        private void BloonEndOfPath(BloonProperties bloonProperties)
+        {
+            DecrementBloonsLeftCount(bloonProperties.TotalBloonCount);
+        }
+        
         private void DecrementBloonsLeftCount(int numberToDecrement)
         {
             _bloonsLeft -= numberToDecrement;

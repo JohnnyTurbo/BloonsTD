@@ -44,6 +44,8 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
                     return GetStrongestBloonPosition(bloons);
                 case TowerTargetType.Weakest:
                     return GetWeakestBloonPosition(bloons);
+                case TowerTargetType.Closest:
+                    return GetClosestBloonPosition(bloons);
                 case TowerTargetType.NoTarget:
                     return Vector3.zero;
                 default:
@@ -56,15 +58,7 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
             BloonController furthestBloon = bloons[0];
             for (int i = 1; i < bloons.Count; i++)
             {
-                if (bloons[i].TargetWaypointIndex > furthestBloon.TargetWaypointIndex)
-                {
-                    furthestBloon = bloons[i];
-                }
-                else if (bloons[i].TargetWaypointIndex == furthestBloon.TargetWaypointIndex &&
-                         bloons[i].PercentToNextWaypoint > furthestBloon.PercentToNextWaypoint)
-                {
-                    furthestBloon = bloons[i];
-                }
+                furthestBloon = BloonController.CompareGreaterPathProgress(furthestBloon, bloons[i]);
             }
             return furthestBloon.transform.position;
         }
@@ -74,15 +68,7 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
             BloonController lastBloon = bloons[0];
             for (int i = 1; i < bloons.Count; i++)
             {
-                if (bloons[i].TargetWaypointIndex < lastBloon.TargetWaypointIndex)
-                {
-                    lastBloon = bloons[i];
-                }
-                else if (bloons[i].TargetWaypointIndex == lastBloon.TargetWaypointIndex &&
-                         bloons[i].PercentToNextWaypoint < lastBloon.PercentToNextWaypoint)
-                {
-                    lastBloon = bloons[i];
-                }
+                lastBloon = BloonController.CompareLeastPathProgress(lastBloon, bloons[i]);
             }
             return lastBloon.transform.position;
         }
@@ -92,10 +78,7 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
             BloonController strongestBloon = bloons[0];
             for (int i = 1; i < bloons.Count; i++)
             {
-                if (bloons[i].RBE > strongestBloon.RBE)
-                {
-                    strongestBloon = bloons[i];
-                }
+                strongestBloon = BloonController.CompareStrongest(strongestBloon, bloons[i]);
             }
             return strongestBloon.transform.position;
         }
@@ -105,12 +88,26 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
             BloonController weakestBloon = bloons[0];
             for (int i = 1; i < bloons.Count; i++)
             {
-                if (bloons[i].RBE < weakestBloon.RBE)
-                {
-                    weakestBloon = bloons[i];
-                }
+                weakestBloon = BloonController.CompareWeakest(weakestBloon, bloons[i]);
             }
             return weakestBloon.transform.position;
+        }
+
+        private Vector3 GetClosestBloonPosition(List<BloonController> bloons)
+        {
+            var towerPosition = transform.position;
+            var closestBloon = bloons[0];
+            var closestDistance = Vector3.Distance(towerPosition, closestBloon.transform.position);
+            for (int i = 1; i < bloons.Count; i++)
+            {
+                var currentBloonDistance = Vector3.Distance(towerPosition, bloons[i].transform.position);
+                if (currentBloonDistance < closestDistance)
+                {
+                    closestBloon = bloons[i];
+                    closestDistance = currentBloonDistance;
+                }
+            }
+            return closestBloon.transform.position;
         }
 
         protected virtual void Attack(Vector3 targetLocation)
