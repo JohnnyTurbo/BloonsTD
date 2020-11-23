@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMG.BloonsTD.Helpers;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
@@ -82,6 +80,15 @@ namespace TMG.BloonsTD.Controllers
             _targetPosition = _bloonPath[_targetWaypointIndex];
         }
 
+        public void HitBloon()
+        {
+            _hitsRemaining--;
+            if (_hitsRemaining <= 0)
+            {
+                PopBloon();
+            }
+        }
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.layer.Equals(BloonsReferences.HazardsLayer))
@@ -122,7 +129,7 @@ namespace TMG.BloonsTD.Controllers
                 return bloon2;
             if (bloon1.PercentToNextWaypoint > bloon2.PercentToNextWaypoint)
                 return bloon1;
-            if (bloon1.TargetWaypointIndex < bloon2.TargetWaypointIndex)
+            if (bloon1.PercentToNextWaypoint < bloon2.PercentToNextWaypoint)
                 return bloon2;
             else
                 return bloon1;
@@ -135,7 +142,7 @@ namespace TMG.BloonsTD.Controllers
                 return bloon2;
             if (bloon1.PercentToNextWaypoint < bloon2.PercentToNextWaypoint)
                 return bloon1;
-            if (bloon1.TargetWaypointIndex > bloon2.TargetWaypointIndex)
+            if (bloon1.PercentToNextWaypoint > bloon2.PercentToNextWaypoint)
                 return bloon2;
             else
                 return bloon1;

@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMG.BloonsTD.Controllers.TowerAttackControllers;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
@@ -62,12 +61,7 @@ namespace TMG.BloonsTD.Controllers
         {
             TowerSpawnManager.Instance.OnTowerPlaced += OnTowerPlaced;
         }
-
-        private void OnDisable()
-        {
-            TowerSpawnManager.Instance.OnTowerPlaced -= OnTowerPlaced;
-        }
-
+        
         private void OnTowerPlaced(TowerController towerController)
         {
             _towerState = TowerState.Idle;

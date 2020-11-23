@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMG.BloonsTD.Helpers;
-using TMG.BloonsTD.Stats;
 using UnityEngine;
 
 namespace TMG.BloonsTD.Controllers.TowerAttackControllers
@@ -11,6 +10,7 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
     {
         private Collider2D _attackRadius;
         protected TowerController _towerController;
+        
         private void Awake()
         {
             _attackRadius = transform.Find("DetectionRadius").GetComponent<Collider2D>();
@@ -112,7 +112,6 @@ namespace TMG.BloonsTD.Controllers.TowerAttackControllers
 
         protected virtual void Attack(Vector3 targetLocation)
         {
-            //Debug.Log("Base Attack");
         }
     }
 }

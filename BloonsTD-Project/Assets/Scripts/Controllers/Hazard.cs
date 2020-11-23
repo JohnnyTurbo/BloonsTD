@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Controllers
 {
+    [RequireComponent(typeof(Collider2D))]
     public class Hazard : MonoBehaviour
     {
         [SerializeField] protected int _maxBloonHits;
