@@ -4,7 +4,7 @@ using System.Linq;
 using TMG.BloonsTD.Helpers;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers.TowerAttackControllers
+namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
 {
     public class TowerAttackController : MonoBehaviour
     {

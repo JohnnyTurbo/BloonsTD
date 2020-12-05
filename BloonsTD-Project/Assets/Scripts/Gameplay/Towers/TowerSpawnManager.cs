@@ -2,7 +2,7 @@ using System;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers
+namespace TMG.BloonsTD.Gameplay
 {
     public enum TowerPlacementState
     {

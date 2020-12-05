@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
-using TMG.BloonsTD.Controllers.TowerAttackControllers;
+using TMG.BloonsTD.Gameplay.TowerAttackControllers;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers
+namespace TMG.BloonsTD.Gameplay
 {
     public enum TowerState
     {

@@ -1,9 +1,8 @@
-using System;
 using TMG.BloonsTD.Helpers;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers
+namespace TMG.BloonsTD.Gameplay
 {
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(Rigidbody2D))]

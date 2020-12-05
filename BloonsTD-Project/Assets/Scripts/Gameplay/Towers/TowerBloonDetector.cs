@@ -1,8 +1,7 @@
-using System;
 using TMG.BloonsTD.Helpers;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers
+namespace TMG.BloonsTD.Gameplay
 {
     public class TowerBloonDetector : MonoBehaviour
     {

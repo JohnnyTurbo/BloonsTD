@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers
+namespace TMG.BloonsTD.Gameplay
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class BasicProjectileController : Hazard

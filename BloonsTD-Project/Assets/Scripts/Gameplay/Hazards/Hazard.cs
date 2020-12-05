@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers
+namespace TMG.BloonsTD.Gameplay
 {
     [RequireComponent(typeof(Collider2D))]
     public class Hazard : MonoBehaviour

@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers.TowerAttackControllers
+namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
 {
     public class ProjectileAttackController : TowerAttackController
     {

@@ -1,7 +1,7 @@
 using TMG.BloonsTD.Stats;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers
+namespace TMG.BloonsTD.Gameplay
 {
     public class TowerSelectionController : MonoBehaviour
     {

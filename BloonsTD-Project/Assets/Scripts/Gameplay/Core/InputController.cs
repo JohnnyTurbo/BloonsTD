@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers
+namespace TMG.BloonsTD.Gameplay
 {
     //TODO Make options for different platforms
     public static class InputController

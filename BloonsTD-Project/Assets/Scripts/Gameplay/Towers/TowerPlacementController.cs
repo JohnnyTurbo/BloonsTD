@@ -1,9 +1,8 @@
-using System;
-using TMG.BloonsTD.Stats;
 using TMG.BloonsTD.Helpers;
+using TMG.BloonsTD.Stats;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Controllers
+namespace TMG.BloonsTD.Gameplay
 {
     public class TowerPlacementController : MonoBehaviour
     {
