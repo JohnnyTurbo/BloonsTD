@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TMG.BloonsTD.Helpers
+namespace TMG.BloonsTD.Gameplay
 {
     public static class BloonsReferences
     {

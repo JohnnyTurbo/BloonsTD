@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Helpers
+namespace TMG.BloonsTD.Gameplay
 {
     public class DebugHelper : MonoBehaviour
     {
