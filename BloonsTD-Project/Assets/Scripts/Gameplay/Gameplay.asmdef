@@ -1,8 +1,7 @@
 {
     "name": "Gameplay",
     "references": [
-        "GUID:f5342ff64c606ae44bd6babb8c850766",
-        "GUID:6ffb5550eb271ec43bf9ee4005cd49fd"
+        "GUID:f5342ff64c606ae44bd6babb8c850766"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
