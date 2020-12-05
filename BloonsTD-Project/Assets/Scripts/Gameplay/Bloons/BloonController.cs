@@ -125,6 +125,8 @@ namespace TMG.BloonsTD.Gameplay
             }
         }
 
+        // TODO: Path progress comparisons DO NOT support multiple bloon paths.
+        
         public static BloonController CompareGreaterPathProgress(BloonController bloon1, BloonController bloon2)
         {
             if (bloon1._targetWaypointIndex > bloon2._targetWaypointIndex)

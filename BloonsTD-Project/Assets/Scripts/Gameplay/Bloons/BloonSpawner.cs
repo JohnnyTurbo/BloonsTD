@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Gameplay
 {
+    // TODO: This class DOES NOT support multiple bloon paths.
     public class BloonSpawner : MonoBehaviour
     {
         public static BloonSpawner Instance;
@@ -13,22 +14,29 @@ namespace TMG.BloonsTD.Gameplay
         [SerializeField] private GameObject _bloonPrefab;
         [SerializeField] private PathController _pathController;
         
-        private Vector3 _spawnPosition;
+        private Vector3 _pathHeadPosition;
 
         private void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(this);
+            }
         }
 
         private void Start()
         {
-            _spawnPosition = _pathController[0];
+            _pathHeadPosition = _pathController[0];
         }
 
         public void SpawnBloonOfType(BloonTypes bloonType)
         { 
             var bloonProperties = BloonPropertiesProcessor.GetBloonPropertiesFromBloonType(bloonType);
-            SpawnBloon(bloonProperties, _spawnPosition, 0);
+            SpawnBloon(bloonProperties, _pathHeadPosition, 0);
         }
 
         public void SpawnBloon(BloonProperties bloonProperties, Vector3 spawnPosition, int waypointIndex)
