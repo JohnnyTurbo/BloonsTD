@@ -1,3 +1,4 @@
+using System;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
 
@@ -5,28 +6,33 @@ namespace TMG.BloonsTD.Gameplay
 {
     [RequireComponent(typeof(Collider2D))]
     [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(SpriteRenderer))]
     public class BloonController : MonoBehaviour
     {
         public delegate void BloonEndOfLife(BloonProperties bloonProperties);
         public event BloonEndOfLife OnBloonReachedEndOfPath;
         public event BloonEndOfLife OnBloonPopped;
+        
         private BloonProperties _bloonProperties;
         private PathController _bloonPath;
+        private SpriteRenderer _renderer;
         private int _targetWaypointIndex;
         private int _hitsRemaining;
-        private Vector3 _targetPosition;
-        public int TargetWaypointIndex => _targetWaypointIndex;
-        private Vector3 CurrentWaypoint => _bloonPath[_targetWaypointIndex];
-        private Vector3 PreviousWaypoint =>
+        private Vector3 _targetWaypointPosition;
+        //private Vector3 CurrentWaypoint => _bloonPath[_targetWaypointIndex];
+        private Vector3 PreviousWaypointPosition =>
             _targetWaypointIndex == 0f ? Vector3.zero : _bloonPath[_targetWaypointIndex - 1];
         private float PathSegmentDistance =>
-            _targetWaypointIndex == 0f ? 0 : Vector3.Distance(PreviousWaypoint, CurrentWaypoint);
-        private float DistanceToNextWaypoint =>
-            Vector3.Distance(transform.position, _bloonPath[_targetWaypointIndex]);
-        public float PercentToNextWaypoint =>
+            _targetWaypointIndex == 0f ? 0 : Vector3.Distance(PreviousWaypointPosition, _targetWaypointPosition);
+        private float DistanceToNextWaypoint => Vector3.Distance(transform.position, _targetWaypointPosition);
+
+        private float PercentToNextWaypoint =>
             _targetWaypointIndex == 0f ? 0 : (PathSegmentDistance - DistanceToNextWaypoint) / PathSegmentDistance;
 
-        public int RBE => _bloonProperties.RedBloonEquivalent;
+
+        private bool BloonReachedEndOfPath => _targetWaypointIndex >= _bloonPath.WaypointCount;
+        private int RBE => _bloonProperties.RedBloonEquivalent;
+
         public BloonProperties BloonProperties
         {
             get => _bloonProperties;
@@ -41,63 +47,63 @@ namespace TMG.BloonsTD.Gameplay
 
         private bool HasBloonsToSpawn => (_bloonProperties.BloonsToSpawnWhenPopped != null ||
                                           _bloonProperties.BloonsToSpawnWhenPopped.Count > 0);
-        
-        private void Start()
-        {
-            _hitsRemaining = BloonProperties.NumberOfHitsToPop;
-        }
 
-        public void InitializeTargetPosition(int targetWaypointIndex)
+        private void Awake()
         {
-            _targetWaypointIndex = targetWaypointIndex;
-            _targetPosition = _bloonPath[_targetWaypointIndex];
-            GetComponent<SpriteRenderer>().color = _bloonProperties.BloonColor;
+            _renderer = GetComponent<SpriteRenderer>();
         }
 
         private void Update()
         {
             float step = _bloonProperties.MoveSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, step);
+            transform.position = Vector3.MoveTowards(transform.position, _targetWaypointPosition, step);
             
-            if (Vector3.Distance(transform.position, _targetPosition) <= 0.1f)
+            if (Vector3.Distance(transform.position, _targetWaypointPosition) <= 0.1f)
             {
                 SetNextTargetPosition();
             }
         }
 
+        public void InitializeBloon(BloonProperties bloonProperties, int targetWaypointIndex)
+        {
+            _bloonProperties = bloonProperties;
+            _hitsRemaining = _bloonProperties.NumberOfHitsToPop;
+            _renderer.color = _bloonProperties.BloonColor;
+            _targetWaypointIndex = targetWaypointIndex;
+            SetTargetWaypointPosition();
+        }
+
         private void SetNextTargetPosition()
         {
             _targetWaypointIndex++;
-            if (_targetWaypointIndex >= _bloonPath.WaypointCount)
+            if (BloonReachedEndOfPath)
             {
                 OnBloonReachedEndOfPath?.Invoke(_bloonProperties);
                 Destroy(gameObject);
                 return;
             }
-
-            _targetPosition = _bloonPath[_targetWaypointIndex];
+            SetTargetWaypointPosition();
         }
 
-        public void HitBloon()
+        private void SetTargetWaypointPosition()
+        {
+            _targetWaypointPosition = _bloonPath[_targetWaypointIndex];
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.gameObject.layer.Equals(BloonsReferences.HazardsLayer)) return;
+            var curHazard = other.gameObject.GetComponent<Hazard>();
+            curHazard.HitBloon();
+            HitBloon();
+        }
+
+        private void HitBloon()
         {
             _hitsRemaining--;
             if (_hitsRemaining <= 0)
             {
                 PopBloon();
-            }
-        }
-        
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.gameObject.layer.Equals(BloonsReferences.HazardsLayer))
-            {
-                var curHazard = other.gameObject.GetComponent<Hazard>();
-                curHazard.HitBloon();
-                _hitsRemaining--;
-                if (_hitsRemaining <= 0)
-                {
-                    PopBloon();
-                }
             }
         }
 
@@ -121,9 +127,9 @@ namespace TMG.BloonsTD.Gameplay
 
         public static BloonController CompareGreaterPathProgress(BloonController bloon1, BloonController bloon2)
         {
-            if (bloon1.TargetWaypointIndex > bloon2.TargetWaypointIndex)
+            if (bloon1._targetWaypointIndex > bloon2._targetWaypointIndex)
                 return bloon1;
-            if (bloon1.TargetWaypointIndex < bloon2.TargetWaypointIndex)
+            if (bloon1._targetWaypointIndex < bloon2._targetWaypointIndex)
                 return bloon2;
             if (bloon1.PercentToNextWaypoint > bloon2.PercentToNextWaypoint)
                 return bloon1;
@@ -134,9 +140,9 @@ namespace TMG.BloonsTD.Gameplay
         }
         public static BloonController CompareLeastPathProgress(BloonController bloon1, BloonController bloon2)
         {
-            if (bloon1.TargetWaypointIndex < bloon2.TargetWaypointIndex)
+            if (bloon1._targetWaypointIndex < bloon2._targetWaypointIndex)
                 return bloon1;
-            if (bloon1.TargetWaypointIndex > bloon2.TargetWaypointIndex)
+            if (bloon1._targetWaypointIndex > bloon2._targetWaypointIndex)
                 return bloon2;
             if (bloon1.PercentToNextWaypoint < bloon2.PercentToNextWaypoint)
                 return bloon1;

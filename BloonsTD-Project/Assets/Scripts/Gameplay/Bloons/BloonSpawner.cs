@@ -36,10 +36,8 @@ namespace TMG.BloonsTD.Gameplay
             GameObject newBloon = Instantiate(_bloonPrefab, spawnPosition, Quaternion.identity);
             BloonController newBloonController = newBloon.GetComponent<BloonController>();
 
-            newBloonController.BloonProperties = bloonProperties;
-
             newBloonController.Path = _pathController;
-            newBloonController.InitializeTargetPosition(waypointIndex);
+            newBloonController.InitializeBloon(bloonProperties, waypointIndex);
             OnBloonSpawned?.Invoke(newBloonController);
         }
     }
