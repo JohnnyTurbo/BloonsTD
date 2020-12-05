@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,53 +13,46 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private GameStatistics _maxGameStatistics;
 
         private int _numBloonsPopped;
-        
+        private bool _hasMaxStatistics;
+
+        public bool HasMaxStatistics
+        {
+            get => _hasMaxStatistics;
+            set => _hasMaxStatistics = value;
+        }
+        private void Awake()
+        {
+            if (_maxGameStatistics != null)
+            {
+                _hasMaxStatistics = true;
+            }
+        }
+
         public int Rounds
         {
             get => _rounds;
-            set
-            {
-                if (_maxGameStatistics != null)
-                {
-                    _rounds = _maxGameStatistics.Rounds.Equals(0) ? value : Mathf.Clamp(value,0, _maxGameStatistics.Rounds);
-                }
-                else
-                {
-                    _rounds = Mathf.Max(0,value);
-                }
-            }
+            set =>
+                _rounds = _hasMaxStatistics && !_maxGameStatistics.Rounds.Equals(0)
+                    ? Mathf.Clamp(value, 0, _maxGameStatistics.Rounds)
+                    : Mathf.Max(0, value);
         }
 
         public int Money
         {
             get => _money;
-            set
-            {
-                if (_maxGameStatistics != null)
-                {
-                    _money = _maxGameStatistics.Money.Equals(0) ? value : Mathf.Clamp(value,0, _maxGameStatistics.Money);
-                }
-                else
-                {
-                    _money = Mathf.Max(0,value);
-                }
-            }
+            set =>
+                _money = _hasMaxStatistics && !_maxGameStatistics.Money.Equals(0)
+                    ? Mathf.Clamp(value, 0, _maxGameStatistics.Money)
+                    : Mathf.Max(0, value);
         }
 
         public int Lives
         {
             get => _lives;
-            set
-            {
-                if (_maxGameStatistics != null)
-                {
-                    _lives = _maxGameStatistics.Lives.Equals(0) ? value : Mathf.Clamp(value,0, _maxGameStatistics.Lives);
-                }
-                else
-                {
-                    _lives = Mathf.Max(0, value);
-                }
-            } 
+            set =>
+                _lives = _hasMaxStatistics && !_maxGameStatistics.Lives.Equals(0)
+                    ? Mathf.Clamp(value, 0, _maxGameStatistics.Lives)
+                    : Mathf.Max(0, value);
         }
 
         public int NumBloonsPopped

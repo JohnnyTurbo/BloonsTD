@@ -8,6 +8,7 @@ namespace TMG.BloonsTD.TestInfrastructure
         private int _rounds;
         private int _money;
         private int _lives;
+        private bool _hasMaxStatistics;
         private GameStatistics _maxGameStatistics;
 
         public GameStatisticsBuilder WithRounds(int rounds)
@@ -31,6 +32,7 @@ namespace TMG.BloonsTD.TestInfrastructure
         public GameStatisticsBuilder WithMaxStatistics(GameStatistics maxGameStatistics)
         {
             _maxGameStatistics = maxGameStatistics;
+            _hasMaxStatistics = true;
             return this;
         }
         
@@ -38,6 +40,7 @@ namespace TMG.BloonsTD.TestInfrastructure
         {
             var newGameStatistics = ScriptableObject.CreateInstance<GameStatistics>();
             newGameStatistics.MaxGameStatistics = _maxGameStatistics;
+            newGameStatistics.HasMaxStatistics = _hasMaxStatistics;
             newGameStatistics.Rounds = _rounds;
             newGameStatistics.Money = _money;
             newGameStatistics.Lives = _lives;
