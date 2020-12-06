@@ -87,7 +87,7 @@ namespace TMG.BloonsTD.Gameplay
             {
                 Vector3 pointToCheck = transform.position + edgePoint;
 
-                Collider2D pathCollider = Physics2D.OverlapPoint(pointToCheck, 1 << BloonsReferences.PathLayer);
+                Collider2D pathCollider = Physics2D.OverlapPoint(pointToCheck, 1 << PhysicsLayers.Path);
 
                 if (pathCollider == null)
                 {
@@ -110,18 +110,18 @@ namespace TMG.BloonsTD.Gameplay
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.layer.Equals(BloonsReferences.PathLayer))
+            if (other.gameObject.layer.Equals(PhysicsLayers.Path))
             {
                 _partiallyOnPath = true;
                 _fullyOffPath = false;
             }
 
-            if (other.gameObject.layer.Equals(BloonsReferences.OutOfBoundsLayer))
+            if (other.gameObject.layer.Equals(PhysicsLayers.OutOfBounds))
             {
                 _outOfBounds = true;
             }
 
-            if (other.gameObject.layer.Equals(BloonsReferences.TowerLayer))
+            if (other.gameObject.layer.Equals(PhysicsLayers.Towers))
             {
                 _overlappingTower = true;
             }
@@ -129,18 +129,18 @@ namespace TMG.BloonsTD.Gameplay
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.layer.Equals(BloonsReferences.PathLayer))
+            if (other.gameObject.layer.Equals(PhysicsLayers.Path))
             {
                 _partiallyOnPath = false;
                 _fullyOffPath = true;
             }
             
-            if (other.gameObject.layer.Equals(BloonsReferences.OutOfBoundsLayer))
+            if (other.gameObject.layer.Equals(PhysicsLayers.OutOfBounds))
             {
                 _outOfBounds = false;
             }
             
-            if (other.gameObject.layer.Equals(BloonsReferences.TowerLayer))
+            if (other.gameObject.layer.Equals(PhysicsLayers.Towers))
             {
                 _overlappingTower = false;
             }

@@ -15,7 +15,7 @@ namespace TMG.BloonsTD.Gameplay
             if (InputController.BeginScreenSelection)
             {
                 var worldSelectionPosition = InputController.WorldSelectionPosition;
-                var selectedCollider = Physics2D.OverlapPoint(worldSelectionPosition, 1 << BloonsReferences.TowerLayer);
+                var selectedCollider = Physics2D.OverlapPoint(worldSelectionPosition, 1 << PhysicsLayers.Towers);
                 if(selectedCollider != null)
                 {
                     var selectionController = selectedCollider.GetComponent<TowerSelectionController>();

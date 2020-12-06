@@ -92,7 +92,7 @@ namespace TMG.BloonsTD.Gameplay
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.gameObject.layer.Equals(BloonsReferences.HazardsLayer)) return;
+            if (!other.gameObject.layer.Equals(PhysicsLayers.Hazards)) return;
             var curHazard = other.gameObject.GetComponent<Hazard>();
             curHazard.HitBloon();
             HitBloon();

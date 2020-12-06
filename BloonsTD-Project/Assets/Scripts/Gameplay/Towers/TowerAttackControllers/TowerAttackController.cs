@@ -19,7 +19,7 @@ namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
         public bool TryAttack()
         {
             var bloonCollidersInRange = new List<Collider2D>();
-            var bloonFilter = new ContactFilter2D {layerMask = 1 << BloonsReferences.BloonsLayer, useLayerMask = true};
+            var bloonFilter = new ContactFilter2D {layerMask = 1 << PhysicsLayers.Bloons, useLayerMask = true};
             var numBloonsInRange = _attackRadius.OverlapCollider(bloonFilter, bloonCollidersInRange);
             if (numBloonsInRange <= 0)
             {
