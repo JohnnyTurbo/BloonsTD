@@ -5,18 +5,19 @@ namespace TMG.BloonsTD.Gameplay
 {
     public class GameController : MonoBehaviour
     {
-        [SerializeField] private GameStatistics _startingGameStatistics;
-        [SerializeField] private GameStatistics _currentGameStatistics;
-        [SerializeField] private RoundController _roundController;
-        [SerializeField] private BloonSpawner _bloonSpawner;
-        private bool _gameOver;
-
         public delegate void UpdateUITextDelegate(string newText);
 
         public event UpdateUITextDelegate OnRoundChanged;
         public event UpdateUITextDelegate OnMoneyChanged;
         public event UpdateUITextDelegate OnLivesChanged;
+        
+        [SerializeField] private GameStatistics _startingGameStatistics;
+        [SerializeField] private GameStatistics _currentGameStatistics;
+        [SerializeField] private RoundController _roundController;
+        [SerializeField] private BloonSpawner _bloonSpawner;
 
+        private bool _gameOver;
+        public bool GameOver => _gameOver;
         public int Money => _currentGameStatistics.Money;
 
         private void Start()
@@ -87,7 +88,7 @@ namespace TMG.BloonsTD.Gameplay
             OnLivesChanged?.Invoke(_currentGameStatistics.Lives.ToString());
             if (_currentGameStatistics.Lives <= 0)
             {
-                GameOver();
+                BeginGameOver();
             }
         }
 
@@ -102,7 +103,7 @@ namespace TMG.BloonsTD.Gameplay
             _currentGameStatistics.NumBloonsPopped++;
         }
 
-        private void GameOver()
+        private void BeginGameOver()
         {
             _gameOver = true;
             Debug.Log("Game Over");

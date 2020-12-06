@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bcc4ee83ce4c958cffe70d6a0e8081, type: 3}
   m_Name: StartingGameStatistics
   m_EditorClassIdentifier: 
-  _round: 0
+  _rounds: 0
   _money: 650
-  _lives: 201
+  _lives: 5
   _maxGameStatistics: {fileID: 0}

@@ -7,23 +7,18 @@ namespace TMG.BloonsTD.Gameplay
 {
     public class RoundController : MonoBehaviour
     {
-        [SerializeField] private List<RoundSpawnStatistics> _rounds;
-
-        private BloonSpawner _bloonSpawner;
-        private bool _allBloonsSpawned;
-        private int _bloonsLeft;
-        //public delegate void BloonSpawnedDelegate(BloonController bloonController);
-        //public event BloonSpawnedDelegate OnBloonSpawned;
         public delegate void RoundCompleteDelegate();
         public event RoundCompleteDelegate OnRoundComplete;
-
-        private void Awake()
-        {
-            _bloonSpawner = BloonSpawner.Instance;
-        }
+        
+        [SerializeField] private List<RoundSpawnStatistics> _rounds;
+        [SerializeField] private GameController _gameController;
+        
+        private BloonSpawner _bloonSpawner;
+        private int _bloonsLeft;
 
         private void OnEnable()
         {
+            _bloonSpawner = BloonSpawner.Instance;
             _bloonSpawner.OnBloonSpawned += SetupBloonEvents;
         }
 
@@ -35,12 +30,12 @@ namespace TMG.BloonsTD.Gameplay
         public void StartRound(int roundNumber)
         {
             int roundIndex = roundNumber - 1;
-            //Debug.Log($"Round RBE: {_rounds[roundIndex].RedBloonEquivalent}\nNumBloons: {_rounds[roundIndex].TotalBloonCount}");
-            _bloonsLeft = _rounds[roundIndex].TotalBloonCount;
-            StartCoroutine(SpawnBloonGroups(_rounds[roundIndex]));
+            var currentRound = _rounds[roundIndex];
+            _bloonsLeft = currentRound.TotalBloonCount;
+            StartCoroutine(SpawnBloonsInRound(currentRound));
         }
 
-        private IEnumerator SpawnBloonGroups(RoundSpawnStatistics roundSpawnStatistics)
+        private IEnumerator SpawnBloonsInRound(RoundSpawnStatistics roundSpawnStatistics)
         {
             foreach (var spawnGroup in roundSpawnStatistics.SpawnGroups)
             {
@@ -77,6 +72,7 @@ namespace TMG.BloonsTD.Gameplay
         
         private void DecrementBloonsLeftCount(int numberToDecrement)
         {
+            if (_gameController.GameOver) return;
             _bloonsLeft -= numberToDecrement;
             if (_bloonsLeft <= 0)
             {
