@@ -1,99 +1,101 @@
 using System;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TMG.BloonsTD.Gameplay
 {
-    public enum TowerPlacementState
-    {
-        NotPlacingTower,
-        PlacingTower,
-        CannotPlaceTower
-    }
     public class TowerSpawnManager : MonoBehaviour
     {
         public static TowerSpawnManager Instance;
-        
+        public delegate void TowerPlaced(TowerController towerController);
+        public event TowerPlaced OnTowerPlaced;
         
         [SerializeField] private GameController _gameController;
-        [SerializeField] private GameObject _towerPrefab;
-        
-        private TowerPlacementState _towerPlacementState;
-        private GameObject _currentTowerGO;
+        [SerializeField] private GameObject _baseTowerPrefab;
+
         private TowerController _curTowerController;
-        public TowerPlacementState TowerPlacementState => _towerPlacementState;
-
+        private GameObject _currentTowerGO;
+        
+        public TowerPlacementState TowerPlacementState { get; private set; }
         private bool IsPlacingTower =>
-            _towerPlacementState == TowerPlacementState.PlacingTower && _curTowerController != null;
-
-        private bool CanPlaceTower => IsPlacingTower && _curTowerController.Placement.IsValidPlacementPosition;
-
-        public delegate void TowerPlaced(TowerController towerController);
-
-        public TowerPlaced OnTowerPlaced;
-
+            TowerPlacementState == TowerPlacementState.PlacingTower && _curTowerController != null;
+        private bool CanPlaceTower => IsPlacingTower && _curTowerController.PlacementController.IsValidPlacementPosition;
+        private bool TryPlaceTower => InputController.PlaceTower && CanPlaceTower;
+        
         private void Awake()
         {
-            Instance = this;
+            InitializeControllerValues();
         }
 
-        private void Start()
+        private void Update()
         {
-            _towerPlacementState = TowerPlacementState.NotPlacingTower;
+            if (IsPlacingTower)
+            {
+                _currentTowerGO.transform.position = InputController.TowerPlacementPosition;
+            }
+
+            if (TryPlaceTower)
+            {
+                OnTowerPlaced?.Invoke(_curTowerController);
+                TowerPlacementState = TowerPlacementState.NotPlacingTower;
+                _gameController.DecrementMoney(_curTowerController.TowerProperties.Cost);
+            }
+        }
+
+        private void InitializeControllerValues()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+            TowerPlacementState = TowerPlacementState.NotPlacingTower;
             _curTowerController = null;
         }
 
         public void OnButtonSpawnTower(TowerProperties tower)
         {
-            if (_gameController.Money < tower.Cost)
+            if (CannotAffordTower(tower))
             {
                 Debug.LogWarning($"Cannot afford tower, get richer. Need {tower.Cost - _gameController.Money} more $.");
                 return;
             }
             
-            switch (_towerPlacementState)
+            switch (TowerPlacementState)
             {
                 case TowerPlacementState.NotPlacingTower:
-                    _towerPlacementState = TowerPlacementState.PlacingTower;
+                    TowerPlacementState = TowerPlacementState.PlacingTower;
+                    SpawnTower(tower);
                     break;
                 
                 case TowerPlacementState.PlacingTower:
-                    Debug.Log($"No longer placing tower: {_curTowerController.TowerProperties.Name}");
+                    Destroy(_currentTowerGO);
+                    SpawnTower(tower);
                     break;
                 
                 case TowerPlacementState.CannotPlaceTower:
-                    return;
+                    break;
                 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
 
-            SpawnTower(tower);
+        private bool CannotAffordTower(TowerProperties tower)
+        {
+            return _gameController.Money < tower.Cost;
         }
 
         private void SpawnTower(TowerProperties tower)
         {
-            //Debug.Log($"Spawning {tower.Name}");
-            _currentTowerGO = Instantiate(_towerPrefab, Vector3.zero, Quaternion.identity);
+            _currentTowerGO = Instantiate(_baseTowerPrefab, Vector3.zero, Quaternion.identity);
             _curTowerController = _currentTowerGO.GetComponent<TowerController>();
             _curTowerController.InitializeTower(tower);
-        }
-        
-        private void Update()
-        {
-            if (IsPlacingTower)
-            {
-                _curTowerController.transform.position = InputController.TowerPlacementPosition;
-            }
-            //TODO: Check if cur tower controller is not null
-            if (InputController.BeginPlaceTower && CanPlaceTower)
-            {
-                OnTowerPlaced?.Invoke(_curTowerController);
-                //Debug.Log($"Placing tower: {_curTowerController.TowerProperties.Name}");
-                _towerPlacementState = TowerPlacementState.NotPlacingTower;
-                //Debug.Log($"Decrementing money by {_curTowerController.TowerProperties.Cost}");
-                _gameController.DecrementMoney(_curTowerController.TowerProperties.Cost);
-            }
         }
     }
 }

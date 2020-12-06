@@ -15,9 +15,9 @@ namespace TMG.BloonsTD.Gameplay
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D otherCollider)
         {
-            if (other.gameObject.layer != PhysicsLayers.Bloons) { return; }
+            if (otherCollider.IsNotOnLayer(PhysicsLayers.Bloons)) { return; }
             _towerController.OnBloonEnter();
         }
     }

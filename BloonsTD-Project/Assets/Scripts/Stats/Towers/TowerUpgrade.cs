@@ -2,14 +2,6 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Stats
 {
-    public enum UpgradeType
-    {
-        Range,
-        Frequency,
-        Duration,
-        Weapon
-    };
-    
     [CreateAssetMenu(fileName = "Upgrade", menuName = "Scriptable Objects/Tower Upgrade", order = 0)]
     public class TowerUpgrade : ScriptableObject
     {
@@ -31,5 +23,10 @@ namespace TMG.BloonsTD.Stats
         public float UpgradeValue => _upgradeType == UpgradeType.Weapon ? float.NaN : _upgradeValue;
         public GameObject Weapon =>  _upgradeType == UpgradeType.Weapon ? _weapon : null;
         public bool HasPurchased => _hasPurchased;
+
+        public void PurchaseUpgrade()
+        {
+            _hasPurchased = true;
+        }
     }
 }

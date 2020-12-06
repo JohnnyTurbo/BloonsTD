@@ -8,9 +8,9 @@ namespace TMG.BloonsTD.Gameplay
         private static Camera _mainCamera;
         private static bool _hasMainCamera;
         
-        public static bool BeginPlaceTower => Input.GetMouseButtonDown(0);
-        public static bool BeginScreenSelection => Input.GetMouseButtonDown(0);
-        public static bool BeginCancelSelection => Input.GetKeyDown(KeyCode.Escape);
+        public static bool PlaceTower => Input.GetMouseButtonDown(0);
+        public static bool SelectScreenStart => Input.GetMouseButtonDown(0);
+        public static bool CancelSelection => Input.GetKeyDown(KeyCode.Escape);
 
         private static Camera MainCamera
         {

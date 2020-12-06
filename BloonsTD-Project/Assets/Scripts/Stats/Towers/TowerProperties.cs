@@ -1,23 +1,16 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TMG.BloonsTD.Stats
 {
-    public enum TowerSpeed
-    {
-        Slow,
-        Medium,
-        Fast,
-        Hypersonic
-    };
-    
     [CreateAssetMenu(fileName = "TowerProperties", menuName = "Scriptable Objects/Tower Properties", order = 0)]
     public class TowerProperties : ScriptableObject
     {
         [SerializeField] private string _name;
         [SerializeField] private int _cost;
         [SerializeField] private TowerSpeed _speed;
-        [SerializeField] private float _attackFrequency;
+        [SerializeField] private float _attackCooldownTime;
         [TextArea][SerializeField] private string _description;
         [SerializeField] private float _colliderRadius;
         [SerializeField] private float _range;
@@ -52,12 +45,12 @@ namespace TMG.BloonsTD.Stats
                 }
             }
         }
-        public float AttackFrequency => _attackFrequency;
+        public float AttackCooldownTime => _attackCooldownTime;
         public string Description => _description;
         public float ColliderRadius
         {
             get => _colliderRadius;
-            set => _colliderRadius = Mathf.Max(0.0001f, value);
+            private set => _colliderRadius = Mathf.Max(0.0001f, value);
         }
         public float Range => _range;
         public bool CanBePlacedOffPath => _canBePlacedOffPath;

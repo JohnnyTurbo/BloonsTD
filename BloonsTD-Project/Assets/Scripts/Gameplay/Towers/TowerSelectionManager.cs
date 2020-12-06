@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TMG.BloonsTD.Gameplay
@@ -7,27 +8,35 @@ namespace TMG.BloonsTD.Gameplay
         [SerializeField] private TowerSpawnManager _towerSpawnManager;
 
         private TowerSelectionController _selectedTower;
+        private bool TowerInPlacingState => _towerSpawnManager.TowerPlacementState == TowerPlacementState.PlacingTower;
 
         private void Update()
         {
-            if(_towerSpawnManager.TowerPlacementState == TowerPlacementState.PlacingTower){ return; }
+            if(TowerInPlacingState) return;
 
-            if (InputController.BeginScreenSelection)
+            if (InputController.SelectScreenStart)
             {
-                var worldSelectionPosition = InputController.WorldSelectionPosition;
-                var selectedCollider = Physics2D.OverlapPoint(worldSelectionPosition, 1 << PhysicsLayers.Towers);
-                if(selectedCollider != null)
-                {
-                    var selectionController = selectedCollider.GetComponent<TowerSelectionController>();
-                    SelectTower(selectionController);
-                }
-                else
-                {
-                    DeselectTower();
-                }
+                AttemptTowerSelection();
             }
 
-            if (InputController.BeginCancelSelection)
+            if (InputController.CancelSelection)
+            {
+                DeselectTower();
+            }
+        }
+
+        private void AttemptTowerSelection()
+        {
+            var worldSelectionPosition = InputController.WorldSelectionPosition;
+            var towerFiler = new ContactFilter2D {layerMask = 1 << PhysicsLayers.Towers, useLayerMask = true};
+            var towerColliders = new List<Collider2D>();
+            var numTowersSelected = Physics2D.OverlapPoint(worldSelectionPosition, towerFiler, towerColliders);
+            if (numTowersSelected > 0)
+            {
+                var selectedTower = towerColliders[0].GetComponent<TowerSelectionController>();
+                SelectTower(selectedTower);
+            }
+            else
             {
                 DeselectTower();
             }

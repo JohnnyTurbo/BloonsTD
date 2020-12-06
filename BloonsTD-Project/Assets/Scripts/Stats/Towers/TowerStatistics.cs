@@ -4,27 +4,26 @@ namespace TMG.BloonsTD.Stats
 {
     public class TowerStatistics : ScriptableObject
     {
-        private float _range;
-        private float _attackFrequency;
-        private int _numPopped;
-
         //TODO: change to collections
-        private TowerUpgrade _towerUpgradePath1;
-        private TowerUpgrade _towerUpgradePath2;
 
-        public float Range => _range;
-        public float AttackFrequency => _attackFrequency;
-        public int NumPopped => _numPopped;
-        public TowerUpgrade TowerUpgradePath1 => _towerUpgradePath1;
-        public TowerUpgrade TowerUpgradePath2 => _towerUpgradePath2;
-        
+        public float AttackRange { get; private set; }
+        public float AttackCooldownTime { get; private set; }
+        public int NumPopped { get; private set; }
+
+        public TowerUpgrade TowerUpgradePath1 { get; private set; }
+
+        public TowerUpgrade TowerUpgradePath2 { get; private set; }
+
+        public GameObject ProjectilePrefab { get; private set; }
+
         public void Set(TowerProperties properties)
         {
-            _towerUpgradePath1 = properties.TowerUpgradePath1;
-            _towerUpgradePath2 = properties.TowerUpgradePath2;
-            _range = properties.Range;
-            _attackFrequency = properties.AttackFrequency;
-            _numPopped = 0;
+            TowerUpgradePath1 = properties.TowerUpgradePath1;
+            TowerUpgradePath2 = properties.TowerUpgradePath2;
+            AttackRange = properties.Range;
+            AttackCooldownTime = properties.AttackCooldownTime;
+            ProjectilePrefab = properties.ProjectilePrefab;
+            NumPopped = 0;
         }
     }
 }

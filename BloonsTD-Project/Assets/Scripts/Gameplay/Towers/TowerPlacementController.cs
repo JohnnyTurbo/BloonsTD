@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Gameplay
 {
+    [RequireComponent(typeof(CircleCollider2D))]
     public class TowerPlacementController : MonoBehaviour
     {
-        private TowerProperties _towerProperties;
         private CircleCollider2D _collider;
         private LayerMask _towerPlacementMask;
         private bool _fullyOffPath;
@@ -13,8 +13,10 @@ namespace TMG.BloonsTD.Gameplay
         private bool _outOfBounds;
         private bool _overlappingTower;
         private bool _lastPlacementStatus;
-        private Vector3[] _edgePoints;
+        private Vector3[] _placementValidationPoints;
         private float _colliderRadius;
+
+        [SerializeField] private int _externalValidationPointsCount;
         //private TowerSpawnManager _towerSpawnManager;
 
         public delegate void ChangeRangeIndicator(bool isValidPosition);
@@ -23,71 +25,68 @@ namespace TMG.BloonsTD.Gameplay
 
         public event ChangeRangeIndicator OnChangeRangeIndicator;
         public event HideRangeIndicator OnHideRangeIndicator;
-        
+        public TowerProperties TowerProperties { get; set; }
+
         public bool IsValidPlacementPosition
         {
             get
             {
                 if (_outOfBounds) { return false; }
                 if (_overlappingTower) { return false; }
-                if (_towerProperties.CanBePlacedOffPath && _fullyOffPath) { return true; }
-                if (_towerProperties.CanBePlacedOnPath && IsFullyOnPath) { return true; }
+                if (TowerProperties.CanBePlacedOffPath && _fullyOffPath) { return true; }
+                if (TowerProperties.CanBePlacedOnPath && IsFullyOnPath) { return true; }
                 return false;
             }
         }
 
         private bool IsFullyOnPath => _partiallyOnPath && CheckIfFullyOnPath();
-
-        public TowerProperties TowerProperties
-        {
-            get => _towerProperties;
-            set => _towerProperties = value;
-        }
-
+        
         private void Awake()
         {
             _collider = GetComponent<CircleCollider2D>();
-            if (_collider == null)
-            {
-                _collider = gameObject.AddComponent<CircleCollider2D>();
-            }
         }
 
         private void Start()
         {
-            _colliderRadius = _towerProperties.ColliderRadius;
+            _colliderRadius = TowerProperties.ColliderRadius;
             _collider.radius = _colliderRadius;
             _fullyOffPath = true;
             _outOfBounds = true;
             _lastPlacementStatus = true;
-            SetupEdgePoints();
+            InitializePlacementValidationPoints();
         }
 
         private void OnEnable()
         {
             TowerSpawnManager.Instance.OnTowerPlaced += OnTowerPlaced;
         }
-
-        private void SetupEdgePoints()
+        
+        private void OnDisable()
         {
-            _edgePoints = new Vector3[9];
-            _edgePoints[0] = Vector3.zero;
-            for (int i = 1; i < _edgePoints.Length; i++)
+            TowerSpawnManager.Instance.OnTowerPlaced -= OnTowerPlaced;
+        }
+
+        private void InitializePlacementValidationPoints()
+        {
+            _placementValidationPoints = new Vector3[_externalValidationPointsCount + 1];
+            _placementValidationPoints[0] = Vector3.zero;
+            var degree = 360 / _externalValidationPointsCount;
+            for (int i = 1; i < _placementValidationPoints.Length; i++)
             {
-                var degree = (i - 1) * 45f;
-                var x = _colliderRadius * Mathf.Cos(degree * Mathf.Deg2Rad);
-                var y = _colliderRadius * Mathf.Sin(degree * Mathf.Deg2Rad);
-                _edgePoints[i] = new Vector3(x, y);
+                var pointDegree = (i - 1) * degree;
+                var x = _colliderRadius * Mathf.Cos(pointDegree * Mathf.Deg2Rad);
+                var y = _colliderRadius * Mathf.Sin(pointDegree * Mathf.Deg2Rad);
+                _placementValidationPoints[i] = new Vector3(x, y);
             }
         }
 
         private bool CheckIfFullyOnPath()
         {
-            foreach (var edgePoint in _edgePoints)
+            foreach (var validationPoint in _placementValidationPoints)
             {
-                Vector3 pointToCheck = transform.position + edgePoint;
+                Vector3 worldValidationPosition = transform.position + validationPoint;
 
-                Collider2D pathCollider = Physics2D.OverlapPoint(pointToCheck, 1 << PhysicsLayers.Path);
+                Collider2D pathCollider = Physics2D.OverlapPoint(worldValidationPosition, 1 << PhysicsLayers.Path);
 
                 if (pathCollider == null)
                 {
@@ -100,47 +99,46 @@ namespace TMG.BloonsTD.Gameplay
         private void Update()
         {
             var isValidPlacementPosition = IsValidPlacementPosition;
-            
-            if (_lastPlacementStatus != isValidPlacementPosition)
-            {
-                OnChangeRangeIndicator?.Invoke(isValidPlacementPosition);
-                _lastPlacementStatus = isValidPlacementPosition;
-            }
+
+            bool placementStatusChanged = _lastPlacementStatus != isValidPlacementPosition;
+            if (!placementStatusChanged) return;
+            OnChangeRangeIndicator?.Invoke(isValidPlacementPosition);
+            _lastPlacementStatus = isValidPlacementPosition;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D otherCollider)
         {
-            if (other.gameObject.layer.Equals(PhysicsLayers.Path))
+            if (otherCollider.IsOnLayer(PhysicsLayers.Path))
             {
                 _partiallyOnPath = true;
                 _fullyOffPath = false;
             }
 
-            if (other.gameObject.layer.Equals(PhysicsLayers.OutOfBounds))
+            if (otherCollider.IsOnLayer(PhysicsLayers.OutOfBounds))
             {
                 _outOfBounds = true;
             }
 
-            if (other.gameObject.layer.Equals(PhysicsLayers.Towers))
+            if (otherCollider.IsOnLayer(PhysicsLayers.Towers))
             {
                 _overlappingTower = true;
             }
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        private void OnTriggerExit2D(Collider2D otherCollider)
         {
-            if (other.gameObject.layer.Equals(PhysicsLayers.Path))
+            if (otherCollider.IsOnLayer(PhysicsLayers.Path))
             {
                 _partiallyOnPath = false;
                 _fullyOffPath = true;
             }
             
-            if (other.gameObject.layer.Equals(PhysicsLayers.OutOfBounds))
+            if (otherCollider.IsOnLayer(PhysicsLayers.OutOfBounds))
             {
                 _outOfBounds = false;
             }
             
-            if (other.gameObject.layer.Equals(PhysicsLayers.Towers))
+            if (otherCollider.IsOnLayer(PhysicsLayers.Towers))
             {
                 _overlappingTower = false;
             }

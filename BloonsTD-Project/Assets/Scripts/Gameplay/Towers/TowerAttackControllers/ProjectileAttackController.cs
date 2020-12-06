@@ -6,25 +6,17 @@ namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
     {
         private GameObject _projectile;
 
-        public GameObject Projectile
-        {
-            get => _projectile;
-            set => _projectile = value;
-        }
-
         private void Start()
         {
-            _projectile = _towerController.TowerProperties.ProjectilePrefab;
+            _projectile = _towerController.TowerStatistics.ProjectilePrefab;
         }
 
         protected override void Attack(Vector3 targetLocation)
         {
-            //Debug.DrawLine(transform.position, targetLocation, Color.red, 1f);
-            var towerToTarget = targetLocation - transform.position;
-            var angle = Vector3.SignedAngle(Vector3.up, towerToTarget, Vector3.forward);
-            var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            var position = transform.position;
+            var rotation = GetOrientationToTarget(position, targetLocation);
             transform.rotation = rotation;
-            Instantiate(_projectile, transform.position, rotation);
+            Instantiate(_projectile, position, rotation);
         }
     }
 }

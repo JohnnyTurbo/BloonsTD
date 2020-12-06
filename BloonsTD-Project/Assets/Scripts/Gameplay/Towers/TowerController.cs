@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMG.BloonsTD.Gameplay.TowerAttackControllers;
 using TMG.BloonsTD.Stats;
@@ -5,103 +6,78 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Gameplay
 {
-    public enum TowerState
-    {
-        Placing,
-        Idle,
-        Cooldown
-    }
-
-    public enum TowerTargetType
-    {
-        First,
-        Last,
-        Strongest,
-        Weakest,
-        Closest,
-        NoTarget
-    }
-    
+    [RequireComponent(typeof(TowerPlacementController))]
+    [RequireComponent(typeof(TowerSelectionController))]
+    [RequireComponent(typeof(TowerAttackController))]
     public class TowerController : MonoBehaviour
     {
-        private TowerProperties _towerProperties;
-        private TowerStatistics _towerStatistics;
-        private TowerPlacementController _placement;
-        private TowerSelectionController _selectionController;
-        private TowerState _towerState;
+        private TowerState _currentTowerState;
         private TowerAttackController _towerAttackController;
-        [SerializeField]private TowerTargetType _towerTargetType;
-        private WaitForSeconds _cooldownTime;
-        public TowerProperties TowerProperties => _towerProperties;
-        public TowerStatistics TowerStatistics => _towerStatistics;
-        public TowerPlacementController Placement => _placement;
-        public TowerSelectionController SelectionController => _selectionController;
-        public TowerState TowerState => _towerState;
-        public TowerTargetType TowerTargetType => _towerTargetType;
+        private WaitForSeconds _attackCooldownTime;
+        public TowerProperties TowerProperties { get; private set; }
+        public TowerStatistics TowerStatistics { get; private set; }
+        public TowerPlacementController PlacementController { get; private set; }
+        public TowerSelectionController SelectionController { get; private set; }
+        public TowerTargetType TowerTargetType { get; private set; }
         
-        private void Awake()
-        {
-            _placement = GetComponent<TowerPlacementController>();
-            if (_placement == null)
-            {
-                _placement = gameObject.AddComponent<TowerPlacementController>();
-            }
-
-            _selectionController = GetComponent<TowerSelectionController>();
-            _towerAttackController = GetComponent<TowerAttackController>();
-        }
-
-        private void Start()
-        {
-            _cooldownTime = new WaitForSeconds(_towerStatistics.AttackFrequency);
-        }
+        private bool TowerNotIdle => _currentTowerState != TowerState.Idle;
 
         private void OnEnable()
         {
             TowerSpawnManager.Instance.OnTowerPlaced += OnTowerPlaced;
         }
-        
+
+        private void OnDisable()
+        {
+            TowerSpawnManager.Instance.OnTowerPlaced -= OnTowerPlaced;
+        }
+
+        public void InitializeTower(TowerProperties towerProperties)
+        {
+            TowerProperties = towerProperties;
+            
+            PlacementController = GetComponent<TowerPlacementController>();
+            SelectionController = GetComponent<TowerSelectionController>();
+            _towerAttackController = GetComponent<TowerAttackController>();
+
+            TowerStatistics = ScriptableObject.CreateInstance<TowerStatistics>();
+            TowerStatistics.Set(towerProperties);
+
+            _attackCooldownTime = new WaitForSeconds(TowerStatistics.AttackCooldownTime);
+            PlacementController.TowerProperties = towerProperties;
+            SelectionController.TowerStatistics = TowerStatistics;
+            
+            TowerTargetType = TowerTargetType.First;
+            _currentTowerState = TowerState.Placing;
+            //TODO: Set renderer, collider, etc.
+        }
+
         private void OnTowerPlaced(TowerController towerController)
         {
-            _towerState = TowerState.Idle;
+            _currentTowerState = TowerState.Idle;
             TryAttack();
         }
 
         public void OnBloonEnter()
         {
-            if(_towerState != TowerState.Idle) {return;}
+            if(TowerNotIdle) {return;}
 
             TryAttack();
         }
 
         private void TryAttack()
         {
-            if (!_towerAttackController.TryAttack()) return;
-            _towerState = TowerState.Cooldown;
-            StartCoroutine(CooldownTimer());
+            var towerAttackSuccess = _towerAttackController.TryAttack();
+            if (!towerAttackSuccess) return;
+            _currentTowerState = TowerState.Cooldown;
+            StartCoroutine(AttackCooldownTimer());
         }
 
-        private IEnumerator CooldownTimer()
+        private IEnumerator AttackCooldownTimer()
         {
-            yield return _cooldownTime;
-            _towerState = TowerState.Idle;
+            yield return _attackCooldownTime;
+            _currentTowerState = TowerState.Idle;
             TryAttack();
-        }
-        
-        public void OnChangeTargetType(TowerTargetType newTargetType)
-        {
-            _towerTargetType = newTargetType;
-        }
-        
-        public void InitializeTower(TowerProperties towerProperties)
-        {
-            _towerProperties = towerProperties;
-            _towerStatistics = ScriptableObject.CreateInstance<TowerStatistics>();
-            _towerStatistics.Set(towerProperties);
-            _placement.TowerProperties = towerProperties;
-            _selectionController.TowerStatistics = _towerStatistics;
-            _towerState = TowerState.Placing;
-            //TODO: Set renderer, collider, etc.
         }
     }
 }
