@@ -86,7 +86,7 @@ namespace TMG.BloonsTD.Gameplay
                 _curTowerController.transform.position = InputController.TowerPlacementPosition;
             }
             //TODO: Check if cur tower controller is not null
-            if (InputController.PlaceTowerFlag && CanPlaceTower)
+            if (InputController.BeginPlaceTower && CanPlaceTower)
             {
                 OnTowerPlaced?.Invoke(_curTowerController);
                 //Debug.Log($"Placing tower: {_curTowerController.TowerProperties.Name}");

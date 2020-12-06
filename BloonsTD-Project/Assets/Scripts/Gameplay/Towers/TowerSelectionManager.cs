@@ -12,7 +12,7 @@ namespace TMG.BloonsTD.Gameplay
         {
             if(_towerSpawnManager.TowerPlacementState == TowerPlacementState.PlacingTower){ return; }
 
-            if (InputController.ScreenSelectionFlag)
+            if (InputController.BeginScreenSelection)
             {
                 var worldSelectionPosition = InputController.WorldSelectionPosition;
                 var selectedCollider = Physics2D.OverlapPoint(worldSelectionPosition, 1 << BloonsReferences.TowerLayer);
@@ -27,7 +27,7 @@ namespace TMG.BloonsTD.Gameplay
                 }
             }
 
-            if (InputController.CancelSelection)
+            if (InputController.BeginCancelSelection)
             {
                 DeselectTower();
             }
