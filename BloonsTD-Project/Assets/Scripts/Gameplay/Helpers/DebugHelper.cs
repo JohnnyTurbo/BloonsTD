@@ -5,14 +5,23 @@ namespace TMG.BloonsTD.Gameplay
 {
     public class DebugHelper : MonoBehaviour
     {
-        private bool _isSpeedy = false;
+        [SerializeField] private float _speedMultiplier;
+        
+        private bool _isSpeedy;
+
+#if (!UNITY_EDITOR)
+        private void Awake()
+        {
+            Destroy(gameObject);
+        }
+#endif
         
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
                 _isSpeedy = !_isSpeedy;
-                Time.timeScale = _isSpeedy ? 4f : 1f;
+                Time.timeScale = _isSpeedy ? _speedMultiplier : 1f;
             }
         }
     }
