@@ -22,7 +22,7 @@ namespace TMG.BloonsTD.UI
         {
             _towerInformationPanel.SetActive(true);
 
-            _towerName.text = towerProperties.Name;
+            _towerName.text = towerProperties.TowerName;
             _towerCost.text = $"<b>Cost:</b> {towerProperties.Cost.ToString()}";
             _towerSpeed.text = $"<b>Speed:</b> {towerProperties.Speed}";
             _towerDescription.text = towerProperties.Description;

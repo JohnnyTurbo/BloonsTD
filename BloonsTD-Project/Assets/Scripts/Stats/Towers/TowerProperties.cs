@@ -7,7 +7,7 @@ namespace TMG.BloonsTD.Stats
     [CreateAssetMenu(fileName = "TowerProperties", menuName = "Scriptable Objects/Tower Properties", order = 0)]
     public class TowerProperties : ScriptableObject
     {
-        [SerializeField] private string _name;
+        [SerializeField] private string towerName;
         [SerializeField] private int _cost;
         [SerializeField] private TowerSpeed _speed;
         [SerializeField] private float _attackCooldownTime;
@@ -20,7 +20,7 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private TowerUpgrade _towerUpgradePath1;
         [SerializeField] private TowerUpgrade _towerUpgradePath2;
         
-        public string Name => _name;
+        public string TowerName => towerName;
         public int Cost => _cost;
         public string Speed
         {

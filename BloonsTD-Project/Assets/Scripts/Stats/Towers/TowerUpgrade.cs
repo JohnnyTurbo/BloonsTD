@@ -14,19 +14,17 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private float _upgradeValue;
         [SerializeField] private GameObject _weapon;
 
-        private bool _hasPurchased;
-        
         public string Name => _name;
         public UpgradeType UpgradeType => _upgradeType;
         public int Cost => _cost;
         public string Description => _description;
         public float UpgradeValue => _upgradeType == UpgradeType.Weapon ? float.NaN : _upgradeValue;
         public GameObject Weapon =>  _upgradeType == UpgradeType.Weapon ? _weapon : null;
-        public bool HasPurchased => _hasPurchased;
+        public bool HasPurchased { get; private set; }
 
         public void PurchaseUpgrade()
         {
-            _hasPurchased = true;
+            HasPurchased = true;
         }
     }
 }
