@@ -1,3 +1,4 @@
+using System;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
 
@@ -24,6 +25,19 @@ namespace TMG.BloonsTD.Gameplay
         {
             //TODO: Will be called when New Game Button is clicked
             SetupNewGame();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                Time.timeScale = -1f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                Time.timeScale = 1f;
+            }
         }
 
         private void SetupNewGame()

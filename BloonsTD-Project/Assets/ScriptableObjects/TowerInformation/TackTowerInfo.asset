@@ -15,11 +15,13 @@ MonoBehaviour:
   _name: Tack Tower
   _cost: 400
   _speed: 1
+  _attackCooldownTime: 0
   _description: Shoots volley of tacks in 8 directions. Can upgrade its shoot speed
     and its range.
   _colliderRadius: 0.3
   _range: 10
-  _canBePlacedOffPath: 0
-  _canBePlacedOnPath: 1
+  _canBePlacedOffPath: 1
+  _canBePlacedOnPath: 0
+  _projectilePrefab: {fileID: 0}
   _towerUpgradePath1: {fileID: 11400000, guid: 4eff33ffc184fcb4299301624c4b3def, type: 2}
   _towerUpgradePath2: {fileID: 11400000, guid: 14814f7d89501b24cb1f4801df362bb1, type: 2}
