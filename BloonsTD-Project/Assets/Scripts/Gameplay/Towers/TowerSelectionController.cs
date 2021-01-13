@@ -5,9 +5,9 @@ namespace TMG.BloonsTD.Gameplay
 {
     public class TowerSelectionController : MonoBehaviour
     {
-        public TowerStatistics TowerStatistics { get; set; }
+        public TowerController TowerController { get; set; }
 
-        public delegate void TowerSelected(TowerStatistics towerStatistics);
+        public delegate void TowerSelected(TowerController towerController);
         public event TowerSelected OnTowerSelected;
 
         public delegate void TowerDeselected();
@@ -15,7 +15,7 @@ namespace TMG.BloonsTD.Gameplay
 
         public void SelectTower()
         {
-            OnTowerSelected?.Invoke(TowerStatistics);
+            OnTowerSelected?.Invoke(TowerController);
         }
 
         public void DeselectTower()

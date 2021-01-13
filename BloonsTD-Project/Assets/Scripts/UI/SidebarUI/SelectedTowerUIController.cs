@@ -51,11 +51,11 @@ namespace TMG.BloonsTD.UI
             towerController.SelectionController.OnTowerDeselected += HideTowerUI;
         }
 
-        private void DisplaySelectedTowerUI(TowerStatistics towerStatistics)
+        private void DisplaySelectedTowerUI(TowerController towerController)
         {
             _selectedTowerPanel.SetActive(true);
-            DisplayTowerInformation(towerStatistics);
-            SetupUpgradeButtons(towerStatistics);
+            DisplayTowerInformation(towerController);
+            SetupUpgradeButtons(towerController);
             //Debug.Log($"Upgrade 1: {towerStatistics.TowerUpgradePath1.Name} costs: {towerStatistics.TowerUpgradePath1.Cost}");
             //Debug.Log($"Upgrade 2: {towerStatistics.TowerUpgradePath2.Name} costs: {towerStatistics.TowerUpgradePath2.Cost}");
         }
@@ -65,46 +65,46 @@ namespace TMG.BloonsTD.UI
             //_selectedTowerPanel.SetActive(false);
         }
 
-        private void DisplayTowerInformation(TowerStatistics towerStatistics)
+        private void DisplayTowerInformation(TowerController towerController)
         {
-            _towerNameText.text = towerStatistics.TowerName;
-            _towerSpeedText.text = $"Speed: {towerStatistics.AttackCooldownTime.ToString()}";
-            _towerRangeText.text = $"Range: {towerStatistics.AttackRange.ToString()}";
+            _towerNameText.text = towerController.TowerProperties.TowerName;
+            _towerSpeedText.text = $"Speed: {towerController.AttackCooldownTime.ToString()}";
+            _towerRangeText.text = $"Range: {towerController.AttackRange.ToString()}";
         }
 
-        private void SetupUpgradeButtons(TowerStatistics towerStatistics)
+        private void SetupUpgradeButtons(TowerController towerController)
         {
-            _upgrade1NameText.text = towerStatistics.TowerUpgradePath1.Name;
-            if (towerStatistics.TowerUpgradePath1.HasPurchased)
+            _upgrade1NameText.text = towerController.Upgrades[0].Name;
+            if (towerController.Upgrades[0].HasPurchased)
             {
                 _upgrade1Button.interactable = false;
-                _upgrade1CostText.text = $"Already Bought {towerStatistics.TowerUpgradePath1.Cost}";
+                _upgrade1CostText.text = $"Already Bought {towerController.Upgrades[0].Cost}";
             }
             else
             {
                 _upgrade1Button.interactable = true;
-                _upgrade1Button.onClick.AddListener(()=>UpgradeTower(towerStatistics.TowerUpgradePath1));
-                _upgrade1CostText.text = SetUpgradeCostText(_upgrade1CostText, towerStatistics.TowerUpgradePath1.Cost);
+                _upgrade1Button.onClick.AddListener(()=>UpgradeTower(towerController.Upgrades[0]));
+                _upgrade1CostText.text = SetUpgradeCostText(_upgrade1CostText, towerController.Upgrades[0].Cost);
             }
             
-            _upgrade2CostText.text = towerStatistics.TowerUpgradePath2.Name;
-            if (towerStatistics.TowerUpgradePath2.HasPurchased)
+            _upgrade2CostText.text = towerController.Upgrades[1].Name;
+            if (towerController.Upgrades[1].HasPurchased)
             {
                 _upgrade2Button.interactable = false;
-                _upgrade2CostText.text = $"Already Bought {towerStatistics.TowerUpgradePath2.Cost}";
+                _upgrade2CostText.text = $"Already Bought {towerController.Upgrades[1].Cost}";
             }
             else
             {
                 _upgrade2Button.interactable = true;
-                _upgrade2Button.onClick.AddListener(()=>UpgradeTower(towerStatistics.TowerUpgradePath2));
-                _upgrade2CostText.text = SetUpgradeCostText(_upgrade1CostText, towerStatistics.TowerUpgradePath2.Cost);
+                _upgrade2Button.onClick.AddListener(()=>UpgradeTower(towerController.Upgrades[1]));
+                _upgrade2CostText.text = SetUpgradeCostText(_upgrade1CostText, towerController.Upgrades[1].Cost);
             }
         }
 
-        private void UpgradeTower(TowerUpgrade upgrade)
+        private void UpgradeTower(TowerUpgrade upgradeProperties)
         {
             Debug.Log("BUYIN!");
-            upgrade.PurchaseUpgrade();
+            upgradeProperties.PurchaseUpgrade();
         }
 
         private string SetUpgradeCostText(TMP_Text upgradeCostText, int upgradeCost)

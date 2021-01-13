@@ -17,8 +17,8 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private bool _canBePlacedOffPath;
         [SerializeField] private bool _canBePlacedOnPath;
         [SerializeField] private GameObject _projectilePrefab;
-        [SerializeField] private TowerUpgrade _towerUpgradePath1;
-        [SerializeField] private TowerUpgrade _towerUpgradePath2;
+        [SerializeField] private TowerUpgradeProperties towerUpgradePropertiesPath1;
+        [SerializeField] private TowerUpgradeProperties towerUpgradePropertiesPath2;
         
         public string TowerName => towerName;
         public int Cost => _cost;
@@ -56,8 +56,8 @@ namespace TMG.BloonsTD.Stats
         public bool CanBePlacedOffPath => _canBePlacedOffPath;
         public bool CanBePlacedOnPath => _canBePlacedOnPath;
         public GameObject ProjectilePrefab => _projectilePrefab;
-        public TowerUpgrade TowerUpgradePath1 => _towerUpgradePath1;
-        public TowerUpgrade TowerUpgradePath2 => _towerUpgradePath2;
+        public TowerUpgradeProperties TowerUpgradePropertiesPath1 => towerUpgradePropertiesPath1;
+        public TowerUpgradeProperties TowerUpgradePropertiesPath2 => towerUpgradePropertiesPath2;
         
         private void OnValidate()
         {

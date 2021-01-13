@@ -8,7 +8,7 @@ namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
 
         private void Start()
         {
-            _projectile = _towerController.TowerStatistics.ProjectilePrefab;
+            _projectile = _towerController.ProjectilePrefab;
         }
 
         protected override void Attack(Vector3 targetLocation)

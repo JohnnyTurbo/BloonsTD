@@ -3,7 +3,7 @@ using UnityEngine;
 namespace TMG.BloonsTD.Stats
 {
     [CreateAssetMenu(fileName = "Upgrade", menuName = "Scriptable Objects/Tower Upgrade", order = 0)]
-    public class TowerUpgrade : ScriptableObject
+    public class TowerUpgradeProperties : ScriptableObject
     {
         [SerializeField] private string _name;
         [SerializeField] private UpgradeType _upgradeType;
@@ -20,11 +20,5 @@ namespace TMG.BloonsTD.Stats
         public string Description => _description;
         public float UpgradeValue => _upgradeType == UpgradeType.Weapon ? float.NaN : _upgradeValue;
         public GameObject Weapon =>  _upgradeType == UpgradeType.Weapon ? _weapon : null;
-        public bool HasPurchased { get; private set; }
-
-        public void PurchaseUpgrade()
-        {
-            HasPurchased = true;
-        }
     }
 }
