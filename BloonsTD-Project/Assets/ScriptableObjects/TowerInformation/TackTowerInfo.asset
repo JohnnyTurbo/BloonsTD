@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc05d24243443a19f5818e66c87d7eb, type: 3}
   m_Name: TackTowerInfo
   m_EditorClassIdentifier: 
-  _name: Tack Tower
+  towerName: Tack Tower
   _cost: 400
   _speed: 1
   _attackCooldownTime: 0
@@ -23,5 +23,5 @@ MonoBehaviour:
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
   _projectilePrefab: {fileID: 0}
-  _towerUpgradePath1: {fileID: 11400000, guid: 4eff33ffc184fcb4299301624c4b3def, type: 2}
-  _towerUpgradePath2: {fileID: 11400000, guid: 14814f7d89501b24cb1f4801df362bb1, type: 2}
+  towerUpgradePropertiesPath1: {fileID: 0}
+  towerUpgradePropertiesPath2: {fileID: 0}

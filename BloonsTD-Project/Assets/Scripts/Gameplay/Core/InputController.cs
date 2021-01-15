@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace TMG.BloonsTD.Gameplay
 {
@@ -8,9 +9,12 @@ namespace TMG.BloonsTD.Gameplay
         private static Camera _mainCamera;
         private static bool _hasMainCamera;
         
-        public static bool PlaceTower => Input.GetMouseButtonDown(0);
-        public static bool SelectScreenStart => Input.GetMouseButtonDown(0);
-        public static bool CancelSelection => Input.GetKeyDown(KeyCode.Escape);
+        public static bool BeginPlaceTower => Input.GetMouseButtonDown(0);
+
+        public static bool BeginSelectScreen =>
+            !EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0);
+
+        public static bool BeginCancelSelection => Input.GetKeyDown(KeyCode.Escape);
 
         private static Camera MainCamera
         {

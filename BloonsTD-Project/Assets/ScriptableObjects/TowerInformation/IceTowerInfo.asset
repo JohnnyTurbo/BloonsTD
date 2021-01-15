@@ -12,12 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc05d24243443a19f5818e66c87d7eb, type: 3}
   m_Name: IceTowerInfo
   m_EditorClassIdentifier: 
-  _name: Ice Tower
+  towerName: Ice Tower
   _cost: 850
   _speed: 0
+  _attackCooldownTime: 0
   _description: Freezes nearby bloons. Frozen bloons are immune to darts and tacks,
     but bombs will destroy them. Can upgrade to increased freeze time, and larger
     freeze radius.
   _colliderRadius: 0.36
+  _range: 0
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
+  _projectilePrefab: {fileID: 0}
+  towerUpgradePropertiesPath1: {fileID: 0}
+  towerUpgradePropertiesPath2: {fileID: 0}

@@ -6,6 +6,7 @@ namespace TMG.BloonsTD.Gameplay
 {
     public class GameController : MonoBehaviour
     {
+        public static GameController Instance;
         public delegate void UpdateUITextDelegate(string newText);
 
         public event UpdateUITextDelegate OnRoundChanged;
@@ -20,6 +21,12 @@ namespace TMG.BloonsTD.Gameplay
         private bool _gameOver;
         public bool GameOver => _gameOver;
         public int Money => _currentGameStatistics.Money;
+
+        //TODO: see if you can make this not a singleton :)
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
@@ -50,12 +57,18 @@ namespace TMG.BloonsTD.Gameplay
         private void SetupEvents()
         {
             BloonSpawner.Instance.OnBloonSpawned += SetupBloonEvents;
+            TowerSpawnManager.Instance.OnTowerPlaced += SetupTowerEvents;
         }
 
         private void SetupBloonEvents(BloonController bloonController)
         {
             bloonController.OnBloonReachedEndOfPath += BloonEndOfPath;
             bloonController.OnBloonPopped += BloonPopped;
+        }
+
+        private void SetupTowerEvents(TowerController towerController)
+        {
+            
         }
 
         private void InitializeStatistics()

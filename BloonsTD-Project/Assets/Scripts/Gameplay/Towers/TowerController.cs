@@ -15,19 +15,19 @@ namespace TMG.BloonsTD.Gameplay
         private TowerAttackController _towerAttackController;
         private WaitForSeconds _attackCooldownTime;
         public TowerProperties TowerProperties { get; private set; }
-        //public TowerStatistics TowerStatistics { get; private set; }
         public TowerPlacementController PlacementController { get; private set; }
         public TowerSelectionController SelectionController { get; private set; }
+        public TowerUpgradeController UpgradeController { get; private set; }
         public TowerTargetType TowerTargetType { get; private set; }
 
-        public TowerUpgrade[] Upgrades => _upgrades;
+        
 
         public WaitForSeconds AttackCooldownTime => _attackCooldownTime;
-        public float AttackRange;
-        public GameObject ProjectilePrefab;
+        public float AttackRange { get; private set; }
+        public GameObject ProjectilePrefab { get; private set; }
 
         private bool TowerNotIdle => _currentTowerState != TowerState.Idle;
-        private TowerUpgrade[] _upgrades = new TowerUpgrade[2];
+        
         private void OnEnable()
         {
             TowerSpawnManager.Instance.OnTowerPlaced += OnTowerPlaced;
@@ -45,19 +45,14 @@ namespace TMG.BloonsTD.Gameplay
             PlacementController = GetComponent<TowerPlacementController>();
             SelectionController = GetComponent<TowerSelectionController>();
             _towerAttackController = GetComponent<TowerAttackController>();
-
-            //TowerStatistics = ScriptableObject.CreateInstance<TowerStatistics>();
-            //TowerStatistics.Set(towerProperties);
-
-            //_attackCooldownTime = new WaitForSeconds(TowerStatistics.AttackCooldownTime);
-            _attackCooldownTime = new WaitForSeconds(towerProperties.AttackCooldownTime);
-            AttackRange = towerProperties.Range;
-            ProjectilePrefab = towerProperties.ProjectilePrefab;
-            PlacementController.TowerProperties = towerProperties;
+            UpgradeController = GetComponent<TowerUpgradeController>();
+            _attackCooldownTime = new WaitForSeconds(TowerProperties.AttackCooldownTime);
+            AttackRange = TowerProperties.Range;
+            ProjectilePrefab = TowerProperties.ProjectilePrefab;
+            PlacementController.TowerProperties = TowerProperties;
             SelectionController.TowerController = this;
-
-            _upgrades[0] = new RangeUpgrade(towerProperties.TowerUpgradePropertiesPath1);
-            _upgrades[1] = new RangeUpgrade(towerProperties.TowerUpgradePropertiesPath2);
+            UpgradeController.InitializeUpgrades(this);
+            
             
             TowerTargetType = TowerTargetType.First;
             _currentTowerState = TowerState.Placing;

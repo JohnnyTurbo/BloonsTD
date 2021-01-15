@@ -21,7 +21,7 @@ namespace TMG.BloonsTD.Gameplay
         private bool IsPlacingTower =>
             TowerPlacementState == TowerPlacementState.PlacingTower && _curTowerController != null;
         private bool CanPlaceTower => IsPlacingTower && _curTowerController.PlacementController.IsValidPlacementPosition;
-        private bool TryPlaceTower => InputController.PlaceTower && CanPlaceTower;
+        private bool TryPlaceTower => InputController.BeginPlaceTower && CanPlaceTower;
         
         private void Awake()
         {

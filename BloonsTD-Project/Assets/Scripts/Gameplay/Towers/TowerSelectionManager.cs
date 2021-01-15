@@ -14,12 +14,12 @@ namespace TMG.BloonsTD.Gameplay
         {
             if(TowerInPlacingState) return;
 
-            if (InputController.SelectScreenStart)
+            if (InputController.BeginSelectScreen)
             {
                 AttemptTowerSelection();
             }
 
-            if (InputController.CancelSelection)
+            if (InputController.BeginCancelSelection)
             {
                 DeselectTower();
             }

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Extra Range Darts
   _upgradeType: 0
-  _cost: 1500
+  _cost: 250
   _description: 
-  _upgradeValue: 69
+  _upgradeIcon: {fileID: 21300000, guid: b33ce5a17ab92fe4c9fabd6531133dc9, type: 3}
+  _upgradeValue: 200
   _weapon: {fileID: 0}
