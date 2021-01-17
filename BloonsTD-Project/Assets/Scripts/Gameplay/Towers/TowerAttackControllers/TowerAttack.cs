@@ -1,23 +1,41 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMG.BloonsTD.Stats;
 using UnityEngine;
 
-namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
+namespace TMG.BloonsTD.Gameplay
 {
-    [RequireComponent(typeof(TowerController))]
-    public class TowerAttackController : MonoBehaviour
+    public abstract class TowerAttack
     {
         private Collider2D _detectionCollider;
-        protected TowerController _towerController;
-        private void Awake()
+        protected TowerController TowerController;
+        protected Vector3 TowerPosition;
+
+        public static TowerAttack GetNewAttackController(TowerAttackType towerAttackType)
         {
-            _detectionCollider = transform.Find("DetectionRadius").GetComponent<Collider2D>();
+            switch (towerAttackType)
+            {
+                case TowerAttackType.Projectile:
+                    var projectileAttackController = new ProjectileAttack();
+                    return projectileAttackController;
+                case TowerAttackType.Freeze:
+                    var freezeAttackController = new FreezeAttack();
+                    return freezeAttackController;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public virtual void Initialize(TowerController towerController)
+        {
+            TowerController = towerController;
+            TowerPosition = TowerController.transform.position;
+            _detectionCollider = TowerController.transform.Find("DetectionRadius").GetComponent<Collider2D>();
             if (_detectionCollider == null)
             {
-                Debug.LogWarning("Warning: could not get Collider2D component on the DetectionRadius GameObject.", gameObject);
+                Debug.LogWarning("Warning: could not get Collider2D component on the DetectionRadius GameObject.", TowerController);
             }
-            _towerController = GetComponent<TowerController>();
         }
 
         public bool TryAttack()
@@ -37,7 +55,7 @@ namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
 
         private Vector3 DetermineTargetLocation(IReadOnlyList<BloonController> bloons)
         {
-            switch (_towerController.TowerTargetType)
+            switch (TowerController.TowerTargetType)
             {
                 case TowerTargetType.First:
                     return GetFirstBloonPosition(bloons);
@@ -58,8 +76,8 @@ namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
 
         private static Vector3 GetFirstBloonPosition(IReadOnlyList<BloonController> bloons)
         {
-            BloonController furthestBloon = bloons[0];
-            for (int i = 1; i < bloons.Count; i++)
+            var furthestBloon = bloons[0];
+            for (var i = 1; i < bloons.Count; i++)
             {
                 furthestBloon = BloonController.CompareGreaterPathProgress(furthestBloon, bloons[i]);
             }
@@ -68,8 +86,8 @@ namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
 
         private static Vector3 GetLastBloonPosition(IReadOnlyList<BloonController> bloons)
         {
-            BloonController lastBloon = bloons[0];
-            for (int i = 1; i < bloons.Count; i++)
+            var lastBloon = bloons[0];
+            for (var i = 1; i < bloons.Count; i++)
             {
                 lastBloon = BloonController.CompareLeastPathProgress(lastBloon, bloons[i]);
             }
@@ -78,8 +96,8 @@ namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
 
         private static Vector3 GetStrongestBloonPosition(IReadOnlyList<BloonController> bloons)
         {
-            BloonController strongestBloon = bloons[0];
-            for (int i = 1; i < bloons.Count; i++)
+            var strongestBloon = bloons[0];
+            for (var i = 1; i < bloons.Count; i++)
             {
                 strongestBloon = BloonController.CompareStrongest(strongestBloon, bloons[i]);
             }
@@ -88,8 +106,8 @@ namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
 
         private static Vector3 GetWeakestBloonPosition(IReadOnlyList<BloonController> bloons)
         {
-            BloonController weakestBloon = bloons[0];
-            for (int i = 1; i < bloons.Count; i++)
+            var weakestBloon = bloons[0];
+            for (var i = 1; i < bloons.Count; i++)
             {
                 weakestBloon = BloonController.CompareWeakest(weakestBloon, bloons[i]);
             }
@@ -98,12 +116,11 @@ namespace TMG.BloonsTD.Gameplay.TowerAttackControllers
 
         private Vector3 GetClosestBloonPosition(IReadOnlyList<BloonController> bloons)
         {
-            var towerPosition = transform.position;
             var closestBloon = bloons[0];
-            var closestDistance = Vector3.Distance(towerPosition, closestBloon.transform.position);
-            for (int i = 1; i < bloons.Count; i++)
+            var closestDistance = Vector3.Distance(TowerPosition, closestBloon.transform.position);
+            for (var i = 1; i < bloons.Count; i++)
             {
-                var currentBloonDistance = Vector3.Distance(towerPosition, bloons[i].transform.position);
+                var currentBloonDistance = Vector3.Distance(TowerPosition, bloons[i].transform.position);
                 var currentBloonIsCloserThanPreviousClosest = currentBloonDistance < closestDistance;
                 
                 if (!currentBloonIsCloserThanPreviousClosest) continue;

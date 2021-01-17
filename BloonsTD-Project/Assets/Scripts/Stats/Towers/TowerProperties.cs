@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,7 +6,7 @@ namespace TMG.BloonsTD.Stats
     [CreateAssetMenu(fileName = "TowerProperties", menuName = "Scriptable Objects/Tower Properties", order = 0)]
     public class TowerProperties : ScriptableObject
     {
-        [SerializeField] private string towerName;
+        [SerializeField] private string _towerName;
         [SerializeField] private int _cost;
         [SerializeField] private TowerSpeed _speed;
         [SerializeField] private float _attackCooldownTime;
@@ -16,11 +15,14 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private float _range;
         [SerializeField] private bool _canBePlacedOffPath;
         [SerializeField] private bool _canBePlacedOnPath;
+        [SerializeField] private TowerAttackType _towerAttackType;
+        //TODO: in custom editor display either projectile prefab or status duration based on attack type
         [SerializeField] private GameObject _projectilePrefab;
-        [SerializeField] private TowerUpgradeProperties towerUpgradePropertiesPath1;
-        [SerializeField] private TowerUpgradeProperties towerUpgradePropertiesPath2;
+        [SerializeField] private float _freezeDuration;
+        [SerializeField] private TowerUpgradeProperties _towerUpgradePropertiesPath1;
+        [SerializeField] private TowerUpgradeProperties _towerUpgradePropertiesPath2;
         
-        public string TowerName => towerName;
+        public string TowerName => _towerName;
         public int Cost => _cost;
         public string Speed
         {
@@ -55,9 +57,11 @@ namespace TMG.BloonsTD.Stats
         public float Range => _range;
         public bool CanBePlacedOffPath => _canBePlacedOffPath;
         public bool CanBePlacedOnPath => _canBePlacedOnPath;
+        public TowerAttackType TowerAttackType => _towerAttackType;
         public GameObject ProjectilePrefab => _projectilePrefab;
-        public TowerUpgradeProperties TowerUpgradePropertiesPath1 => towerUpgradePropertiesPath1;
-        public TowerUpgradeProperties TowerUpgradePropertiesPath2 => towerUpgradePropertiesPath2;
+        public float FreezeDuration => _freezeDuration;
+        public TowerUpgradeProperties TowerUpgradePropertiesPath1 => _towerUpgradePropertiesPath1;
+        public TowerUpgradeProperties TowerUpgradePropertiesPath2 => _towerUpgradePropertiesPath2;
         
         private void OnValidate()
         {

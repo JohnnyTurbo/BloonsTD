@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 5406305718706432473}
   - component: {fileID: 7214463616775058173}
   - component: {fileID: 1286149916486008385}
-  - component: {fileID: 5148610550303434815}
   - component: {fileID: -3702180970081980195}
   m_Layer: 10
   m_Name: Tower
@@ -192,18 +191,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3beae8ca2d6d4d6ab2a38a78088b7ad7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5148610550303434815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4109992581747090589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d06be630e3044daf947b15b0e2e91467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &-3702180970081980195

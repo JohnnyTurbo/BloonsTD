@@ -14,8 +14,8 @@ namespace TMG.BloonsTD.Gameplay
         {
             TowerController = controller;
             var towerProperties = controller.TowerProperties;
-            _upgrades[0] = new WeaponUpgrade() {TowerUpgradeProperties = towerProperties.TowerUpgradePropertiesPath1};
-            _upgrades[1] = new RangeUpgrade() {TowerUpgradeProperties = towerProperties.TowerUpgradePropertiesPath2};
+            _upgrades[0] = TowerUpgrade.GetNewUpgrade(towerProperties.TowerUpgradePropertiesPath1);
+            _upgrades[1] = TowerUpgrade.GetNewUpgrade(towerProperties.TowerUpgradePropertiesPath2);
         }
     }
 }

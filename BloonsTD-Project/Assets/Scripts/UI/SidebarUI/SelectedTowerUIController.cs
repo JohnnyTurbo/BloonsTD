@@ -42,14 +42,14 @@ namespace TMG.BloonsTD.UI
         private void Start()
         {
             _selectedTowerPanel.SetActive(false);
-            _upgradeButtonDTO1 = new UpgradeButtonDTO()
+            _upgradeButtonDTO1 = new UpgradeButtonDTO
             {
                 Button = _upgrade1Button,
                 CostText = _upgrade1CostText,
                 NameText = _upgrade1NameText,
                 Icon = _upgrade1Icon
             };
-            _upgradeButtonDTO2 = new UpgradeButtonDTO()
+            _upgradeButtonDTO2 = new UpgradeButtonDTO
             {
                 Button = _upgrade2Button,
                 CostText = _upgrade2CostText,
@@ -72,16 +72,7 @@ namespace TMG.BloonsTD.UI
         private void DisplaySelectedTowerUI(TowerController towerController)
         {
             _selectedTowerPanel.SetActive(true);
-            DisplayTowerInformation(towerController);
-        }
-
-        private void HideTowerUI()
-        {
-            _selectedTowerPanel.SetActive(false);
-        }
-
-        private void DisplayTowerInformation(TowerController towerController)
-        {
+            
             var towerProperties = towerController.TowerProperties;
             
             _towerNameText.text = towerProperties.TowerName;
@@ -94,6 +85,11 @@ namespace TMG.BloonsTD.UI
             
             SetupUpgradeButton(towerController, upgrade1, _upgradeButtonDTO1);
             SetupUpgradeButton(towerController, upgrade2, _upgradeButtonDTO2);
+        }
+
+        private void HideTowerUI()
+        {
+            _selectedTowerPanel.SetActive(false);
         }
 
         private void SetupUpgradeButton(TowerController towerController, TowerUpgrade upgrade, UpgradeButtonDTO upgradeButtonDTO)
