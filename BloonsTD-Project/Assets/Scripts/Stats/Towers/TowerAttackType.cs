@@ -1,4 +1,4 @@
 namespace TMG.BloonsTD.Stats
 {
-    public enum TowerAttackType{ Projectile, Freeze}
+    public enum TowerAttackType{ Projectile, MultiProjectile, Freeze}
 }

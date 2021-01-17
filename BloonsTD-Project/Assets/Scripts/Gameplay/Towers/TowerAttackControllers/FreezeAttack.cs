@@ -9,6 +9,7 @@ namespace TMG.BloonsTD.Gameplay
         public override void Initialize(TowerController towerController)
         {
             base.Initialize(towerController);
+            TowerTargetType = TowerTargetType.NoTarget;
             _freezeDuration = TowerController.TowerProperties.FreezeDuration;
         }
 

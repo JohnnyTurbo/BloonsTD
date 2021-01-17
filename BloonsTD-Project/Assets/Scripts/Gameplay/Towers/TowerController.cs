@@ -12,14 +12,19 @@ namespace TMG.BloonsTD.Gameplay
     {
         private TowerState _currentTowerState;
         private TowerAttack _towerAttack;
-        private WaitForSeconds _attackCooldownTime;
+        
         public TowerProperties TowerProperties { get; private set; }
         public TowerPlacementController PlacementController { get; private set; }
         public TowerSelectionController SelectionController { get; private set; }
         public TowerUpgradeController UpgradeController { get; private set; }
-        public TowerTargetType TowerTargetType { get; private set; }
-        public WaitForSeconds AttackCooldownTime => _attackCooldownTime;
+        //public TowerTargetType TowerTargetType { get; private set; }
         public float AttackRange { get; private set; }
+
+        public TowerState CurrentTowerState
+        {
+            get => _currentTowerState;
+            set => _currentTowerState = value;
+        }
 
         private bool TowerNotIdle => _currentTowerState != TowerState.Idle;
         
@@ -41,13 +46,10 @@ namespace TMG.BloonsTD.Gameplay
             UpgradeController = GetComponent<TowerUpgradeController>();
             
             _towerAttack = TowerAttack.GetNewAttackController(TowerProperties.TowerAttackType);
-            _attackCooldownTime = new WaitForSeconds(TowerProperties.AttackCooldownTime);
             AttackRange = TowerProperties.Range;
             PlacementController.TowerProperties = TowerProperties;
             SelectionController.TowerController = this;
             UpgradeController.InitializeUpgrades(this);
-            
-            TowerTargetType = TowerTargetType.First;
             _currentTowerState = TowerState.Placing;
             //TODO: Set renderer, collider, etc.
         }
@@ -56,28 +58,30 @@ namespace TMG.BloonsTD.Gameplay
         {
             _currentTowerState = TowerState.Idle;
             _towerAttack.Initialize(this);
-            TryAttack();
+            _towerAttack.TryAttack();
         }
 
         public void OnBloonEnter()
         {
             if(TowerNotIdle) {return;}
 
-            TryAttack();
+            _towerAttack.TryAttack();
         }
 
         private void TryAttack()
         {
-            var towerAttackSuccess = _towerAttack.TryAttack();
-            if (!towerAttackSuccess) return;
-            _currentTowerState = TowerState.Cooldown;
-            StartCoroutine(AttackCooldownTimer());
+            _towerAttack.TryAttack();
         }
 
-        private IEnumerator AttackCooldownTimer()
+        public void StartCooldownTimer(WaitForSeconds cooldownTime)
         {
-            yield return _attackCooldownTime;
-            _currentTowerState = TowerState.Idle;
+            StartCoroutine(AttackCooldownTimer(cooldownTime));
+        }
+        private IEnumerator AttackCooldownTimer(WaitForSeconds cooldownTime)
+        {
+            CurrentTowerState = TowerState.Cooldown;
+            yield return cooldownTime;
+            CurrentTowerState = TowerState.Idle;
             TryAttack();
         }
     }

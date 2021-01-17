@@ -18,7 +18,9 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private TowerAttackType _towerAttackType;
         //TODO: in custom editor display either projectile prefab or status duration based on attack type
         [SerializeField] private GameObject _projectilePrefab;
+        [SerializeField] private int _numberProjectiles;
         [SerializeField] private float _freezeDuration;
+
         [SerializeField] private TowerUpgradeProperties _towerUpgradePropertiesPath1;
         [SerializeField] private TowerUpgradeProperties _towerUpgradePropertiesPath2;
         
@@ -59,6 +61,7 @@ namespace TMG.BloonsTD.Stats
         public bool CanBePlacedOnPath => _canBePlacedOnPath;
         public TowerAttackType TowerAttackType => _towerAttackType;
         public GameObject ProjectilePrefab => _projectilePrefab;
+        public int NumberProjectiles => _numberProjectiles;
         public float FreezeDuration => _freezeDuration;
         public TowerUpgradeProperties TowerUpgradePropertiesPath1 => _towerUpgradePropertiesPath1;
         public TowerUpgradeProperties TowerUpgradePropertiesPath2 => _towerUpgradePropertiesPath2;

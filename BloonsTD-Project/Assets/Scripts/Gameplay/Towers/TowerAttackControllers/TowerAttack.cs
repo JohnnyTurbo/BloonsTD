@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMG.BloonsTD.Stats;
@@ -8,10 +9,11 @@ namespace TMG.BloonsTD.Gameplay
 {
     public abstract class TowerAttack
     {
-        private Collider2D _detectionCollider;
+        private WaitForSeconds _attackCooldownTime;
+        protected CircleCollider2D DetectionCollider;
         protected TowerController TowerController;
         protected Vector3 TowerPosition;
-
+        protected TowerTargetType TowerTargetType;
         public static TowerAttack GetNewAttackController(TowerAttackType towerAttackType)
         {
             switch (towerAttackType)
@@ -19,6 +21,9 @@ namespace TMG.BloonsTD.Gameplay
                 case TowerAttackType.Projectile:
                     var projectileAttackController = new ProjectileAttack();
                     return projectileAttackController;
+                case TowerAttackType.MultiProjectile:
+                    var multiProjectileAttackController = new MultiProjectileAttack();
+                    return multiProjectileAttackController;
                 case TowerAttackType.Freeze:
                     var freezeAttackController = new FreezeAttack();
                     return freezeAttackController;
@@ -31,8 +36,10 @@ namespace TMG.BloonsTD.Gameplay
         {
             TowerController = towerController;
             TowerPosition = TowerController.transform.position;
-            _detectionCollider = TowerController.transform.Find("DetectionRadius").GetComponent<Collider2D>();
-            if (_detectionCollider == null)
+            _attackCooldownTime = new WaitForSeconds(towerController.TowerProperties.AttackCooldownTime);
+            TowerTargetType = TowerTargetType.First;
+            DetectionCollider = TowerController.transform.Find("DetectionRadius").GetComponent<CircleCollider2D>();
+            if (DetectionCollider == null)
             {
                 Debug.LogWarning("Warning: could not get Collider2D component on the DetectionRadius GameObject.", TowerController);
             }
@@ -42,7 +49,7 @@ namespace TMG.BloonsTD.Gameplay
         {
             var bloonCollidersInRange = new List<Collider2D>();
             var bloonFilter = new ContactFilter2D {layerMask = 1 << PhysicsLayers.Bloons, useLayerMask = true};
-            var numBloonsInRange = _detectionCollider.OverlapCollider(bloonFilter, bloonCollidersInRange);
+            var numBloonsInRange = DetectionCollider.OverlapCollider(bloonFilter, bloonCollidersInRange);
             if (numBloonsInRange <= 0)
             {
                 return false;
@@ -50,12 +57,13 @@ namespace TMG.BloonsTD.Gameplay
             var bloonsInRange = bloonCollidersInRange.Select(bloon => bloon.GetComponent<BloonController>()).ToList();
             var attackTargetLocation = DetermineTargetLocation(bloonsInRange);
             Attack(attackTargetLocation);
+            TowerController.StartCooldownTimer(_attackCooldownTime);
             return true;
         }
 
         private Vector3 DetermineTargetLocation(IReadOnlyList<BloonController> bloons)
         {
-            switch (TowerController.TowerTargetType)
+            switch (TowerTargetType)
             {
                 case TowerTargetType.First:
                     return GetFirstBloonPosition(bloons);

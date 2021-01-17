@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Gameplay
 {
-    public class ProjectileAttack : TowerAttack
+    public class ProjectileAttack : TowerAttack, IUpgradeRange, IUpgradeWeapon
     {
         private GameObject _projectile;
 
@@ -16,7 +16,18 @@ namespace TMG.BloonsTD.Gameplay
         {
             var rotation = GetOrientationToTarget(TowerPosition, targetLocation);
             TowerController.transform.rotation = rotation;
-            GameObject.Instantiate(_projectile, TowerPosition, rotation);
+            Object.Instantiate(_projectile, TowerPosition, rotation);
+        }
+
+        public void UpgradeRange(float newRangeValue)
+        {
+            DetectionCollider.radius = newRangeValue;
+            //TODO: also change distance darts can go
+        }
+
+        public void UpgradeWeapon(GameObject newWeaponPrefab)
+        {
+            _projectile = newWeaponPrefab;
         }
     }
 }
