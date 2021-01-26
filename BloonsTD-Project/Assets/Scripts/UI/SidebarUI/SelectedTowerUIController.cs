@@ -33,7 +33,10 @@ namespace TMG.BloonsTD.UI
 
         private UpgradeButtonDTO _upgradeButtonDTO1;
         private UpgradeButtonDTO _upgradeButtonDTO2;
-        
+        private TowerController _towerController;
+        private TowerUpgrade _upgrade1;
+        private TowerUpgrade _upgrade2;
+
         private void Awake()
         {
             SetupEvents();
@@ -72,27 +75,38 @@ namespace TMG.BloonsTD.UI
         private void DisplaySelectedTowerUI(TowerController towerController)
         {
             _selectedTowerPanel.SetActive(true);
-            
-            var towerProperties = towerController.TowerProperties;
+            _towerController = towerController;
+            var towerProperties = _towerController.TowerProperties;
             
             _towerNameText.text = towerProperties.TowerName;
             _towerSpeedText.text = $"Speed: {towerProperties.Speed}";
             _towerRangeText.text = $"Range: {towerProperties.Range}";
             
-            var upgradeController = towerController.UpgradeController;
-            var upgrade1 = upgradeController.Upgrades[0];
-            var upgrade2 = upgradeController.Upgrades[1];
+            var upgradeController = _towerController.UpgradeController;
+            _upgrade1 = upgradeController.Upgrades[0];
+            _upgrade2 = upgradeController.Upgrades[1];
             
-            SetupUpgradeButton(towerController, upgrade1, _upgradeButtonDTO1);
-            SetupUpgradeButton(towerController, upgrade2, _upgradeButtonDTO2);
+            SetupUpgradeButton(_upgrade1, _upgradeButtonDTO1);
+            SetupUpgradeButton(_upgrade2, _upgradeButtonDTO2);
+            _gameController.OnMoneyChanged += OnMoneyChanged;
         }
 
         private void HideTowerUI()
         {
+            _towerController = null;
+            _upgrade1 = null;
+            _upgrade2 = null;
+            _gameController.OnMoneyChanged -= OnMoneyChanged;
             _selectedTowerPanel.SetActive(false);
         }
 
-        private void SetupUpgradeButton(TowerController towerController, TowerUpgrade upgrade, UpgradeButtonDTO upgradeButtonDTO)
+        private void OnMoneyChanged(int newMoneyValue)
+        {
+            SetupUpgradeButton(_upgrade1, _upgradeButtonDTO1);
+            SetupUpgradeButton(_upgrade2, _upgradeButtonDTO2);
+        }
+        
+        private void SetupUpgradeButton(TowerUpgrade upgrade, UpgradeButtonDTO upgradeButtonDTO)
         {
             var button = upgradeButtonDTO.Button;
             var nameText = upgradeButtonDTO.NameText;
@@ -115,7 +129,7 @@ namespace TMG.BloonsTD.UI
             else
             {
                 button.interactable = true;
-                button.onClick.AddListener(() => UpgradeTower(upgrade, towerController));
+                button.onClick.AddListener(() => UpgradeTower(upgrade, _towerController));
                 costText.text = $"Buy for: {upgrade.Cost}";
             }
         }
