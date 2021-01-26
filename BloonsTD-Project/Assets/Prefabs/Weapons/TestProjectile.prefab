@@ -118,8 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxBloonHits: 1
-  _speed: 10
-  _maxRange: 5
+  _movementSpeed: 10
+  _maxDistanceTraveled: 5
 --- !u!58 &-8525475478770318242
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -90,39 +90,37 @@ namespace TMG.BloonsTD.Gameplay
             _targetWaypointPosition = _bloonPath[_targetWaypointIndex];
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (!other.gameObject.layer.Equals(PhysicsLayers.Hazards)) return;
-            var curHazard = other.gameObject.GetComponent<Hazard>();
-            curHazard.HitBloon();
-            HitBloon();
-        }
-
-        private void HitBloon()
+        public BloonController[] HitBloon()
         {
             _hitsRemaining--;
-            if (_hitsRemaining <= 0)
-            {
-                PopBloon();
-            }
+            return _hitsRemaining <= 0 ? PopBloon() : new BloonController[1] {this};
         }
 
-        private void PopBloon()
+        private BloonController[] PopBloon()
         {
             OnBloonPopped?.Invoke(_bloonProperties);
             if (HasBloonsToSpawn)
             {
-                SpawnChildBloons();
+                Destroy(gameObject);
+                return SpawnChildBloons();
             }
-            Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+                return null;
+            }
         }
 
-        private void SpawnChildBloons()
+        private BloonController[] SpawnChildBloons()
         {
-            foreach (var bloonToSpawn in _bloonProperties.BloonsToSpawnWhenPopped)
+            var childBloons = new BloonController[_bloonProperties.BloonsToSpawnWhenPopped.Count];
+            for (var i = 0; i < _bloonProperties.BloonsToSpawnWhenPopped.Count; i++)
             {
-                BloonSpawner.Instance.SpawnBloon(bloonToSpawn, transform.position, _targetWaypointIndex);
+                var bloonToSpawn = _bloonProperties.BloonsToSpawnWhenPopped[i];
+                var newBloon = BloonSpawner.Instance.SpawnBloon(bloonToSpawn, transform.position, _targetWaypointIndex);
+                childBloons[i] = newBloon;
             }
+            return childBloons;
         }
 
         // TODO: Path progress comparisons DO NOT support multiple bloon paths.

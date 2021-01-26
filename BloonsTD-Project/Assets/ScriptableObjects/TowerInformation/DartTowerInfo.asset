@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc05d24243443a19f5818e66c87d7eb, type: 3}
   m_Name: DartTowerInfo
   m_EditorClassIdentifier: 
-  towerName: Dart Tower
+  _towerName: Dart Tower
   _cost: 250
   _speed: 2
   _attackCooldownTime: 1
@@ -22,9 +22,12 @@ MonoBehaviour:
   _range: 100
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
+  _towerAttackType: 0
   _projectilePrefab: {fileID: 4276879624985475882, guid: 42d7a87b0d143b146aaeb5e0cb8d10bd,
     type: 3}
-  towerUpgradePropertiesPath1: {fileID: 11400000, guid: 4e0e4ab56b21fd748965259503a9a29f,
+  _numberProjectiles: 0
+  _freezeDuration: 0
+  _towerUpgradePropertiesPath1: {fileID: 11400000, guid: 14814f7d89501b24cb1f4801df362bb1,
     type: 2}
-  towerUpgradePropertiesPath2: {fileID: 11400000, guid: e6931368d6032d94a8d5f3abec65b104,
+  _towerUpgradePropertiesPath2: {fileID: 11400000, guid: 4e0e4ab56b21fd748965259503a9a29f,
     type: 2}

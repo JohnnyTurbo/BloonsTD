@@ -14,7 +14,7 @@ namespace TMG.BloonsTD.Gameplay
         public Sprite Icon => TowerUpgradeProperties.UpgradeIcon;
         public UpgradeType UpgradeType => TowerUpgradeProperties.UpgradeType;
         public bool IsPurchased { get; private set; }
-        public virtual void PurchaseUpgrade()
+        public virtual void PurchaseUpgrade(TowerController towerController)
         {
             IsPurchased = true;
             GameController.Instance.DecrementMoney(Cost);
@@ -41,40 +41,72 @@ namespace TMG.BloonsTD.Gameplay
     public class RangeUpgrade : TowerUpgrade
     {
         private float RangeValue => TowerUpgradeProperties.UpgradeValue;
-        public override void PurchaseUpgrade()
+        public override void PurchaseUpgrade(TowerController towerController)
         {
-            base.PurchaseUpgrade();
-            Debug.Log($"Upgrading Range to: {RangeValue}");
+            if (towerController.TowerAttack is IUpgradeRange rangeUpgrade)
+            {
+                base.PurchaseUpgrade(towerController);
+                rangeUpgrade.UpgradeRange(RangeValue);
+            }
+            else
+            {
+                Debug.LogWarning("Warning: TowerAttack does not implement IUpgradeRange interface.",
+                    towerController.gameObject);
+            }
         }
     }
 
     public class WeaponUpgrade : TowerUpgrade
     {
         private GameObject Weapon => TowerUpgradeProperties.Weapon;
-        public override void PurchaseUpgrade()
+        public override void PurchaseUpgrade(TowerController towerController)
         {
-            base.PurchaseUpgrade();
-            Debug.Log($"Changing Weapon to: {Weapon.name}");
+            if (towerController.TowerAttack is IUpgradeWeapon weaponUpgrade)
+            {
+                base.PurchaseUpgrade(towerController);
+                weaponUpgrade.UpgradeWeapon(Weapon);
+            }
+            else
+            {
+                Debug.LogWarning("Warning: TowerAttack does not implement IUpgradeWeapon interface.",
+                    towerController.gameObject);
+            }
         }
     }
     
     public class FrequencyUpgrade : TowerUpgrade
     {
         private float FrequencyValue => TowerUpgradeProperties.UpgradeValue;
-        public override void PurchaseUpgrade()
+        public override void PurchaseUpgrade(TowerController towerController)
         {
-            base.PurchaseUpgrade();
-            Debug.Log($"Upgrading Frequency to: {FrequencyValue}");
+            if (towerController.TowerAttack is IUpgradeFrequency frequencyUpgrade)
+            {
+                base.PurchaseUpgrade(towerController);
+                frequencyUpgrade.UpgradeFrequency(FrequencyValue);
+            }
+            else
+            {
+                Debug.LogWarning("Warning: TowerAttack does not implement IUpgradeFrequency interface.",
+                    towerController.gameObject);
+            }
         }
     }
 
     public class DurationUpgrade : TowerUpgrade
     {
         private float DurationValue => TowerUpgradeProperties.UpgradeValue;
-        public override void PurchaseUpgrade()
+        public override void PurchaseUpgrade(TowerController towerController)
         {
-            base.PurchaseUpgrade();
-            Debug.Log($"Upgrading Duration to: {DurationValue}");
+            if (towerController.TowerAttack is IUpgradeDuration durationUpgrade)
+            {
+                base.PurchaseUpgrade(towerController);
+                durationUpgrade.UpgradeDuration(DurationValue);
+            }
+            else
+            {
+                Debug.LogWarning("Warning: TowerAttack does not implement IUpgradeDuration interface.",
+                    towerController.gameObject);
+            }
         }
     }
 }

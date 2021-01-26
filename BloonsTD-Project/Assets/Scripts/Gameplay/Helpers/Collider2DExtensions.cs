@@ -13,5 +13,9 @@ namespace TMG.BloonsTD.Gameplay
         {
             return !collider.gameObject.layer.Equals(layer);
         }
+        public static bool IsNotABloon(this Collider2D other)
+        {
+            return !other.gameObject.layer.Equals(PhysicsLayers.Bloons);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -33,9 +34,26 @@ namespace TMG.BloonsTD.Gameplay
             }
         }
 
-        public override void HitBloon()
+        private void FixedUpdate()
         {
-            base.HitBloon();
+            HitsThisStep = 0;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.IsNotABloon()) return;
+            var curBloon = other.GetComponent<BloonController>();
+            if (ImmuneBloons.Contains(curBloon)) return;
+            HitsThisStep++;
+            if (HitAnotherBloonThisStep) return;
+            HitBloon(curBloon);
+        }
+
+        protected override void HitBloon(BloonController bloonToHit)
+        {
+            var newImmuneBloons = bloonToHit.HitBloon();
+            ImmuneBloons.AddRange(newImmuneBloons);
+            base.HitBloon(bloonToHit);
         }
     }
 }

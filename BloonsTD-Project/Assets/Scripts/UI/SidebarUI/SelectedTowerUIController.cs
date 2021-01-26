@@ -132,7 +132,7 @@ namespace TMG.BloonsTD.UI
 
         private static void UpgradeTower(TowerUpgrade towerUpgrade, TowerController towerController)
         {
-            towerUpgrade.PurchaseUpgrade();
+            towerUpgrade.PurchaseUpgrade(towerController);
             towerController.SelectionController.SelectTower();
         }
 

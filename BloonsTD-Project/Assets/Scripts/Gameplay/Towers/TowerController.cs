@@ -18,6 +18,7 @@ namespace TMG.BloonsTD.Gameplay
         public TowerSelectionController SelectionController { get; private set; }
         public TowerUpgradeController UpgradeController { get; private set; }
         //public TowerTargetType TowerTargetType { get; private set; }
+        public TowerAttack TowerAttack => _towerAttack;
         public float AttackRange { get; private set; }
 
         public TowerState CurrentTowerState

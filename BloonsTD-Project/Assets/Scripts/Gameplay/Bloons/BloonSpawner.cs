@@ -39,14 +39,16 @@ namespace TMG.BloonsTD.Gameplay
             SpawnBloon(bloonProperties, _pathHeadPosition, 0);
         }
 
-        public void SpawnBloon(BloonProperties bloonProperties, Vector3 spawnPosition, int waypointIndex)
+        public BloonController SpawnBloon(BloonProperties bloonProperties, Vector3 spawnPosition, int waypointIndex)
         {
-            GameObject newBloon = Instantiate(_bloonPrefab, spawnPosition, Quaternion.identity);
-            BloonController newBloonController = newBloon.GetComponent<BloonController>();
+            var newBloon = Instantiate(_bloonPrefab, spawnPosition, Quaternion.identity);
+            var newBloonController = newBloon.GetComponent<BloonController>();
 
             newBloonController.Path = _pathController;
             newBloonController.InitializeBloon(bloonProperties, waypointIndex);
             OnBloonSpawned?.Invoke(newBloonController);
+
+            return newBloonController;
         }
     }
 }

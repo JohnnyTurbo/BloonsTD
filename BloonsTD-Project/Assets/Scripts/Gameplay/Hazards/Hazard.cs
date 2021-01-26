@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TMG.BloonsTD.Gameplay
@@ -7,12 +8,16 @@ namespace TMG.BloonsTD.Gameplay
     {
         [SerializeField] protected int _maxBloonHits;
         private int _bloonHitsRemaining;
+        protected List<BloonController> ImmuneBloons;
+        protected int HitsThisStep;
+        protected bool HitAnotherBloonThisStep => HitsThisStep > 1;
         protected virtual void Start()
         {
             _bloonHitsRemaining = _maxBloonHits;
+            ImmuneBloons = new List<BloonController>();
         }
 
-        public virtual void HitBloon()
+        protected virtual void HitBloon(BloonController bloonToHit)
         {
             _bloonHitsRemaining--;
             if (_bloonHitsRemaining <= 0)
