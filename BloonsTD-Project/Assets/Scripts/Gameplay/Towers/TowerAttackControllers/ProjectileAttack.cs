@@ -21,7 +21,6 @@ namespace TMG.BloonsTD.Gameplay
 
         public void UpgradeRange(float newRangeValue)
         {
-            Debug.Log($"Upgrading Range to: {newRangeValue}");
             DetectionCollider.radius = newRangeValue;
             //TODO: also change distance darts can go
         }

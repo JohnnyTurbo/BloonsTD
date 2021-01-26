@@ -7,11 +7,11 @@ namespace TMG.BloonsTD.Gameplay
     public class GameController : MonoBehaviour
     {
         public static GameController Instance;
-        public delegate void UpdateUITextDelegate(string newText);
+        public delegate void StatChangedDelegate(int newStatValue);
 
-        public event UpdateUITextDelegate OnRoundChanged;
-        public event UpdateUITextDelegate OnMoneyChanged;
-        public event UpdateUITextDelegate OnLivesChanged;
+        public event StatChangedDelegate OnRoundChanged;
+        public event StatChangedDelegate OnMoneyChanged;
+        public event StatChangedDelegate OnLivesChanged;
         
         [SerializeField] private GameStatistics _startingGameStatistics;
         [SerializeField] private GameStatistics _currentGameStatistics;
@@ -22,7 +22,6 @@ namespace TMG.BloonsTD.Gameplay
         public bool GameOver => _gameOver;
         public int Money => _currentGameStatistics.Money;
 
-        //TODO: see if you can make this not a singleton :)
         private void Awake()
         {
             Instance = this;
@@ -78,9 +77,9 @@ namespace TMG.BloonsTD.Gameplay
 
         private void InitializeUI()
         {
-            OnRoundChanged?.Invoke(_currentGameStatistics.Rounds.ToString());
-            OnMoneyChanged?.Invoke(_currentGameStatistics.Money.ToString());
-            OnLivesChanged?.Invoke(_currentGameStatistics.Lives.ToString());
+            OnRoundChanged?.Invoke(_currentGameStatistics.Rounds);
+            OnMoneyChanged?.Invoke(_currentGameStatistics.Money);
+            OnLivesChanged?.Invoke(_currentGameStatistics.Lives);
         }
 
         public void BeginNewRound()
@@ -92,19 +91,19 @@ namespace TMG.BloonsTD.Gameplay
         private void IncrementRound()
         {
             _currentGameStatistics.Rounds++;
-            OnRoundChanged?.Invoke(_currentGameStatistics.Rounds.ToString());
+            OnRoundChanged?.Invoke(_currentGameStatistics.Rounds);
         }
 
         private void IncrementMoney(int amount)
         {
             _currentGameStatistics.Money += amount;
-            OnMoneyChanged?.Invoke(_currentGameStatistics.Money.ToString());
+            OnMoneyChanged?.Invoke(_currentGameStatistics.Money);
         }
 
         public void DecrementMoney(int amount)
         {
             _currentGameStatistics.Money -= amount;
-            OnMoneyChanged?.Invoke(_currentGameStatistics.Money.ToString());
+            OnMoneyChanged?.Invoke(_currentGameStatistics.Money);
         }
 
         private void DecrementLives(int livesToLose)
@@ -112,7 +111,7 @@ namespace TMG.BloonsTD.Gameplay
             if(_gameOver){return;}
             
             _currentGameStatistics.Lives -= livesToLose;
-            OnLivesChanged?.Invoke(_currentGameStatistics.Lives.ToString());
+            OnLivesChanged?.Invoke(_currentGameStatistics.Lives);
             if (_currentGameStatistics.Lives <= 0)
             {
                 BeginGameOver();
