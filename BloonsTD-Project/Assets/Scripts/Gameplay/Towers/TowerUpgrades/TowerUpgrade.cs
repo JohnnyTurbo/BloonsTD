@@ -45,8 +45,8 @@ namespace TMG.BloonsTD.Gameplay
         {
             if (towerController.TowerAttack is IUpgradeRange rangeUpgrade)
             {
+                rangeUpgrade.SetRange(RangeValue);
                 base.PurchaseUpgrade(towerController);
-                rangeUpgrade.UpgradeRange(RangeValue);
             }
             else
             {
@@ -64,7 +64,7 @@ namespace TMG.BloonsTD.Gameplay
             if (towerController.TowerAttack is IUpgradeWeapon weaponUpgrade)
             {
                 base.PurchaseUpgrade(towerController);
-                weaponUpgrade.UpgradeWeapon(Weapon);
+                weaponUpgrade.SetWeapon(Weapon);
             }
             else
             {
@@ -82,7 +82,7 @@ namespace TMG.BloonsTD.Gameplay
             if (towerController.TowerAttack is IUpgradeFrequency frequencyUpgrade)
             {
                 base.PurchaseUpgrade(towerController);
-                frequencyUpgrade.UpgradeFrequency(FrequencyValue);
+                frequencyUpgrade.SetFrequency(FrequencyValue);
             }
             else
             {
@@ -100,7 +100,7 @@ namespace TMG.BloonsTD.Gameplay
             if (towerController.TowerAttack is IUpgradeDuration durationUpgrade)
             {
                 base.PurchaseUpgrade(towerController);
-                durationUpgrade.UpgradeDuration(DurationValue);
+                durationUpgrade.SetDuration(DurationValue);
             }
             else
             {

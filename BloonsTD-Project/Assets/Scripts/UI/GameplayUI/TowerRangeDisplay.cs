@@ -1,7 +1,5 @@
-using System;
-using TMG.BloonsTD.Gameplay;
-using TMG.BloonsTD.Stats;
 using UnityEngine;
+using TMG.BloonsTD.Gameplay;
 
 namespace TMG.BloonsTD.UI
 {
@@ -10,20 +8,15 @@ namespace TMG.BloonsTD.UI
     {
         [SerializeField] private Color _regularTowerRange;
         [SerializeField] private Color _invalidTowerRange;
+        
         [SerializeField] private TowerPlacementController _towerPlacementController;
         [SerializeField] private TowerSelectionController _towerSelectionController;
         
         private SpriteRenderer _towerRangeIndicator;
-        private bool _showTowerRange;
 
         private void Awake()
         {
             _towerRangeIndicator = GetComponent<SpriteRenderer>();
-
-            if (_towerPlacementController == null)
-            {
-                Debug.LogWarning("Warning, no TowerPlacementController set", gameObject);
-            }
         }
 
         private void OnEnable()
@@ -44,7 +37,6 @@ namespace TMG.BloonsTD.UI
 
         private void ShowTowerRange(TowerController towerController)
         {
-            //Debug.Log($"Showing range size: {towerStatistics.Range}");
             _towerRangeIndicator.color = _regularTowerRange;
         }
         

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc05d24243443a19f5818e66c87d7eb, type: 3}
-  m_Name: DartTowerInfo
+  m_Name: DartTowerProperties
   m_EditorClassIdentifier: 
   _towerName: Dart Tower
   _cost: 250
@@ -19,7 +19,7 @@ MonoBehaviour:
   _description: Shoots a single dart. Can upgrade to piercing darts and long range
     darts.
   _colliderRadius: 0.36
-  _range: 100
+  _range: 10
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
   _towerAttackType: 0

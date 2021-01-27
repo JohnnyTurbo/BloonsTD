@@ -8,7 +8,13 @@ namespace TMG.BloonsTD.Gameplay
     public class BasicProjectileController : Hazard
     {
         [SerializeField] private float _movementSpeed;
-        [SerializeField] private float _maxDistanceTraveled;
+        
+        private float _maxDistanceTraveled;
+        public float MaxDistanceTraveled
+        {
+            get => _maxDistanceTraveled;
+            set => _maxDistanceTraveled = Mathf.Max(float.Epsilon, value);
+        }
         
         private Rigidbody2D _rigidbody;
         private Vector3 _startPosition;

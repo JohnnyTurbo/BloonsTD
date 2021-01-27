@@ -13,6 +13,10 @@ namespace TMG.BloonsTD.Gameplay
         protected TowerController TowerController;
         protected Vector3 TowerPosition;
         protected TowerTargetType TowerTargetType;
+        protected GameObject DetectionRadiusGO;
+        protected TowerBloonDetector TowerBloonDetector;
+        public float ProjectileRange { get; protected set; }
+
         public static TowerAttack GetNewAttackController(TowerAttackType towerAttackType)
         {
             switch (towerAttackType)
@@ -37,10 +41,13 @@ namespace TMG.BloonsTD.Gameplay
             TowerPosition = TowerController.transform.position;
             _attackCooldownTime = new WaitForSeconds(towerController.TowerProperties.AttackCooldownTime);
             TowerTargetType = TowerTargetType.First;
-            DetectionCollider = TowerController.transform.Find("DetectionRadius").GetComponent<CircleCollider2D>();
+            DetectionRadiusGO = TowerController.transform.Find("DetectionRadius").gameObject;
+            DetectionCollider = DetectionRadiusGO.GetComponent<CircleCollider2D>();
+            TowerBloonDetector = DetectionRadiusGO.GetComponent<TowerBloonDetector>();
             if (DetectionCollider == null)
             {
-                Debug.LogWarning("Warning: could not get Collider2D component on the DetectionRadius GameObject.", TowerController);
+                Debug.LogWarning("Warning: could not get Collider2D component on the DetectionRadius GameObject.",
+                    TowerController);
             }
         }
 
@@ -53,6 +60,7 @@ namespace TMG.BloonsTD.Gameplay
             {
                 return false;
             }
+
             var bloonsInRange = bloonCollidersInRange.Select(bloon => bloon.GetComponent<BloonController>()).ToList();
             var attackTargetLocation = DetermineTargetLocation(bloonsInRange);
             Attack(attackTargetLocation);
@@ -88,6 +96,7 @@ namespace TMG.BloonsTD.Gameplay
             {
                 furthestBloon = BloonController.CompareGreaterPathProgress(furthestBloon, bloons[i]);
             }
+
             return furthestBloon.transform.position;
         }
 
@@ -98,6 +107,7 @@ namespace TMG.BloonsTD.Gameplay
             {
                 lastBloon = BloonController.CompareLeastPathProgress(lastBloon, bloons[i]);
             }
+
             return lastBloon.transform.position;
         }
 
@@ -108,6 +118,7 @@ namespace TMG.BloonsTD.Gameplay
             {
                 strongestBloon = BloonController.CompareStrongest(strongestBloon, bloons[i]);
             }
+
             return strongestBloon.transform.position;
         }
 
@@ -118,6 +129,7 @@ namespace TMG.BloonsTD.Gameplay
             {
                 weakestBloon = BloonController.CompareWeakest(weakestBloon, bloons[i]);
             }
+
             return weakestBloon.transform.position;
         }
 
@@ -129,12 +141,13 @@ namespace TMG.BloonsTD.Gameplay
             {
                 var currentBloonDistance = Vector3.Distance(TowerPosition, bloons[i].transform.position);
                 var currentBloonIsCloserThanPreviousClosest = currentBloonDistance < closestDistance;
-                
+
                 if (!currentBloonIsCloserThanPreviousClosest) continue;
-                
+
                 closestBloon = bloons[i];
                 closestDistance = currentBloonDistance;
             }
+
             return closestBloon.transform.position;
         }
 
@@ -145,7 +158,7 @@ namespace TMG.BloonsTD.Gameplay
             var rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             return rotation;
         }
-        
+
         protected virtual void Attack(Vector3 targetLocation)
         {
         }

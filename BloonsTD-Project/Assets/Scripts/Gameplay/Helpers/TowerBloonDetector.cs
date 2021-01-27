@@ -2,23 +2,25 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Gameplay
 {
-    public class TowerBloonDetector : MonoBehaviour
+    public class TowerBloonDetector : MonoBehaviour, IUpgradeRange
     {
         private TowerController _towerController;
-        private void Awake()
+
+        public TowerController TowerController
         {
-            _towerController = GetComponentInParent<TowerController>();
-            if (_towerController == null)
-            {
-                _towerController = transform.parent.gameObject.AddComponent<TowerController>();
-                Debug.LogWarning("Warning no TowerController on parent. Adding default one", gameObject);
-            }
+            get => _towerController;
+            set => _towerController = value;
         }
 
         private void OnTriggerEnter2D(Collider2D otherCollider)
         {
             if (otherCollider.IsNotOnLayer(PhysicsLayers.Bloons)) { return; }
             _towerController.OnBloonEnter();
+        }
+
+        public void SetRange(float newRangeValue)
+        {
+            transform.localScale = Vector3.one * newRangeValue;
         }
     }
 }

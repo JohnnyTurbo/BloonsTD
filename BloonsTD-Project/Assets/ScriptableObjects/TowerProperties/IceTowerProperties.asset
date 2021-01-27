@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc05d24243443a19f5818e66c87d7eb, type: 3}
-  m_Name: IceTowerInfo
+  m_Name: IceTowerProperties
   m_EditorClassIdentifier: 
-  towerName: Ice Tower
+  _towerName: 
   _cost: 850
   _speed: 0
   _attackCooldownTime: 0
@@ -23,6 +23,9 @@ MonoBehaviour:
   _range: 0
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
+  _towerAttackType: 0
   _projectilePrefab: {fileID: 0}
-  towerUpgradePropertiesPath1: {fileID: 0}
-  towerUpgradePropertiesPath2: {fileID: 0}
+  _numberProjectiles: 0
+  _freezeDuration: 0
+  _towerUpgradePropertiesPath1: {fileID: 0}
+  _towerUpgradePropertiesPath2: {fileID: 0}

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c3ef47b37d44e2a27597a8445c10f4, type: 3}
   m_Name: PiercingDarts
   m_EditorClassIdentifier: 
-  _name: PiercingDarts
+  _name: Piercing Darts
   _upgradeType: 3
   _cost: 210
   _description: 
   _upgradeIcon: {fileID: 21300000, guid: d0592428661d2084baff2e6550c8cbba, type: 3}
   _upgradeValue: 0
-  _weapon: {fileID: 5991358372785770694, guid: 1c1cef4245270ee4aae7d58ba4783da5, type: 3}
+  _weapon: {fileID: 7681693234508100415, guid: 1c1cef4245270ee4aae7d58ba4783da5, type: 3}

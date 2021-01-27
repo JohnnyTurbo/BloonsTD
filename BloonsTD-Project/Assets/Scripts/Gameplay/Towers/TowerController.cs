@@ -10,16 +10,19 @@ namespace TMG.BloonsTD.Gameplay
     [RequireComponent(typeof(TowerUpgradeController))]
     public class TowerController : MonoBehaviour
     {
+        [SerializeField] private TowerUpgradeController _towerUpgradeController;
+        [SerializeField] private TowerBloonDetector _towerBloonDetector;
+        
         private TowerState _currentTowerState;
         private TowerAttack _towerAttack;
         
         public TowerProperties TowerProperties { get; private set; }
         public TowerPlacementController PlacementController { get; private set; }
         public TowerSelectionController SelectionController { get; private set; }
-        public TowerUpgradeController UpgradeController { get; private set; }
-        //public TowerTargetType TowerTargetType { get; private set; }
+        public TowerUpgradeController TowerUpgradeController => _towerUpgradeController;
         public TowerAttack TowerAttack => _towerAttack;
-        public float AttackRange { get; private set; }
+
+        public float TowerRange => TowerAttack.ProjectileRange;
 
         public TowerState CurrentTowerState
         {
@@ -44,19 +47,19 @@ namespace TMG.BloonsTD.Gameplay
             TowerProperties = towerProperties;
             PlacementController = GetComponent<TowerPlacementController>();
             SelectionController = GetComponent<TowerSelectionController>();
-            UpgradeController = GetComponent<TowerUpgradeController>();
-            
             _towerAttack = TowerAttack.GetNewAttackController(TowerProperties.TowerAttackType);
-            AttackRange = TowerProperties.Range;
+            _towerBloonDetector.TowerController = this;
+            _towerBloonDetector.SetRange(TowerProperties.Range);
             PlacementController.TowerProperties = TowerProperties;
             SelectionController.TowerController = this;
-            UpgradeController.InitializeUpgrades(this);
+            TowerUpgradeController.InitializeUpgrades(this);
             _currentTowerState = TowerState.Placing;
             //TODO: Set renderer, collider, etc.
         }
 
         private void OnTowerPlaced(TowerController towerController)
         {
+            TowerSpawnManager.Instance.OnTowerPlaced -= OnTowerPlaced;
             _currentTowerState = TowerState.Idle;
             _towerAttack.Initialize(this);
             _towerAttack.TryAttack();

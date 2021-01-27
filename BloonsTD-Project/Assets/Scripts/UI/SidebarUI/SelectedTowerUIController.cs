@@ -80,9 +80,9 @@ namespace TMG.BloonsTD.UI
             
             _towerNameText.text = towerProperties.TowerName;
             _towerSpeedText.text = $"Speed: {towerProperties.Speed}";
-            _towerRangeText.text = $"Range: {towerProperties.Range}";
+            _towerRangeText.text = $"Range: {towerController.TowerRange}";
             
-            var upgradeController = _towerController.UpgradeController;
+            var upgradeController = _towerController.TowerUpgradeController;
             _upgrade1 = upgradeController.Upgrades[0];
             _upgrade2 = upgradeController.Upgrades[1];
             
@@ -102,6 +102,7 @@ namespace TMG.BloonsTD.UI
 
         private void OnMoneyChanged(int newMoneyValue)
         {
+            if(_upgrade1 == null || _upgrade2 == null){return;}
             SetupUpgradeButton(_upgrade1, _upgradeButtonDTO1);
             SetupUpgradeButton(_upgrade2, _upgradeButtonDTO2);
         }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: StartingGameStatistics
   m_EditorClassIdentifier: 
   _rounds: 0
-  _money: 650
-  _lives: 5
+  _money: 800
+  _lives: 50
   _maxGameStatistics: {fileID: 0}

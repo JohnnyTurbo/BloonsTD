@@ -193,6 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3beae8ca2d6d4d6ab2a38a78088b7ad7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerUpgradeController: {fileID: -3702180970081980195}
+  _towerBloonDetector: {fileID: 3331838544807153572}
 --- !u!114 &-3702180970081980195
 MonoBehaviour:
   m_ObjectHideFlags: 0
