@@ -1673,6 +1673,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 956287832}
+        m_MethodName: DeselectTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &412255888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3501,6 +3512,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 956287832}
+        m_MethodName: DeselectTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &982827475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4153,6 +4175,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 11400000, guid: b20b165c82b039f4c9e5bad064fe996a,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties, Stats
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 956287832}
+        m_MethodName: DeselectTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6086,6 +6119,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 956287832}
+        m_MethodName: DeselectTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1713326674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6258,6 +6302,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 11400000, guid: 0da1ab4f8d76b3c4bbf9849a827747a8,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: TMG.BloonsTD.Stats.TowerProperties, Stats
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 956287832}
+        m_MethodName: DeselectTower
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

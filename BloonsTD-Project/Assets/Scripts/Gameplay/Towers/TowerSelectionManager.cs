@@ -12,7 +12,15 @@ namespace TMG.BloonsTD.Gameplay
 
         private void Update()
         {
-            if(TowerInPlacingState) return;
+            if (TowerInPlacingState && InputController.BeginCancelSelection)
+            {
+                Debug.Log("Should cancel tower here");
+                return;
+            }
+            else if(TowerInPlacingState)
+            {
+                return;
+            }
 
             if (InputController.BeginSelectScreen)
             {
@@ -53,7 +61,7 @@ namespace TMG.BloonsTD.Gameplay
             _selectedTower = selectedTower;
         }
 
-        private void DeselectTower()
+        public void DeselectTower()
         {
             if (_selectedTower == null) { return; }
             _selectedTower.DeselectTower();
