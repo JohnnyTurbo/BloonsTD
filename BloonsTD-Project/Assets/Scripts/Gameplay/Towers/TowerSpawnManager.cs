@@ -97,5 +97,10 @@ namespace TMG.BloonsTD.Gameplay
             _curTowerController = _currentTowerGO.GetComponent<TowerController>();
             _curTowerController.InitializeTower(tower);
         }
+
+        public void CancelPlacingTower()
+        {
+            Destroy(_currentTowerGO);
+        }
     }
 }

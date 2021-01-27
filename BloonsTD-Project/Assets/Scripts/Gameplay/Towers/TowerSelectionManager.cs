@@ -12,9 +12,11 @@ namespace TMG.BloonsTD.Gameplay
 
         private void Update()
         {
+            //TODO: Cleanup!
             if (TowerInPlacingState && InputController.BeginCancelSelection)
             {
-                Debug.Log("Should cancel tower here");
+                DeselectTower();
+                _towerSpawnManager.CancelPlacingTower();
                 return;
             }
             else if(TowerInPlacingState)
