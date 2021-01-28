@@ -24,7 +24,6 @@ namespace TMG.BloonsTD.Gameplay
 
         public void SetRange(float newRangeValue)
         {
-            Debug.Log($"Setting Range to {newRangeValue}", TowerController.gameObject);
             ProjectileRange = newRangeValue;
             TowerBloonDetector.SetRange(newRangeValue);
         }

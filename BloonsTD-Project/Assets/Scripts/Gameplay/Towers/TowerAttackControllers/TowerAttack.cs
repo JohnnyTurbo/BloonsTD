@@ -73,82 +73,20 @@ namespace TMG.BloonsTD.Gameplay
             switch (TowerTargetType)
             {
                 case TowerTargetType.First:
-                    return GetFirstBloonPosition(bloons);
+                    return GetBloonPosition.First(bloons);
                 case TowerTargetType.Last:
-                    return GetLastBloonPosition(bloons);
+                    return GetBloonPosition.Last(bloons);
                 case TowerTargetType.Strongest:
-                    return GetStrongestBloonPosition(bloons);
+                    return GetBloonPosition.Strongest(bloons);
                 case TowerTargetType.Weakest:
-                    return GetWeakestBloonPosition(bloons);
+                    return GetBloonPosition.Weakest(bloons);
                 case TowerTargetType.Closest:
-                    return GetClosestBloonPosition(bloons);
+                    return GetBloonPosition.Closest(bloons, TowerPosition);
                 case TowerTargetType.NoTarget:
                     return Vector3.zero;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        private static Vector3 GetFirstBloonPosition(IReadOnlyList<BloonController> bloons)
-        {
-            var furthestBloon = bloons[0];
-            for (var i = 1; i < bloons.Count; i++)
-            {
-                furthestBloon = BloonController.CompareGreaterPathProgress(furthestBloon, bloons[i]);
-            }
-
-            return furthestBloon.transform.position;
-        }
-
-        private static Vector3 GetLastBloonPosition(IReadOnlyList<BloonController> bloons)
-        {
-            var lastBloon = bloons[0];
-            for (var i = 1; i < bloons.Count; i++)
-            {
-                lastBloon = BloonController.CompareLeastPathProgress(lastBloon, bloons[i]);
-            }
-
-            return lastBloon.transform.position;
-        }
-
-        private static Vector3 GetStrongestBloonPosition(IReadOnlyList<BloonController> bloons)
-        {
-            var strongestBloon = bloons[0];
-            for (var i = 1; i < bloons.Count; i++)
-            {
-                strongestBloon = BloonController.CompareStrongest(strongestBloon, bloons[i]);
-            }
-
-            return strongestBloon.transform.position;
-        }
-
-        private static Vector3 GetWeakestBloonPosition(IReadOnlyList<BloonController> bloons)
-        {
-            var weakestBloon = bloons[0];
-            for (var i = 1; i < bloons.Count; i++)
-            {
-                weakestBloon = BloonController.CompareWeakest(weakestBloon, bloons[i]);
-            }
-
-            return weakestBloon.transform.position;
-        }
-
-        private Vector3 GetClosestBloonPosition(IReadOnlyList<BloonController> bloons)
-        {
-            var closestBloon = bloons[0];
-            var closestDistance = Vector3.Distance(TowerPosition, closestBloon.transform.position);
-            for (var i = 1; i < bloons.Count; i++)
-            {
-                var currentBloonDistance = Vector3.Distance(TowerPosition, bloons[i].transform.position);
-                var currentBloonIsCloserThanPreviousClosest = currentBloonDistance < closestDistance;
-
-                if (!currentBloonIsCloserThanPreviousClosest) continue;
-
-                closestBloon = bloons[i];
-                closestDistance = currentBloonDistance;
-            }
-
-            return closestBloon.transform.position;
         }
 
         protected static Quaternion GetOrientationToTarget(Vector3 position, Vector3 targetLocation)
