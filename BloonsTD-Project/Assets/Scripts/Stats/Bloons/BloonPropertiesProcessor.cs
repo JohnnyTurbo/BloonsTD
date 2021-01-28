@@ -11,7 +11,7 @@ namespace TMG.BloonsTD.Stats
         private static void Initialize()
         {
             _bloons.Clear();
-
+            Resources.LoadAll("ScriptableObjects");
             if (Resources.FindObjectsOfTypeAll(typeof(BloonProperties)) is BloonProperties[] allBloonProperties)
             {
                 foreach (var bloonProperties in allBloonProperties)
