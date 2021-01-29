@@ -6,18 +6,18 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Gameplay
 {
-    public abstract class TowerAttack
+    public abstract class TowerAttack : IUpgradeRange
     {
         private WaitForSeconds _attackCooldownTime;
-        protected CircleCollider2D DetectionCollider;
+        private CircleCollider2D _detectionCollider;
         protected TowerController TowerController;
         protected Vector3 TowerPosition;
         protected TowerTargetType TowerTargetType;
-        protected GameObject DetectionRadiusGO;
-        protected TowerBloonDetector TowerBloonDetector;
-        public float ProjectileRange { get; protected set; }
+        private GameObject _detectionRadiusGO;
+        private TowerBloonDetector _towerBloonDetector;
+        public float Range { get; private set; }
 
-        public static TowerAttack GetNewAttackController(TowerAttackType towerAttackType)
+        public static TowerAttack GetNewFromAttackType(TowerAttackType towerAttackType)
         {
             switch (towerAttackType)
             {
@@ -41,10 +41,10 @@ namespace TMG.BloonsTD.Gameplay
             TowerPosition = TowerController.transform.position;
             _attackCooldownTime = new WaitForSeconds(towerController.TowerProperties.AttackCooldownTime);
             TowerTargetType = TowerTargetType.First;
-            DetectionRadiusGO = TowerController.transform.Find("DetectionRadius").gameObject;
-            DetectionCollider = DetectionRadiusGO.GetComponent<CircleCollider2D>();
-            TowerBloonDetector = DetectionRadiusGO.GetComponent<TowerBloonDetector>();
-            if (DetectionCollider == null)
+            _detectionRadiusGO = TowerController.transform.Find("DetectionRadius").gameObject;
+            _detectionCollider = _detectionRadiusGO.GetComponent<CircleCollider2D>();
+            _towerBloonDetector = _detectionRadiusGO.GetComponent<TowerBloonDetector>();
+            if (_detectionCollider == null)
             {
                 Debug.LogWarning("Warning: could not get Collider2D component on the DetectionRadius GameObject.",
                     TowerController);
@@ -55,7 +55,7 @@ namespace TMG.BloonsTD.Gameplay
         {
             var bloonCollidersInRange = new List<Collider2D>();
             var bloonFilter = new ContactFilter2D {layerMask = 1 << PhysicsLayers.Bloons, useLayerMask = true};
-            var numBloonsInRange = DetectionCollider.OverlapCollider(bloonFilter, bloonCollidersInRange);
+            var numBloonsInRange = _detectionCollider.OverlapCollider(bloonFilter, bloonCollidersInRange);
             if (numBloonsInRange <= 0)
             {
                 return false;
@@ -87,6 +87,12 @@ namespace TMG.BloonsTD.Gameplay
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public void SetRange(float newRangeValue)
+        {
+            Range = newRangeValue;
+            _towerBloonDetector.SetRange(newRangeValue);
         }
 
         protected static Quaternion GetOrientationToTarget(Vector3 position, Vector3 targetLocation)

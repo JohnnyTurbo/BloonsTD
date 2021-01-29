@@ -22,7 +22,7 @@ namespace TMG.BloonsTD.Gameplay
         public TowerUpgradeController TowerUpgradeController => _towerUpgradeController;
         public TowerAttack TowerAttack => _towerAttack;
 
-        public float TowerRange => TowerAttack.ProjectileRange;
+        public float TowerRange => TowerAttack.Range;
 
         public TowerState CurrentTowerState
         {
@@ -47,7 +47,7 @@ namespace TMG.BloonsTD.Gameplay
             TowerProperties = towerProperties;
             PlacementController = GetComponent<TowerPlacementController>();
             SelectionController = GetComponent<TowerSelectionController>();
-            _towerAttack = TowerAttack.GetNewAttackController(TowerProperties.TowerAttackType);
+            _towerAttack = TowerAttack.GetNewFromAttackType(TowerProperties.TowerAttackType);
             _towerBloonDetector.TowerController = this;
             _towerBloonDetector.SetRange(TowerProperties.Range);
             PlacementController.TowerProperties = TowerProperties;

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Gameplay
 {
-    public class ProjectileAttack : TowerAttack, IUpgradeRange, IUpgradeWeapon
+    public class ProjectileAttack : TowerAttack, IUpgradeWeapon
     {
         private GameObject _projectile;
         
@@ -19,15 +19,9 @@ namespace TMG.BloonsTD.Gameplay
             TowerController.transform.rotation = rotation;
             var newProjectile = Object.Instantiate(_projectile, TowerPosition, rotation);
             var newProjectileController = newProjectile.GetComponent<BasicProjectileController>();
-            newProjectileController.MaxDistanceTraveled = ProjectileRange;
+            newProjectileController.MaxDistanceTraveled = Range;
         }
-
-        public void SetRange(float newRangeValue)
-        {
-            ProjectileRange = newRangeValue;
-            TowerBloonDetector.SetRange(newRangeValue);
-        }
-
+        
         public void SetWeapon(GameObject newWeaponPrefab)
         {
             _projectile = newWeaponPrefab;
