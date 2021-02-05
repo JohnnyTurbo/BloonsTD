@@ -1,7 +1,9 @@
 using System;
+using TMG.BloonsTD.Gameplay;
 using UnityEngine;
 using TMG.BloonsTD.Stats;
 using TMPro;
+using UnityEngine.UI;
 
 namespace TMG.BloonsTD.UI
 {
@@ -12,10 +14,22 @@ namespace TMG.BloonsTD.UI
         [SerializeField] private TMP_Text _towerCost;
         [SerializeField] private TMP_Text _towerSpeed;
         [SerializeField] private TMP_Text _towerDescription;
+        [SerializeField] private Button[] _towerBuildButtons;
+        
 
         private void Start()
         {
             HideTowerInformation();
+        }
+
+        private void OnEnable()
+        {
+            GameController.Instance.OnGameOver += DisableTowerBuildButtons;
+        }
+
+        private void OnDisable()
+        {
+            GameController.Instance.OnGameOver -= DisableTowerBuildButtons;
         }
 
         public void ShowTowerInformation(TowerProperties towerProperties)
@@ -36,6 +50,14 @@ namespace TMG.BloonsTD.UI
             _towerDescription.text = "";
             
             _towerInformationPanel.SetActive(false);
+        }
+
+        private void DisableTowerBuildButtons()
+        {
+            foreach (var towerBuildButton in _towerBuildButtons)
+            {
+                towerBuildButton.interactable = false;
+            }
         }
     }
 }

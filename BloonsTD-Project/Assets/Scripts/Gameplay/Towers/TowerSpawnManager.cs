@@ -28,6 +28,16 @@ namespace TMG.BloonsTD.Gameplay
             InitializeControllerValues();
         }
 
+        private void OnEnable()
+        {
+            _gameController.OnGameOver += CancelPlacingTower;
+        }
+
+        private void OnDisable()
+        {
+            _gameController.OnGameOver -= CancelPlacingTower;
+        }
+
         private void Update()
         {
             if (IsPlacingTower)
@@ -40,6 +50,8 @@ namespace TMG.BloonsTD.Gameplay
                 OnTowerPlaced?.Invoke(_curTowerController);
                 TowerPlacementState = TowerPlacementState.NotPlacingTower;
                 _gameController.DecrementMoney(_curTowerController.TowerProperties.Cost);
+                _curTowerController = null;
+                _currentTowerGO = null;
             }
         }
 
@@ -101,6 +113,9 @@ namespace TMG.BloonsTD.Gameplay
         public void CancelPlacingTower()
         {
             Destroy(_currentTowerGO);
+            _currentTowerGO = null;
+            _curTowerController = null;
+            TowerPlacementState = TowerPlacementState.NotPlacingTower;
         }
     }
 }

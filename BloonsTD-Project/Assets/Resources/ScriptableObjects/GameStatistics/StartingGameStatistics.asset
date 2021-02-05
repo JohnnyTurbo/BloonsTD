@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rounds: 0
   _money: 800
-  _lives: 50
+  _lives: 5
   _maxGameStatistics: {fileID: 0}

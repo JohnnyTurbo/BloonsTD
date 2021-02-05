@@ -10,11 +10,11 @@ namespace TMG.BloonsTD.Gameplay
     {
         private WaitForSeconds _attackCooldownTime;
         private CircleCollider2D _detectionCollider;
+        private GameObject _detectionRadiusGO;
+        private TowerBloonDetector _towerBloonDetector;
         protected TowerController TowerController;
         protected Vector3 TowerPosition;
         protected TowerTargetType TowerTargetType;
-        private GameObject _detectionRadiusGO;
-        private TowerBloonDetector _towerBloonDetector;
         public float Range { get; private set; }
 
         public static TowerAttack GetNewFromAttackType(TowerAttackType towerAttackType)

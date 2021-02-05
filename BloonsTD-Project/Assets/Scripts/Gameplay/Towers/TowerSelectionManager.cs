@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,22 @@ namespace TMG.BloonsTD.Gameplay
 
         private TowerSelectionController _selectedTower;
         private bool TowerInPlacingState => _towerSpawnManager.TowerPlacementState == TowerPlacementState.PlacingTower;
+        private bool _canSelectTowers;
+
+        private void Start()
+        {
+            //TODO: put this in some sort of initializer event
+            _canSelectTowers = true;
+        }
+
+        private void OnEnable()
+        {
+            GameController.Instance.OnGameOver += DisableTowerSelection;
+        }
+        private void OnDisable()
+        {
+            GameController.Instance.OnGameOver -= DisableTowerSelection;
+        }
 
         private void Update()
         {
@@ -37,6 +54,7 @@ namespace TMG.BloonsTD.Gameplay
 
         private void AttemptTowerSelection()
         {
+            if(!_canSelectTowers) {return;}
             var worldSelectionPosition = InputController.WorldSelectionPosition;
             var towerFiler = new ContactFilter2D {layerMask = 1 << PhysicsLayers.Towers, useLayerMask = true};
             var towerColliders = new List<Collider2D>();
@@ -67,6 +85,11 @@ namespace TMG.BloonsTD.Gameplay
         {
             if (_selectedTower == null) { return; }
             _selectedTower.DeselectTower();
+        }
+
+        private void DisableTowerSelection()
+        {
+            _canSelectTowers = false;
         }
     }
 }

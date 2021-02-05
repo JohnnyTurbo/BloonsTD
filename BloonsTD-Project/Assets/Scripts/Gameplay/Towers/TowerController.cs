@@ -15,7 +15,7 @@ namespace TMG.BloonsTD.Gameplay
         
         private TowerState _currentTowerState;
         private TowerAttack _towerAttack;
-        
+        private Coroutine _attackCooldown;
         public TowerProperties TowerProperties { get; private set; }
         public TowerPlacementController PlacementController { get; private set; }
         public TowerSelectionController SelectionController { get; private set; }
@@ -35,11 +35,13 @@ namespace TMG.BloonsTD.Gameplay
         private void OnEnable()
         {
             TowerSpawnManager.Instance.OnTowerPlaced += OnTowerPlaced;
+            GameController.Instance.OnGameOver += OnGameOver;
         }
 
         private void OnDisable()
         {
             TowerSpawnManager.Instance.OnTowerPlaced -= OnTowerPlaced;
+            GameController.Instance.OnGameOver -= OnGameOver;
         }
 
         public void InitializeTower(TowerProperties towerProperties)
@@ -79,14 +81,24 @@ namespace TMG.BloonsTD.Gameplay
 
         public void StartCooldownTimer(WaitForSeconds cooldownTime)
         {
-            StartCoroutine(AttackCooldownTimer(cooldownTime));
+            _attackCooldown = StartCoroutine(AttackCooldownTimer(cooldownTime));
         }
         private IEnumerator AttackCooldownTimer(WaitForSeconds cooldownTime)
         {
             CurrentTowerState = TowerState.Cooldown;
             yield return cooldownTime;
             CurrentTowerState = TowerState.Idle;
+            _attackCooldown = null;
             TryAttack();
+        }
+
+        private void OnGameOver()
+        {
+            if (_attackCooldown != null)
+            {
+                StopCoroutine(_attackCooldown);
+            }
+            CurrentTowerState = TowerState.GameOver;
         }
     }
 }

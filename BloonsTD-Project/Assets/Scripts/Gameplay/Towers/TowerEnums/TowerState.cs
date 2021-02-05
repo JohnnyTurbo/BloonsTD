@@ -4,6 +4,7 @@ namespace TMG.BloonsTD.Gameplay
     {
         Placing,
         Idle,
-        Cooldown
+        Cooldown,
+        GameOver
     }
 }

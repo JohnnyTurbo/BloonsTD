@@ -12,6 +12,9 @@ namespace TMG.BloonsTD.Gameplay
         public event StatChangedDelegate OnRoundChanged;
         public event StatChangedDelegate OnMoneyChanged;
         public event StatChangedDelegate OnLivesChanged;
+
+        public delegate void GameEvent();
+        public event GameEvent OnGameOver;
         
         [SerializeField] private GameStatistics _startingGameStatistics;
         [SerializeField] private GameStatistics _currentGameStatistics;
@@ -29,21 +32,7 @@ namespace TMG.BloonsTD.Gameplay
 
         private void Start()
         {
-            //TODO: Will be called when New Game Button is clicked
             SetupNewGame();
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Time.timeScale = -1f;
-            }
-
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                Time.timeScale = 1f;
-            }
         }
 
         private void SetupNewGame()
@@ -131,8 +120,9 @@ namespace TMG.BloonsTD.Gameplay
 
         private void BeginGameOver()
         {
-            _gameOver = true;
             Debug.Log("Game Over");
+            _gameOver = true;
+            OnGameOver?.Invoke();
         }
     }
 }
