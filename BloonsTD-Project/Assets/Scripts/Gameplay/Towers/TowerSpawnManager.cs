@@ -30,12 +30,12 @@ namespace TMG.BloonsTD.Gameplay
 
         private void OnEnable()
         {
-            _gameController.OnGameOver += CancelPlacingTower;
+            _gameController.OnGameOver += GameOver;
         }
 
         private void OnDisable()
         {
-            _gameController.OnGameOver -= CancelPlacingTower;
+            _gameController.OnGameOver -= GameOver;
         }
 
         private void Update()
@@ -110,6 +110,12 @@ namespace TMG.BloonsTD.Gameplay
             _curTowerController.InitializeTower(tower);
         }
 
+        private void GameOver()
+        {
+            CancelPlacingTower();
+            TowerPlacementState = TowerPlacementState.CannotPlaceTower;
+        }
+        
         public void CancelPlacingTower()
         {
             Destroy(_currentTowerGO);

@@ -20,6 +20,7 @@ namespace TMG.BloonsTD.UI
             _gameController.OnRoundChanged += UpdateRoundValue;
             _gameController.OnMoneyChanged += UpdateMoneyValue;
             _gameController.OnLivesChanged += UpdateLivesValue;
+            _gameController.OnGameBegin += ShowStartRoundButton;
             _roundController.OnRoundComplete += ShowStartRoundButton;
         }
 
@@ -28,7 +29,13 @@ namespace TMG.BloonsTD.UI
             _gameController.OnRoundChanged -= UpdateRoundValue;
             _gameController.OnMoneyChanged -= UpdateMoneyValue;
             _gameController.OnLivesChanged -= UpdateLivesValue;
+            _gameController.OnGameBegin -= ShowStartRoundButton;
             _roundController.OnRoundComplete -= ShowStartRoundButton;
+        }
+
+        private void Start()
+        {
+            HideStartRoundButton();
         }
 
         private void UpdateRoundValue(int currentRound) =>

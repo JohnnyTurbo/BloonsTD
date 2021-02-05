@@ -14,6 +14,8 @@ namespace TMG.BloonsTD.Gameplay
         public event StatChangedDelegate OnLivesChanged;
 
         public delegate void GameEvent();
+
+        public event GameEvent OnGameBegin;
         public event GameEvent OnGameOver;
         
         [SerializeField] private GameStatistics _startingGameStatistics;
@@ -32,31 +34,31 @@ namespace TMG.BloonsTD.Gameplay
 
         private void Start()
         {
-            SetupNewGame();
-        }
-
-        private void SetupNewGame()
-        {
-            SetupEvents();
             InitializeStatistics();
             InitializeUI();
         }
+        
+        public void SetupNewGame()
+        {
+            InitializeStatistics();
+            InitializeUI();
+            OnGameBegin?.Invoke();
+        }
 
-        private void SetupEvents()
+        private void OnEnable()
         {
             BloonSpawner.Instance.OnBloonSpawned += SetupBloonEvents;
-            TowerSpawnManager.Instance.OnTowerPlaced += SetupTowerEvents;
+        }
+
+        private void OnDisable()
+        {
+            BloonSpawner.Instance.OnBloonSpawned -= SetupBloonEvents;
         }
 
         private void SetupBloonEvents(BloonController bloonController)
         {
             bloonController.OnBloonReachedEndOfPath += BloonEndOfPath;
             bloonController.OnBloonPopped += BloonPopped;
-        }
-
-        private void SetupTowerEvents(TowerController towerController)
-        {
-            
         }
 
         private void InitializeStatistics()

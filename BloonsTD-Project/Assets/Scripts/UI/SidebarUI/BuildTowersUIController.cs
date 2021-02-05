@@ -3,6 +3,7 @@ using TMG.BloonsTD.Gameplay;
 using UnityEngine;
 using TMG.BloonsTD.Stats;
 using TMPro;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace TMG.BloonsTD.UI
@@ -15,21 +16,26 @@ namespace TMG.BloonsTD.UI
         [SerializeField] private TMP_Text _towerSpeed;
         [SerializeField] private TMP_Text _towerDescription;
         [SerializeField] private Button[] _towerBuildButtons;
+        [SerializeField] private int _testInt;
         
-
         private void Start()
         {
             HideTowerInformation();
+            DisableTowerBuildButtons();
         }
 
         private void OnEnable()
         {
+            GameController.Instance.OnGameBegin += EnableTowerBuildButtons;
             GameController.Instance.OnGameOver += DisableTowerBuildButtons;
+            GameController.Instance.OnGameOver += HideTowerInformation;
         }
 
         private void OnDisable()
         {
+            GameController.Instance.OnGameBegin -= EnableTowerBuildButtons;
             GameController.Instance.OnGameOver -= DisableTowerBuildButtons;
+            GameController.Instance.OnGameOver -= HideTowerInformation;
         }
 
         public void ShowTowerInformation(TowerProperties towerProperties)
@@ -52,11 +58,22 @@ namespace TMG.BloonsTD.UI
             _towerInformationPanel.SetActive(false);
         }
 
+        private void EnableTowerBuildButtons()
+        {
+            foreach (var towerBuildButton in _towerBuildButtons)
+            {
+                towerBuildButton.interactable = true;
+                towerBuildButton.GetComponent<EventTrigger>().enabled = true;
+
+            }
+        }
+        
         private void DisableTowerBuildButtons()
         {
             foreach (var towerBuildButton in _towerBuildButtons)
             {
                 towerBuildButton.interactable = false;
+                towerBuildButton.GetComponent<EventTrigger>().enabled = false;
             }
         }
     }

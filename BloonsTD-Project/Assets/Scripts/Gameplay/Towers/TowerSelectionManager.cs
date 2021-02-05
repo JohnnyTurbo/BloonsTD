@@ -20,11 +20,11 @@ namespace TMG.BloonsTD.Gameplay
 
         private void OnEnable()
         {
-            GameController.Instance.OnGameOver += DisableTowerSelection;
+            GameController.Instance.OnGameOver += GameOver;
         }
         private void OnDisable()
         {
-            GameController.Instance.OnGameOver -= DisableTowerSelection;
+            GameController.Instance.OnGameOver -= GameOver;
         }
 
         private void Update()
@@ -87,8 +87,9 @@ namespace TMG.BloonsTD.Gameplay
             _selectedTower.DeselectTower();
         }
 
-        private void DisableTowerSelection()
+        private void GameOver()
         {
+            DeselectTower();
             _canSelectTowers = false;
         }
     }

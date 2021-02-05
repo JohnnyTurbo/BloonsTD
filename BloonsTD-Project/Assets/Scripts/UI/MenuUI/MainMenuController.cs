@@ -1,3 +1,4 @@
+using TMG.BloonsTD.Gameplay;
 using UnityEngine;
 
 namespace UI.MenuUI
@@ -6,7 +7,8 @@ namespace UI.MenuUI
     {
         public void OnButtonNewGame()
         {
-            
+            GameController.Instance.SetupNewGame();
+            gameObject.SetActive(false);
         }
 
         public void OnButtonMoreGames()
