@@ -9,6 +9,8 @@ namespace TMG.BloonsTD.Stats
     {
         [SerializeField] private int _rounds;
         [SerializeField] private int _money;
+        [Tooltip("Amount of money given to the player after the 1st round. Reward decrements by 1 each round")]
+        [SerializeField] private int _round1Reward;
         [SerializeField] private int _lives;
         [SerializeField] private GameStatistics _maxGameStatistics;
 
@@ -46,6 +48,15 @@ namespace TMG.BloonsTD.Stats
                     : Mathf.Max(0, value);
         }
 
+        public int Round1Reward
+        {
+            get => _round1Reward;
+            set => 
+                _round1Reward = _hasMaxStatistics && !_maxGameStatistics.Round1Reward.Equals(0)
+                ? Mathf.Clamp(value, 0, _maxGameStatistics.Round1Reward)
+                : Mathf.Max(0, value);
+        }
+
         public int Lives
         {
             get => _lives;
@@ -71,6 +82,7 @@ namespace TMG.BloonsTD.Stats
         {
             Rounds = newGameStatistics.Rounds;
             Money = newGameStatistics.Money;
+            Round1Reward = newGameStatistics.Round1Reward;
             Lives = newGameStatistics.Lives;
             NumBloonsPopped = newGameStatistics.NumBloonsPopped;
         }

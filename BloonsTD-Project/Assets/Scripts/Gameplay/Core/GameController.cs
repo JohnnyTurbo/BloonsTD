@@ -26,6 +26,7 @@ namespace TMG.BloonsTD.Gameplay
         private bool _gameOver;
         public bool GameOver => _gameOver;
         public int Money => _currentGameStatistics.Money;
+        private int BaseRewardAmount => _currentGameStatistics.Round1Reward + 1;
 
         private void Awake()
         {
@@ -48,11 +49,13 @@ namespace TMG.BloonsTD.Gameplay
         private void OnEnable()
         {
             BloonSpawner.Instance.OnBloonSpawned += SetupBloonEvents;
+            _roundController.OnRoundComplete += RoundComplete;
         }
 
         private void OnDisable()
         {
             BloonSpawner.Instance.OnBloonSpawned -= SetupBloonEvents;
+            _roundController.OnRoundComplete -= RoundComplete;
         }
 
         private void SetupBloonEvents(BloonController bloonController)
@@ -77,6 +80,16 @@ namespace TMG.BloonsTD.Gameplay
         {
             IncrementRound();
             _roundController.StartRound(_currentGameStatistics.Rounds);
+        }
+
+        private void RoundComplete(int roundNumber)
+        {
+            EndOfRoundReward(roundNumber);
+        }
+
+        private void EndOfRoundReward(int roundNumber)
+        {
+            IncrementMoney(BaseRewardAmount - roundNumber);
         }
 
         private void IncrementRound()

@@ -7,7 +7,7 @@ namespace TMG.BloonsTD.Gameplay
 {
     public class RoundController : MonoBehaviour
     {
-        public delegate void RoundCompleteDelegate();
+        public delegate void RoundCompleteDelegate(int round);
         public event RoundCompleteDelegate OnRoundComplete;
         
         [SerializeField] private List<RoundSpawnStatistics> _rounds;
@@ -15,7 +15,8 @@ namespace TMG.BloonsTD.Gameplay
         
         private BloonSpawner _bloonSpawner;
         private int _bloonsLeft;
-
+        private int _curRoundNumber;
+        private int CurRoundIndex => _curRoundNumber - 1;
         private void OnEnable()
         {
             _bloonSpawner = BloonSpawner.Instance;
@@ -29,10 +30,10 @@ namespace TMG.BloonsTD.Gameplay
 
         public void StartRound(int roundNumber)
         {
-            int roundIndex = roundNumber - 1;
-            var currentRound = _rounds[roundIndex];
-            _bloonsLeft = currentRound.TotalBloonCount;
-            StartCoroutine(SpawnBloonsInRound(currentRound));
+            _curRoundNumber = roundNumber;
+            var bloonsThisRound = _rounds[CurRoundIndex];
+            _bloonsLeft = bloonsThisRound.TotalBloonCount;
+            StartCoroutine(SpawnBloonsInRound(bloonsThisRound));
         }
 
         private IEnumerator SpawnBloonsInRound(RoundSpawnStatistics roundSpawnStatistics)
@@ -77,7 +78,7 @@ namespace TMG.BloonsTD.Gameplay
             if (_bloonsLeft <= 0)
             {
                 //TODO: Check for victory
-                OnRoundComplete?.Invoke();
+                OnRoundComplete?.Invoke(_curRoundNumber);
             }
         }
     }
