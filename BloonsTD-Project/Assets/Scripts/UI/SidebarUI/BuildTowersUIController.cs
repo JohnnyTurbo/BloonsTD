@@ -64,7 +64,6 @@ namespace TMG.BloonsTD.UI
             {
                 towerBuildButton.interactable = true;
                 towerBuildButton.GetComponent<EventTrigger>().enabled = true;
-
             }
         }
         
