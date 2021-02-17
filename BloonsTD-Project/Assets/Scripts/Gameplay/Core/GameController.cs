@@ -22,12 +22,12 @@ namespace TMG.BloonsTD.Gameplay
         [SerializeField] private GameStatistics _currentGameStatistics;
         [SerializeField] private RoundController _roundController;
         [SerializeField] private BloonSpawner _bloonSpawner;
-
+        
         private bool _gameOver;
         public bool GameOver => _gameOver;
         public int Money => _currentGameStatistics.Money;
         private int BaseRewardAmount => _currentGameStatistics.Round1Reward + 1;
-
+        public float SellTowerMultiplier => _currentGameStatistics.SellTowerMultiplier;
         private void Awake()
         {
             Instance = this;
@@ -98,7 +98,7 @@ namespace TMG.BloonsTD.Gameplay
             OnRoundChanged?.Invoke(_currentGameStatistics.Rounds);
         }
 
-        private void IncrementMoney(int amount)
+        public void IncrementMoney(int amount)
         {
             _currentGameStatistics.Money += amount;
             OnMoneyChanged?.Invoke(_currentGameStatistics.Money);

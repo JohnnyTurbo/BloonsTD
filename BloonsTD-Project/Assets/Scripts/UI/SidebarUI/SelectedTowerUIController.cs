@@ -3,6 +3,7 @@ using TMG.BloonsTD.Gameplay;
 using TMG.BloonsTD.Stats;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace TMG.BloonsTD.UI
@@ -14,10 +15,12 @@ namespace TMG.BloonsTD.UI
         [SerializeField] private TowerSpawnManager _towerSpawnManager;
         [SerializeField] private GameObject _selectedTowerPanel;
         
-        [Header("Upgrade General")]
+        [Header("Tower Info UI Elements")]
         [SerializeField] private TMP_Text _towerNameText;
         [SerializeField] private TMP_Text _towerSpeedText;
         [SerializeField] private TMP_Text _towerRangeText;
+        [SerializeField] private Button _sellTowerButton;
+        [SerializeField] private TMP_Text _sellTowerText;
         
         [Header("Upgrade 1")]
         [SerializeField] private Button _upgrade1Button;
@@ -81,6 +84,9 @@ namespace TMG.BloonsTD.UI
             _towerNameText.text = towerProperties.TowerName;
             _towerSpeedText.text = $"Speed: {towerProperties.Speed}";
             _towerRangeText.text = $"Range: {towerController.TowerRange}";
+            _sellTowerButton.onClick.RemoveAllListeners();
+            _sellTowerButton.onClick.AddListener(() => OnButtonSellTower(towerController));
+            _sellTowerText.text = $"Sell for: {towerController.SellTowerCost}";
             
             var upgradeController = _towerController.TowerUpgradeController;
             _upgrade1 = upgradeController.Upgrades[0];
@@ -91,6 +97,11 @@ namespace TMG.BloonsTD.UI
             _gameController.OnMoneyChanged += OnMoneyChanged;
         }
 
+        private static void OnButtonSellTower(TowerController towerController)
+        {
+            towerController.SellTower();
+        }
+        
         private void HideTowerUI()
         {
             _towerController = null;
@@ -130,7 +141,7 @@ namespace TMG.BloonsTD.UI
             else
             {
                 button.interactable = true;
-                button.onClick.AddListener(() => UpgradeTower(upgrade, _towerController));
+                button.onClick.AddListener(() => OnButtonUpgradeTower(upgrade, _towerController));
                 costText.text = $"Buy for: {upgrade.Cost}";
             }
         }
@@ -145,7 +156,7 @@ namespace TMG.BloonsTD.UI
             return _gameController.Money < upgrade.Cost;
         }
 
-        private static void UpgradeTower(TowerUpgrade towerUpgrade, TowerController towerController)
+        private static void OnButtonUpgradeTower(TowerUpgrade towerUpgrade, TowerController towerController)
         {
             towerUpgrade.PurchaseUpgrade(towerController);
             towerController.SelectionController.SelectTower();

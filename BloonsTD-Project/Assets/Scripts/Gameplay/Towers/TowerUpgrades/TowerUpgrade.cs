@@ -18,6 +18,7 @@ namespace TMG.BloonsTD.Gameplay
         {
             IsPurchased = true;
             GameController.Instance.DecrementMoney(Cost);
+            towerController.IncreaseTotalTowerCost(Cost);
         }
         public static TowerUpgrade GetNewUpgrade(TowerUpgradeProperties upgradeProperties)
         {

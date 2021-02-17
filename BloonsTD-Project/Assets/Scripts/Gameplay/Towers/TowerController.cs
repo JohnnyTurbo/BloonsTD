@@ -16,6 +16,7 @@ namespace TMG.BloonsTD.Gameplay
         private TowerState _currentTowerState;
         private TowerAttack _towerAttack;
         private Coroutine _attackCooldown;
+        private int _totalTowerCost;
         public TowerProperties TowerProperties { get; private set; }
         public TowerPlacementController PlacementController { get; private set; }
         public TowerSelectionController SelectionController { get; private set; }
@@ -23,7 +24,8 @@ namespace TMG.BloonsTD.Gameplay
         public TowerAttack TowerAttack => _towerAttack;
 
         public float TowerRange => TowerAttack.Range;
-
+        private float SellTowerMultiplier => GameController.Instance.SellTowerMultiplier;
+        public int SellTowerCost => Mathf.FloorToInt(_totalTowerCost * SellTowerMultiplier);
         public TowerState CurrentTowerState
         {
             get => _currentTowerState;
@@ -52,6 +54,7 @@ namespace TMG.BloonsTD.Gameplay
             _towerAttack = TowerAttack.GetNewFromAttackType(TowerProperties.TowerAttackType);
             _towerBloonDetector.TowerController = this;
             _towerBloonDetector.SetRange(TowerProperties.Range);
+            _totalTowerCost = 0;
             PlacementController.TowerProperties = TowerProperties;
             SelectionController.TowerController = this;
             TowerUpgradeController.InitializeUpgrades(this);
@@ -59,8 +62,22 @@ namespace TMG.BloonsTD.Gameplay
             //TODO: Set renderer, collider, etc.
         }
 
+        public void IncreaseTotalTowerCost(int costAmount)
+        {
+            _totalTowerCost += costAmount;
+        }
+        
+        public void SellTower()
+        {
+            SelectionController.DeselectTower();
+            GameController.Instance.IncrementMoney(SellTowerCost);
+            StopAllCoroutines();
+            Destroy(gameObject);
+        }
+        
         private void OnTowerPlaced(TowerController towerController)
         {
+            _totalTowerCost += TowerProperties.Cost;
             TowerSpawnManager.Instance.OnTowerPlaced -= OnTowerPlaced;
             _currentTowerState = TowerState.Idle;
             _towerAttack.Initialize(this);

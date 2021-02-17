@@ -19,7 +19,6 @@ namespace TMG.BloonsTD.Gameplay
         private int _targetWaypointIndex;
         private int _hitsRemaining;
         private Vector3 _targetWaypointPosition;
-        //private Vector3 CurrentWaypoint => _bloonPath[_targetWaypointIndex];
         private Vector3 PreviousWaypointPosition =>
             _targetWaypointIndex == 0f ? Vector3.zero : _bloonPath[_targetWaypointIndex - 1];
         private float PathSegmentDistance =>

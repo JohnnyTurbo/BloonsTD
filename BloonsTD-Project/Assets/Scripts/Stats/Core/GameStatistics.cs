@@ -13,7 +13,10 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private int _round1Reward;
         [SerializeField] private int _lives;
         [SerializeField] private GameStatistics _maxGameStatistics;
-
+        [Tooltip("Total tower cost (including upgrades) multiplied by this field is how much the player gets back after selling tower")]
+        [Range(0.1f, 1f)]
+        [SerializeField] private float _sellTowerMultiplier;
+        
         private int _numBloonsPopped;
         private bool _hasMaxStatistics;
 
@@ -66,6 +69,12 @@ namespace TMG.BloonsTD.Stats
                     : Mathf.Max(0, value);
         }
 
+        public float SellTowerMultiplier
+        {
+            get => _sellTowerMultiplier;
+            set => _sellTowerMultiplier = Mathf.Clamp(value, 0.1f, 1f);
+        }
+
         public int NumBloonsPopped
         {
             get => _numBloonsPopped;
@@ -85,6 +94,7 @@ namespace TMG.BloonsTD.Stats
             Round1Reward = newGameStatistics.Round1Reward;
             Lives = newGameStatistics.Lives;
             NumBloonsPopped = newGameStatistics.NumBloonsPopped;
+            SellTowerMultiplier = newGameStatistics.SellTowerMultiplier;
         }
     }
 }
