@@ -146,6 +146,7 @@ namespace TMG.BloonsTD.Gameplay
         
         private void OnTowerPlaced(TowerController towerController)
         {
+            _collider.isTrigger = true;
             OnHideRangeIndicator?.Invoke();
             enabled = false;
         }
