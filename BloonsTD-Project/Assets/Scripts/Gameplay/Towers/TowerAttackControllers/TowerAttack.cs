@@ -49,6 +49,7 @@ namespace TMG.BloonsTD.Gameplay
                 Debug.LogWarning("Warning: could not get Collider2D component on the DetectionRadius GameObject.",
                     TowerController);
             }
+            SetRange(TowerController.TowerProperties.Range);
         }
 
         public bool TryAttack()

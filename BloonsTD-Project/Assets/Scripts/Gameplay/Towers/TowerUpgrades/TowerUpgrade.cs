@@ -22,6 +22,7 @@ namespace TMG.BloonsTD.Gameplay
         }
         public static TowerUpgrade GetNewUpgrade(TowerUpgradeProperties upgradeProperties)
         {
+            if (upgradeProperties == null) {return null;}
             var upgradeType = upgradeProperties.UpgradeType;
             switch (upgradeType)
             {

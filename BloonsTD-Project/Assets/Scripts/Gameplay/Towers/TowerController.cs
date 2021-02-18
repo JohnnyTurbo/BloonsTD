@@ -59,7 +59,8 @@ namespace TMG.BloonsTD.Gameplay
             SelectionController.TowerController = this;
             TowerUpgradeController.InitializeUpgrades(this);
             _currentTowerState = TowerState.Placing;
-            //TODO: Set renderer, collider, etc.
+            Instantiate(TowerProperties.RendererPrefab, Vector3.zero, Quaternion.identity, transform);
+            //TODO: Set collider, etc.
         }
 
         public void IncreaseTotalTowerCost(int costAmount)

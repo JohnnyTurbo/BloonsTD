@@ -12,19 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc05d24243443a19f5818e66c87d7eb, type: 3}
   m_Name: TackTowerProperties
   m_EditorClassIdentifier: 
-  _towerName: 
+  _towerName: Tack Tower
   _cost: 400
   _speed: 1
-  _attackCooldownTime: 0
+  _attackCooldownTime: 2
   _description: Shoots volley of tacks in 8 directions. Can upgrade its shoot speed
     and its range.
+  _rendererPrefab: {fileID: 1023033092595466603, guid: b1c53da4aa2100641ade8adf94c85c36,
+    type: 3}
   _colliderRadius: 0.3
   _range: 10
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
-  _towerAttackType: 0
-  _projectilePrefab: {fileID: 0}
-  _numberProjectiles: 0
+  _towerAttackType: 1
+  _projectilePrefab: {fileID: 4276879624985475882, guid: 42d7a87b0d143b146aaeb5e0cb8d10bd,
+    type: 3}
+  _numberProjectiles: 7
   _freezeDuration: 0
-  _towerUpgradePropertiesPath1: {fileID: 0}
-  _towerUpgradePropertiesPath2: {fileID: 0}
+  _towerUpgradePropertiesPath1: {fileID: 11400000, guid: 4eff33ffc184fcb4299301624c4b3def,
+    type: 2}
+  _towerUpgradePropertiesPath2: {fileID: 11400000, guid: 14814f7d89501b24cb1f4801df362bb1,
+    type: 2}

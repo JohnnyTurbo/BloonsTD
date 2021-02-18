@@ -18,6 +18,8 @@ MonoBehaviour:
   _attackCooldownTime: 1
   _description: Shoots a single dart. Can upgrade to piercing darts and long range
     darts.
+  _rendererPrefab: {fileID: 8515468468446057532, guid: 50854a4a6619d0a42b68e0fb468f04b4,
+    type: 3}
   _colliderRadius: 0.36
   _range: 15
   _canBePlacedOffPath: 1

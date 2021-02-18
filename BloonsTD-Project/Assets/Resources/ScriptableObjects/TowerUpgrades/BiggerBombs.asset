@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47c3ef47b37d44e2a27597a8445c10f4, type: 3}
-  m_Name: FasterShooting
+  m_Name: BiggerBombs
   m_EditorClassIdentifier: 
-  _name: Faster Shooting
-  _upgradeType: 1
-  _cost: 250
+  _name: Bigger Bombs
+  _upgradeType: 3
+  _cost: 650
   _description: 
   _upgradeIcon: {fileID: 0}
-  _upgradeValue: 1
+  _upgradeValue: 0
   _weapon: {fileID: 0}

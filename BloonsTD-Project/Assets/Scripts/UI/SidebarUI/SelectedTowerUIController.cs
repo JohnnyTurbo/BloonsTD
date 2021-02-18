@@ -120,6 +120,11 @@ namespace TMG.BloonsTD.UI
         
         private void SetupUpgradeButton(TowerUpgrade upgrade, UpgradeButtonDTO upgradeButtonDTO)
         {
+            if (upgrade == null)
+            {
+                ShowBlankButton(upgradeButtonDTO);
+                return;
+            }
             var button = upgradeButtonDTO.Button;
             var nameText = upgradeButtonDTO.NameText;
             var costText = upgradeButtonDTO.CostText;
@@ -144,6 +149,20 @@ namespace TMG.BloonsTD.UI
                 button.onClick.AddListener(() => OnButtonUpgradeTower(upgrade, _towerController));
                 costText.text = $"Buy for: {upgrade.Cost}";
             }
+        }
+
+        private void ShowBlankButton(UpgradeButtonDTO upgradeButtonDTO)
+        {
+            var button = upgradeButtonDTO.Button;
+            var nameText = upgradeButtonDTO.NameText;
+            var costText = upgradeButtonDTO.CostText;
+            var iconImage = upgradeButtonDTO.Icon;
+            
+            button.image.color = Color.clear;
+            button.interactable = false;
+            nameText.text = string.Empty;
+            costText.text = string.Empty;
+            iconImage.color = Color.clear;
         }
 
         private static bool HavePurchased(TowerUpgrade upgrade)

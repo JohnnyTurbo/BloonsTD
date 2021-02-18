@@ -10,7 +10,6 @@ namespace TMG.BloonsTD.Gameplay
         {
             base.Initialize(towerController);
             _projectile = TowerController.TowerProperties.ProjectilePrefab;
-            SetRange(TowerController.TowerProperties.Range);
         }
 
         protected override void Attack(Vector3 targetLocation)

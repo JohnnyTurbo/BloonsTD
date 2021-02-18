@@ -11,6 +11,7 @@ namespace TMG.BloonsTD.Stats
         [SerializeField] private TowerSpeed _speed;
         [SerializeField] private float _attackCooldownTime;
         [TextArea][SerializeField] private string _description;
+        [SerializeField] private GameObject _rendererPrefab;
         [SerializeField] private float _colliderRadius;
         [SerializeField] private float _range;
         [SerializeField] private bool _canBePlacedOffPath;
@@ -51,6 +52,7 @@ namespace TMG.BloonsTD.Stats
         }
         public float AttackCooldownTime => _attackCooldownTime;
         public string Description => _description;
+        public GameObject RendererPrefab => _rendererPrefab;
         public float ColliderRadius
         {
             get => _colliderRadius;

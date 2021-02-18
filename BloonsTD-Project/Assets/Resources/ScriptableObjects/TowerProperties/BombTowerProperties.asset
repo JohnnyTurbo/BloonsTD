@@ -12,19 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc05d24243443a19f5818e66c87d7eb, type: 3}
   m_Name: BombTowerProperties
   m_EditorClassIdentifier: 
-  _towerName: 
+  _towerName: Bomb Tower
   _cost: 900
   _speed: 1
-  _attackCooldownTime: 0
+  _attackCooldownTime: 2
   _description: Launches a bomb that explodes on impact. Can upgrade to bigger bombs
     and longer range.
+  _rendererPrefab: {fileID: 4335736314022058996, guid: 9bf6eaef34b640142bb612b0893ea972,
+    type: 3}
   _colliderRadius: 0.36
-  _range: 0
+  _range: 20
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
   _towerAttackType: 0
   _projectilePrefab: {fileID: 0}
   _numberProjectiles: 0
   _freezeDuration: 0
-  _towerUpgradePropertiesPath1: {fileID: 0}
-  _towerUpgradePropertiesPath2: {fileID: 0}
+  _towerUpgradePropertiesPath1: {fileID: 11400000, guid: 7bc57c75faa952c408aa2638b3bc4286,
+    type: 2}
+  _towerUpgradePropertiesPath2: {fileID: 11400000, guid: c6b56ac4124b1a244838202eedcafe7f,
+    type: 2}

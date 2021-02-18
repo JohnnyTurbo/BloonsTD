@@ -56,7 +56,8 @@ namespace TMG.BloonsTD.Gameplay
         {
             if(!_canSelectTowers) {return;}
             var worldSelectionPosition = InputController.WorldSelectionPosition;
-            var towerFiler = new ContactFilter2D {layerMask = 1 << PhysicsLayers.Towers, useLayerMask = true};
+            var towerFiler = new ContactFilter2D
+                {layerMask = 1 << PhysicsLayers.Towers, useLayerMask = true, useTriggers = true};
             var towerColliders = new List<Collider2D>();
             var numTowersSelected = Physics2D.OverlapPoint(worldSelectionPosition, towerFiler, towerColliders);
             if (numTowersSelected > 0)
