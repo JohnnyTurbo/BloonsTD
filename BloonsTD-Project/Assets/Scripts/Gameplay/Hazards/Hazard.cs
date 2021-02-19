@@ -7,6 +7,10 @@ namespace TMG.BloonsTD.Gameplay
     public class Hazard : MonoBehaviour
     {
         [SerializeField] protected int _maxBloonHits;
+        [SerializeField] private bool _canPopFrozen;
+
+        public bool CanPopFrozen => _canPopFrozen;
+
         private int _bloonHitsRemaining;
         protected List<BloonController> ImmuneBloons;
         protected int HitsThisStep;

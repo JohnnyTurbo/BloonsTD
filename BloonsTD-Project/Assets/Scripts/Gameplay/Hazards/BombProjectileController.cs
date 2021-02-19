@@ -61,7 +61,7 @@ namespace TMG.BloonsTD.Gameplay
             {
                 var bloonController = bloonCollider.GetComponent<BloonController>();
                 if (!bloonController.BloonProperties.CanBePoppedByBombs) continue;
-                bloonController.HitBloon();
+                bloonController.HitBloon(this);
             }
             DestroyHazard();
         }

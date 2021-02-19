@@ -134,5 +134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxBloonHits: 0
+  _canPopFrozen: 1
   _movementSpeed: 5
   _explosionRadius: 0.75

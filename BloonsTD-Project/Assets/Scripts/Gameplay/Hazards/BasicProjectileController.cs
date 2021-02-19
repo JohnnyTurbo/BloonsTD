@@ -57,9 +57,12 @@ namespace TMG.BloonsTD.Gameplay
 
         protected override void HitBloon(BloonController bloonToHit)
         {
-            var newImmuneBloons = bloonToHit.HitBloon();
-            ImmuneBloons.AddRange(newImmuneBloons);
-            base.HitBloon(bloonToHit);
+            if (bloonToHit.HitBloon(this, out var newImmuneBloons))
+            {
+                ImmuneBloons.AddRange(newImmuneBloons);
+                base.HitBloon(bloonToHit);
+            }
+            DestroyHazard();
         }
 
         public void SetRange(float newRangeValue)

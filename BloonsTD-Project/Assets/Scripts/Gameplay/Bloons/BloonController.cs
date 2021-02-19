@@ -31,6 +31,8 @@ namespace TMG.BloonsTD.Gameplay
 
         private bool BloonReachedEndOfPath => _targetWaypointIndex >= _bloonPath.WaypointCount;
         private int RBE => _bloonProperties.RedBloonEquivalent;
+        private bool _isFrozen;
+        public bool IsFrozen => _isFrozen;
 
         public BloonProperties BloonProperties
         {
@@ -54,9 +56,15 @@ namespace TMG.BloonsTD.Gameplay
 
         private void Update()
         {
-            float step = _bloonProperties.MoveSpeed * Time.deltaTime;
+            MoveBloonOnPath();
+        }
+
+        private void MoveBloonOnPath()
+        {
+            if(_isFrozen){return;}
+            var step = _bloonProperties.MoveSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, _targetWaypointPosition, step);
-            
+
             if (Vector3.Distance(transform.position, _targetWaypointPosition) <= 0.1f)
             {
                 SetNextTargetPosition();
@@ -89,10 +97,25 @@ namespace TMG.BloonsTD.Gameplay
             _targetWaypointPosition = _bloonPath[_targetWaypointIndex];
         }
 
-        public BloonController[] HitBloon()
+        public bool HitBloon(Hazard hazard)
         {
+            if (CannotHitBloon(hazard)) return false;
             _hitsRemaining--;
-            return _hitsRemaining <= 0 ? PopBloon() : new BloonController[1] {this};
+            return true;
+        }
+        
+        public bool HitBloon(Hazard hazard, out BloonController[] spawnedBloons)
+        {
+            spawnedBloons = null;
+            if (CannotHitBloon(hazard)) return false;
+            _hitsRemaining--;
+            spawnedBloons = _hitsRemaining <= 0 ? PopBloon() : new BloonController[1] {this};
+            return true;
+        }
+
+        private bool CannotHitBloon(Hazard hazard)
+        {
+            return _isFrozen && !hazard.CanPopFrozen;
         }
 
         private BloonController[] PopBloon()
@@ -167,6 +190,17 @@ namespace TMG.BloonsTD.Gameplay
             if (bloon1.RBE > bloon2.RBE)
                 return bloon2;
             return CompareGreaterPathProgress(bloon1, bloon2);
+        }
+
+        public void FreezeBloon(float freezeDuration)
+        {
+            _isFrozen = true;
+            Invoke(nameof(UnFreezeBloon), freezeDuration);
+        }
+
+        private void UnFreezeBloon()
+        {
+            _isFrozen = false;
         }
     }
 }
