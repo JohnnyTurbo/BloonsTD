@@ -18,7 +18,6 @@ namespace TMG.BloonsTD.Gameplay
 
         protected override void Attack(Vector3 targetLocation)
         {
-            Debug.Log("Freezea");
             var bloonCollidersInRange = new List<Collider2D>();
             var bloonFilter = new ContactFilter2D {layerMask = 1 << PhysicsLayers.Bloons, useLayerMask = true};
             Physics2D.OverlapCircle(_towerPosition, Range, bloonFilter, bloonCollidersInRange);
@@ -32,7 +31,7 @@ namespace TMG.BloonsTD.Gameplay
 
         public void SetDuration(float newDurationValue)
         {
-            throw new System.NotImplementedException();
+            _freezeDuration = newDurationValue;
         }
     }
 }
