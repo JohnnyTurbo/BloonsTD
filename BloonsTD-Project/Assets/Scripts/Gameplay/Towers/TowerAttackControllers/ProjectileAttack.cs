@@ -17,8 +17,8 @@ namespace TMG.BloonsTD.Gameplay
             var rotation = GetOrientationToTarget(TowerPosition, targetLocation);
             TowerController.transform.rotation = rotation;
             var newProjectile = Object.Instantiate(_projectile, TowerPosition, rotation);
-            var newProjectileController = newProjectile.GetComponent<BasicProjectileController>();
-            newProjectileController.MaxDistanceTraveled = Range;
+            if (newProjectile.GetComponent<Hazard>() is IUpgradeRange newProjectileController)
+                newProjectileController.SetRange(Range);
         }
         
         public void SetWeapon(GameObject newWeaponPrefab)

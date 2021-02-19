@@ -1,13 +1,15 @@
 using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TMG.BloonsTD.Gameplay
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class BasicProjectileController : Hazard, IUpgradeRange
+    public class BombProjectileController : Hazard, IUpgradeRange
     {
         [SerializeField] private float _movementSpeed;
+        [SerializeField] private float _explosionRadius;
         
         private float _maxDistanceTraveled;
         private float MaxDistanceTraveled
@@ -15,7 +17,11 @@ namespace TMG.BloonsTD.Gameplay
             get => _maxDistanceTraveled;
             set => _maxDistanceTraveled = Mathf.Max(float.Epsilon, value);
         }
-        
+        public void SetRange(float newRangeValue)
+        {
+            MaxDistanceTraveled = newRangeValue;
+        }
+
         private Rigidbody2D _rigidbody;
         private Vector3 _startPosition;
         private float DistanceTraveled => Vector3.Distance(_startPosition, transform.position);
@@ -40,31 +46,24 @@ namespace TMG.BloonsTD.Gameplay
             }
         }
 
-        private void FixedUpdate()
-        {
-            HitsThisStep = 0;
-        }
-
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.IsNotABloon()) return;
-            var curBloon = other.GetComponent<BloonController>();
-            if (ImmuneBloons.Contains(curBloon)) return;
-            HitsThisStep++;
-            if (HitAnotherBloonThisStep) return;
-            HitBloon(curBloon);
+            Explode();
         }
 
-        protected override void HitBloon(BloonController bloonToHit)
+        private void Explode()
         {
-            var newImmuneBloons = bloonToHit.HitBloon();
-            ImmuneBloons.AddRange(newImmuneBloons);
-            base.HitBloon(bloonToHit);
-        }
-
-        public void SetRange(float newRangeValue)
-        {
-            MaxDistanceTraveled = newRangeValue;
+            var bloonCollidersInRange = new List<Collider2D>();
+            var bloonFilter = new ContactFilter2D {layerMask = 1 << PhysicsLayers.Bloons, useLayerMask = true};
+            Physics2D.OverlapCircle(transform.position, _explosionRadius, bloonFilter, bloonCollidersInRange);
+            foreach (var bloonCollider in bloonCollidersInRange)
+            {
+                var bloonController = bloonCollider.GetComponent<BloonController>();
+                if (!bloonController.BloonProperties.CanBePoppedByBombs) continue;
+                bloonController.HitBloon();
+            }
+            DestroyHazard();
         }
     }
 }

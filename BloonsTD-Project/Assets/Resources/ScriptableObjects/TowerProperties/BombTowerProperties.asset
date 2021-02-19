@@ -25,7 +25,8 @@ MonoBehaviour:
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
   _towerAttackType: 0
-  _projectilePrefab: {fileID: 0}
+  _projectilePrefab: {fileID: 4236017124761958150, guid: bd647c62c4baaeb499442cfb975a6d96,
+    type: 3}
   _numberProjectiles: 0
   _freezeDuration: 0
   _towerUpgradePropertiesPath1: {fileID: 11400000, guid: 7bc57c75faa952c408aa2638b3bc4286,

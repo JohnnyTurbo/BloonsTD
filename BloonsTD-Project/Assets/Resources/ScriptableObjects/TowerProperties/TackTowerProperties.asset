@@ -27,7 +27,7 @@ MonoBehaviour:
   _towerAttackType: 1
   _projectilePrefab: {fileID: 4276879624985475882, guid: 42d7a87b0d143b146aaeb5e0cb8d10bd,
     type: 3}
-  _numberProjectiles: 7
+  _numberProjectiles: 8
   _freezeDuration: 0
   _towerUpgradePropertiesPath1: {fileID: 11400000, guid: 4eff33ffc184fcb4299301624c4b3def,
     type: 2}

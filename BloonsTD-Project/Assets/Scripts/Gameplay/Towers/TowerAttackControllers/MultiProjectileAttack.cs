@@ -27,7 +27,7 @@ namespace TMG.BloonsTD.Gameplay
                 var projectileRotation = Quaternion.AngleAxis(projectileRotationDeg, Vector3.back);
                 var newProjectile = Object.Instantiate(_projectile, TowerPosition, projectileRotation);
                 var newProjectileController = newProjectile.GetComponent<BasicProjectileController>();
-                newProjectileController.MaxDistanceTraveled = Range;
+                newProjectileController.SetRange(Range);
             }
         }
 
