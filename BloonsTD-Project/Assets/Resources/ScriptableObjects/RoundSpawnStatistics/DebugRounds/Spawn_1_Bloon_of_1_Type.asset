@@ -17,3 +17,4 @@ MonoBehaviour:
     _bloonType: 0
     _numberInGroup: 1
     _timeBetweenBloons: 1
+  _preRoundComment: 

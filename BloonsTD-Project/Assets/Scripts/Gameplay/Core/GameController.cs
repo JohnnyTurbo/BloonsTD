@@ -1,6 +1,7 @@
 using System;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TMG.BloonsTD.Gameplay
 {
@@ -19,15 +20,15 @@ namespace TMG.BloonsTD.Gameplay
         public event GameEvent OnGameOver;
         
         [SerializeField] private GameStatistics _startingGameStatistics;
-        [SerializeField] private GameStatistics _currentGameStatistics;
+        [SerializeField] private GameStatistics _curGameStatistics;
         [SerializeField] private RoundController _roundController;
         [SerializeField] private BloonSpawner _bloonSpawner;
         
         private bool _gameOver;
         public bool GameOver => _gameOver;
-        public int Money => _currentGameStatistics.Money;
-        private int BaseRewardAmount => _currentGameStatistics.Round1Reward + 1;
-        public float SellTowerMultiplier => _currentGameStatistics.SellTowerMultiplier;
+        public int Money => _curGameStatistics.Money;
+        private int BaseRewardAmount => _curGameStatistics.Round1Reward + 1;
+        public float SellTowerMultiplier => _curGameStatistics.SellTowerMultiplier;
         private void Awake()
         {
             Instance = this;
@@ -66,20 +67,21 @@ namespace TMG.BloonsTD.Gameplay
 
         private void InitializeStatistics()
         {
-            _currentGameStatistics.SetGameStatistics(_startingGameStatistics);
+            _curGameStatistics.SetGameStatistics(_startingGameStatistics);
+            _roundController.Initialize(_curGameStatistics);
         }
 
         private void InitializeUI()
         {
-            OnRoundChanged?.Invoke(_currentGameStatistics.Rounds);
-            OnMoneyChanged?.Invoke(_currentGameStatistics.Money);
-            OnLivesChanged?.Invoke(_currentGameStatistics.Lives);
+            OnRoundChanged?.Invoke(_curGameStatistics.Rounds);
+            OnMoneyChanged?.Invoke(_curGameStatistics.Money);
+            OnLivesChanged?.Invoke(_curGameStatistics.Lives);
         }
 
         public void BeginNewRound()
         {
-            IncrementRound();
-            _roundController.StartRound(_currentGameStatistics.Rounds);
+            UpdateRoundText();
+            _roundController.StartNextRound();
         }
 
         private void RoundComplete(RoundProperties completedRound)
@@ -92,31 +94,30 @@ namespace TMG.BloonsTD.Gameplay
             IncrementMoney(BaseRewardAmount - roundNumber);
         }
 
-        private void IncrementRound()
+        private void UpdateRoundText()
         {
-            _currentGameStatistics.Rounds++;
-            OnRoundChanged?.Invoke(_currentGameStatistics.Rounds);
+            OnRoundChanged?.Invoke(_curGameStatistics.Rounds);
         }
 
         public void IncrementMoney(int amount)
         {
-            _currentGameStatistics.Money += amount;
-            OnMoneyChanged?.Invoke(_currentGameStatistics.Money);
+            _curGameStatistics.Money += amount;
+            OnMoneyChanged?.Invoke(_curGameStatistics.Money);
         }
 
         public void DecrementMoney(int amount)
         {
-            _currentGameStatistics.Money -= amount;
-            OnMoneyChanged?.Invoke(_currentGameStatistics.Money);
+            _curGameStatistics.Money -= amount;
+            OnMoneyChanged?.Invoke(_curGameStatistics.Money);
         }
 
         private void DecrementLives(int livesToLose)
         {
             if(_gameOver){return;}
             
-            _currentGameStatistics.Lives -= livesToLose;
-            OnLivesChanged?.Invoke(_currentGameStatistics.Lives);
-            if (_currentGameStatistics.Lives <= 0)
+            _curGameStatistics.Lives -= livesToLose;
+            OnLivesChanged?.Invoke(_curGameStatistics.Lives);
+            if (_curGameStatistics.Lives <= 0)
             {
                 BeginGameOver();
             }
@@ -130,7 +131,7 @@ namespace TMG.BloonsTD.Gameplay
         private void BloonPopped(BloonProperties bloonProperties)
         {
             IncrementMoney(bloonProperties.MoneyWhenPopped);
-            _currentGameStatistics.NumBloonsPopped++;
+            _curGameStatistics.NumBloonsPopped++;
         }
 
         private void BeginGameOver()

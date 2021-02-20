@@ -21,3 +21,4 @@ MonoBehaviour:
     _bloonType: 1
     _numberInGroup: 10
     _timeBetweenBloons: 0.5
+  _preRoundComment: That was too easy, press 'Start Round' to play the next round.

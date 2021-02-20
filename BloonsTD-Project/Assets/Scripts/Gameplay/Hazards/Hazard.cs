@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,16 @@ namespace TMG.BloonsTD.Gameplay
         {
             _bloonHitsRemaining = _maxBloonHits;
             ImmuneBloons = new List<BloonController>();
+        }
+
+        private void OnEnable()
+        {
+            GameController.Instance.OnGameOver += DestroyHazard;
+        }
+
+        private void OnDisable()
+        {
+            GameController.Instance.OnGameOver -= DestroyHazard;
         }
 
         protected virtual void HitBloon(BloonController bloonToHit)

@@ -7,8 +7,9 @@ namespace TMG.BloonsTD.Gameplay
 {
     public class RoundController : MonoBehaviour
     {
-        public delegate void RoundCompleteDelegate(RoundProperties round);
-        public event RoundCompleteDelegate OnRoundComplete;
+        public delegate void RoundEventDelegate(RoundProperties round);
+        public event RoundEventDelegate OnRoundComplete;
+        public event RoundEventDelegate OnQueueNextRound;
         
         [SerializeField] private List<RoundProperties> _rounds;
         [SerializeField] private GameController _gameController;
@@ -16,22 +17,41 @@ namespace TMG.BloonsTD.Gameplay
         private BloonSpawner _bloonSpawner;
         private int _bloonsLeft;
         private RoundProperties _curRound;
+        private GameStatistics _curGameStatistics;
+        private int CurRoundIndex => _curGameStatistics.Rounds - 1;
         private void OnEnable()
         {
             _bloonSpawner = BloonSpawner.Instance;
             _bloonSpawner.OnBloonSpawned += SetupBloonEvents;
+            _gameController.OnGameBegin += QueueNextRound;
         }
 
         private void OnDisable()
         {
             _bloonSpawner.OnBloonSpawned -= SetupBloonEvents;
+            _gameController.OnGameBegin -= QueueNextRound;
         }
 
-        public void StartRound(int roundNumber)
+        public void Initialize(GameStatistics curGameStatistics)
         {
-            _curRound = _rounds[roundNumber - 1];
-            _curRound.RoundNumber = roundNumber;
+            _curGameStatistics = curGameStatistics;
+            
+            for (var i = 0; i < _rounds.Count; i++)
+            {
+                _rounds[i].RoundNumber = i + 1;
+            }
+        }
+
+        private void QueueNextRound()
+        {
+            _curGameStatistics.Rounds++;
+            _curRound = _rounds[CurRoundIndex];
             _bloonsLeft = _curRound.TotalBloonCount;
+            OnQueueNextRound?.Invoke(_curRound);
+        }
+        
+        public void StartNextRound()
+        {
             StartCoroutine(SpawnBloonsInRound(_curRound));
         }
 
@@ -78,6 +98,7 @@ namespace TMG.BloonsTD.Gameplay
             {
                 //TODO: Check for victory
                 OnRoundComplete?.Invoke(_curRound);
+                QueueNextRound();
             }
         }
     }

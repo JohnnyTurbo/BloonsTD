@@ -29,3 +29,4 @@ MonoBehaviour:
     _bloonType: 3
     _numberInGroup: 10
     _timeBetweenBloons: 0.5
+  _preRoundComment: Blue bloons move faster and have red bloons inside them.

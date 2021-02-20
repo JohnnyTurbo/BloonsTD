@@ -25,3 +25,4 @@ MonoBehaviour:
     _bloonType: 2
     _numberInGroup: 10
     _timeBetweenBloons: 0.5
+  _preRoundComment: Still super easy, you didn't miss any did you?

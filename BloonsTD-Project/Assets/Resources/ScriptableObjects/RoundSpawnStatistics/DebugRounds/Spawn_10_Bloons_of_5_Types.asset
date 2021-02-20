@@ -33,3 +33,4 @@ MonoBehaviour:
     _bloonType: 4
     _numberInGroup: 10
     _timeBetweenBloons: 0.5
+  _preRoundComment: Remember to spend your money.
