@@ -5799,6 +5799,7 @@ MonoBehaviour:
   _dialogueBox: {fileID: 922893636}
   _text: {fileID: 234714273}
   _roundController: {fileID: 956287835}
+  _towerSpawnManager: {fileID: 222423991}
   _displayTime: 5
   _fadeTime: 0
 --- !u!4 &1357889777 stripped

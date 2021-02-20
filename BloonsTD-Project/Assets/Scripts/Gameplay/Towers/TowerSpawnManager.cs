@@ -10,6 +10,8 @@ namespace TMG.BloonsTD.Gameplay
         public static TowerSpawnManager Instance;
         public delegate void TowerPlaced(TowerController towerController);
         public event TowerPlaced OnTowerPlaced;
+        public delegate void DialogueMessageDelegate(string message);
+        public event DialogueMessageDelegate OnDisplayMessage;
         
         [SerializeField] private GameController _gameController;
         [SerializeField] private GameObject _baseTowerPrefab;
@@ -74,7 +76,7 @@ namespace TMG.BloonsTD.Gameplay
         {
             if (CannotAffordTower(tower))
             {
-                Debug.LogWarning($"Cannot afford tower, get richer. Need {tower.Cost - _gameController.Money} more $.");
+                OnDisplayMessage?.Invoke("not enough money.");
                 return;
             }
             
