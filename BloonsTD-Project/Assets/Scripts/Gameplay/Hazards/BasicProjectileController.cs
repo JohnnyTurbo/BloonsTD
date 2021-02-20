@@ -62,7 +62,10 @@ namespace TMG.BloonsTD.Gameplay
                 ImmuneBloons.AddRange(newImmuneBloons);
                 base.HitBloon(bloonToHit);
             }
-            DestroyHazard();
+            else
+            {
+                DestroyHazard();   
+            }
         }
 
         public void SetRange(float newRangeValue)
