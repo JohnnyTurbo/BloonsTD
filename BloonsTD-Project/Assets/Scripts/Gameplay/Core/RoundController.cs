@@ -7,16 +7,15 @@ namespace TMG.BloonsTD.Gameplay
 {
     public class RoundController : MonoBehaviour
     {
-        public delegate void RoundCompleteDelegate(int round);
+        public delegate void RoundCompleteDelegate(RoundProperties round);
         public event RoundCompleteDelegate OnRoundComplete;
         
-        [SerializeField] private List<RoundSpawnStatistics> _rounds;
+        [SerializeField] private List<RoundProperties> _rounds;
         [SerializeField] private GameController _gameController;
         
         private BloonSpawner _bloonSpawner;
         private int _bloonsLeft;
-        private int _curRoundNumber;
-        private int CurRoundIndex => _curRoundNumber - 1;
+        private RoundProperties _curRound;
         private void OnEnable()
         {
             _bloonSpawner = BloonSpawner.Instance;
@@ -30,15 +29,15 @@ namespace TMG.BloonsTD.Gameplay
 
         public void StartRound(int roundNumber)
         {
-            _curRoundNumber = roundNumber;
-            var bloonsThisRound = _rounds[CurRoundIndex];
-            _bloonsLeft = bloonsThisRound.TotalBloonCount;
-            StartCoroutine(SpawnBloonsInRound(bloonsThisRound));
+            _curRound = _rounds[roundNumber - 1];
+            _curRound.RoundNumber = roundNumber;
+            _bloonsLeft = _curRound.TotalBloonCount;
+            StartCoroutine(SpawnBloonsInRound(_curRound));
         }
 
-        private IEnumerator SpawnBloonsInRound(RoundSpawnStatistics roundSpawnStatistics)
+        private IEnumerator SpawnBloonsInRound(RoundProperties roundProperties)
         {
-            foreach (var spawnGroup in roundSpawnStatistics.SpawnGroups)
+            foreach (var spawnGroup in roundProperties.SpawnGroups)
             {
                 yield return new WaitForSeconds(spawnGroup.InitialSpawnDelay);
                 StartCoroutine(SpawnBloonsInGroup(spawnGroup));
@@ -78,7 +77,7 @@ namespace TMG.BloonsTD.Gameplay
             if (_bloonsLeft <= 0)
             {
                 //TODO: Check for victory
-                OnRoundComplete?.Invoke(_curRoundNumber);
+                OnRoundComplete?.Invoke(_curRound);
             }
         }
     }

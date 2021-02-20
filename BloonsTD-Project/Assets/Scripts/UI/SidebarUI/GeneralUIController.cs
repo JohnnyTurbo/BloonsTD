@@ -1,5 +1,6 @@
 using System;
 using TMG.BloonsTD.Gameplay;
+using TMG.BloonsTD.Stats;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -42,7 +43,7 @@ namespace TMG.BloonsTD.UI
             _roundValue.text = currentRound.Equals(0) ? 1.ToString() : currentRound.ToString();
         private void UpdateMoneyValue(int currentMoney) => _moneyValue.text = currentMoney.ToString();
         private void UpdateLivesValue(int currentLives) => _livesValue.text = currentLives.ToString();
-        private void ShowStartRoundButton(int round) => ShowStartRoundButton();
+        private void ShowStartRoundButton(RoundProperties round) => ShowStartRoundButton();
         private void ShowStartRoundButton() => _startRoundButton.gameObject.SetActive(true);
         public void HideStartRoundButton() => _startRoundButton.gameObject.SetActive(false);
     }

@@ -82,9 +82,9 @@ namespace TMG.BloonsTD.Gameplay
             _roundController.StartRound(_currentGameStatistics.Rounds);
         }
 
-        private void RoundComplete(int roundNumber)
+        private void RoundComplete(RoundProperties completedRound)
         {
-            EndOfRoundReward(roundNumber);
+            EndOfRoundReward(completedRound.RoundNumber);
         }
 
         private void EndOfRoundReward(int roundNumber)

@@ -14,14 +14,14 @@ namespace TMG.BloonsTD.TestInfrastructure
             return this;
         }
 
-        private RoundSpawnStatistics Build()
+        private RoundProperties Build()
         {
-            var roundSpawnStatistics = ScriptableObject.CreateInstance<RoundSpawnStatistics>();
+            var roundSpawnStatistics = ScriptableObject.CreateInstance<RoundProperties>();
             roundSpawnStatistics.SpawnGroups = _spawnGroups;
             return roundSpawnStatistics;
         }
 
-        public static implicit operator RoundSpawnStatistics(RoundSpawnStatisticsBuilder builder)
+        public static implicit operator RoundProperties(RoundSpawnStatisticsBuilder builder)
         {
             return builder.Build();
         }

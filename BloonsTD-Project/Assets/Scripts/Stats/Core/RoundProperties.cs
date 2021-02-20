@@ -4,14 +4,23 @@ using UnityEngine;
 namespace TMG.BloonsTD.Stats
 {
     [CreateAssetMenu(fileName = "Round-", menuName = "Scriptable Objects/Round Spawn Statistics", order = 0)]
-    public class RoundSpawnStatistics : ScriptableObject
+    public class RoundProperties : ScriptableObject
     {
         [SerializeField] private List<SpawnGroup> _spawnGroups;
-
+        [SerializeField] [TextArea] private string _preRoundComment;
+        private int _roundNumber;
         public List<SpawnGroup> SpawnGroups
         {
             get => _spawnGroups;
             set => _spawnGroups = value;
+        }
+
+        public string PreRoundComment => _preRoundComment;
+
+        public int RoundNumber
+        {
+            get => _roundNumber;
+            set => _roundNumber = Mathf.Max(1, value);
         }
 
         public float RoundTime
