@@ -1,9 +1,7 @@
-using System;
 using TMG.BloonsTD.Gameplay;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace TMG.BloonsTD.UI

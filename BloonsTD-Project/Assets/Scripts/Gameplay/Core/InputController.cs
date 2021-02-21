@@ -15,7 +15,10 @@ namespace TMG.BloonsTD.Gameplay
             !EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0);
 
         public static bool BeginCancelSelection => Input.GetKeyDown(KeyCode.Escape);
-
+        public static void ResetMainCamera()
+        {
+            _hasMainCamera = false;
+        }
         private static Camera MainCamera
         {
             get

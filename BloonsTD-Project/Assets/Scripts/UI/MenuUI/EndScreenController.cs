@@ -29,9 +29,9 @@ namespace UI.MenuUI
         private void ShowGameOverScreen()
         {
             _endScreenPanel.SetActive(true);
-            _resultText.text = "GAME OVER!";
+            _resultText.text = GameController.Instance.Victory ? "CONGRATULATIONS!" : "GAME OVER!";
         }
-        
+
         public void OnButtonRetry()
         {
             //TODO: Make without reloading level

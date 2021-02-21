@@ -28,7 +28,6 @@ namespace TMG.BloonsTD.Gameplay
         private float PercentToNextWaypoint =>
             _targetWaypointIndex == 0f ? 0 : (PathSegmentDistance - DistanceToNextWaypoint) / PathSegmentDistance;
 
-
         private bool BloonReachedEndOfPath => _targetWaypointIndex >= _bloonPath.WaypointCount;
         private int RBE => _bloonProperties.RedBloonEquivalent;
         private bool _isFrozen;
@@ -101,6 +100,8 @@ namespace TMG.BloonsTD.Gameplay
         {
             if (CannotHitBloon(hazard)) return false;
             _hitsRemaining--;
+            if (_hitsRemaining < 0) return false;
+            if (_hitsRemaining <= 0) PopBloon();
             return true;
         }
         
@@ -109,6 +110,7 @@ namespace TMG.BloonsTD.Gameplay
             spawnedBloons = null;
             if (CannotHitBloon(hazard)) return false;
             _hitsRemaining--;
+            if (_hitsRemaining < 0) return false;
             spawnedBloons = _hitsRemaining <= 0 ? PopBloon() : new BloonController[1] {this};
             return true;
         }

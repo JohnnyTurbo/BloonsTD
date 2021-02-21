@@ -1,4 +1,5 @@
 using System;
+using System.Net.NetworkInformation;
 using TMG.BloonsTD.Stats;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -26,12 +27,15 @@ namespace TMG.BloonsTD.Gameplay
         
         private bool _gameOver;
         public bool GameOver => _gameOver;
+        private bool _victory;
+        public bool Victory => _victory;
         public int Money => _curGameStatistics.Money;
         private int BaseRewardAmount => _curGameStatistics.Round1Reward + 1;
         public float SellTowerMultiplier => _curGameStatistics.SellTowerMultiplier;
         private void Awake()
         {
             Instance = this;
+            InputController.ResetMainCamera();
         }
 
         private void Start()
@@ -136,9 +140,14 @@ namespace TMG.BloonsTD.Gameplay
 
         private void BeginGameOver()
         {
-            Debug.Log("Game Over");
             _gameOver = true;
             OnGameOver?.Invoke();
+        }
+
+        public void BeginVictory()
+        {
+            _victory = true;
+            BeginGameOver();
         }
     }
 }

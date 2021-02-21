@@ -45,6 +45,11 @@ namespace TMG.BloonsTD.Gameplay
         private void QueueNextRound()
         {
             _curGameStatistics.Rounds++;
+            if (_curGameStatistics.Rounds > _rounds.Count)
+            {
+                _gameController.BeginVictory();
+                return;
+            }
             _curRound = _rounds[CurRoundIndex];
             _bloonsLeft = _curRound.TotalBloonCount;
             OnQueueNextRound?.Invoke(_curRound);
