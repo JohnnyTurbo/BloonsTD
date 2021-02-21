@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe83f7289b8e44fd81cb55fe93c3ca0d, type: 3}
-  m_Name: Spawn_10_Bloons_of_1_Type
+  m_Name: Round-28
   m_EditorClassIdentifier: 
   _spawnGroups:
   - _initialSpawnDelay: 0
-    _bloonType: 4
-    _numberInGroup: 10
-    _timeBetweenBloons: 2
-  - _initialSpawnDelay: 22
-    _bloonType: 0
-    _numberInGroup: 10
-    _timeBetweenBloons: 2
-  _preRoundComment: Welcome to Bloons Tower Defense! Stop the Bloons escaping by
-    building towers next to the maze. As you get more money build more towers or
-    upgrading existing ones.
+    _bloonType: 2
+    _numberInGroup: 40
+    _timeBetweenBloons: 0.6
+  - _initialSpawnDelay: 5
+    _bloonType: 3
+    _numberInGroup: 55
+    _timeBetweenBloons: 0.65
+  _preRoundComment: When you sell a tower, you get 80% of what you paid for it, including
+    all the upgrade money you spent.

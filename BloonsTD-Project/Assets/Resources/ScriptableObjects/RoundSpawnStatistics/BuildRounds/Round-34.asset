@@ -10,27 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe83f7289b8e44fd81cb55fe93c3ca0d, type: 3}
-  m_Name: Spawn_10_Bloons_of_5_Types
+  m_Name: Round-34
   m_EditorClassIdentifier: 
   _spawnGroups:
   - _initialSpawnDelay: 0
-    _bloonType: 0
-    _numberInGroup: 10
-    _timeBetweenBloons: 0.5
-  - _initialSpawnDelay: 6
-    _bloonType: 1
-    _numberInGroup: 10
-    _timeBetweenBloons: 0.5
-  - _initialSpawnDelay: 6
     _bloonType: 2
-    _numberInGroup: 10
+    _numberInGroup: 35
     _timeBetweenBloons: 0.5
-  - _initialSpawnDelay: 6
+  - _initialSpawnDelay: 5
     _bloonType: 3
-    _numberInGroup: 10
-    _timeBetweenBloons: 0.5
-  - _initialSpawnDelay: 6
+    _numberInGroup: 35
+    _timeBetweenBloons: 0.55
+  - _initialSpawnDelay: 5
     _bloonType: 4
-    _numberInGroup: 10
-    _timeBetweenBloons: 2
-  _preRoundComment: Remember to spend your money.
+    _numberInGroup: 25
+    _timeBetweenBloons: 0.6
+  _preRoundComment: 10% of people lose their temper every day. If they play Counterstrike
+    its more like 90% I think...

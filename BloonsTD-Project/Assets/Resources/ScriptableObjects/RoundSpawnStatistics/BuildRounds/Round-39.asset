@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe83f7289b8e44fd81cb55fe93c3ca0d, type: 3}
+  m_Name: Round-39
+  m_EditorClassIdentifier: 
+  _spawnGroups:
+  - _initialSpawnDelay: 0
+    _bloonType: 0
+    _numberInGroup: 50
+    _timeBetweenBloons: 0.25
+  - _initialSpawnDelay: 10
+    _bloonType: 1
+    _numberInGroup: 50
+    _timeBetweenBloons: 0.3
+  - _initialSpawnDelay: 10
+    _bloonType: 2
+    _numberInGroup: 50
+    _timeBetweenBloons: 0.35
+  - _initialSpawnDelay: 10
+    _bloonType: 3
+    _numberInGroup: 50
+    _timeBetweenBloons: 0.4
+  - _initialSpawnDelay: 10
+    _bloonType: 4
+    _numberInGroup: 40
+    _timeBetweenBloons: 0.5
+  _preRoundComment: Just for fun, there are some of each color bloon in the next
+    level. Enjoy popping those easy reds for a change.

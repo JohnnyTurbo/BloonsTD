@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bcc4ee83ce4c958cffe70d6a0e8081, type: 3}
   m_Name: CurrentGameStatistics
   m_EditorClassIdentifier: 
-  _round: 50
-  _money: 650
-  _lives: 40
+  _rounds: 11
+  _money: 430
+  _round1Reward: 100
+  _lives: 36
   _maxGameStatistics: {fileID: 11400000, guid: e7364774560140347a225b01a1fe9a62, type: 2}
+  _sellTowerMultiplier: 0.8
