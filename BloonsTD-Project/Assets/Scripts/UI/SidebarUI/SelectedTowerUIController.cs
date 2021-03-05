@@ -112,6 +112,7 @@ namespace TMG.BloonsTD.UI
 
         private void OnMoneyChanged(int newMoneyValue)
         {
+            if(!_selectedTowerPanel.activeSelf) {return;}
             SetupUpgradeButton(_upgrade1, _upgradeButtonDTO1);
             SetupUpgradeButton(_upgrade2, _upgradeButtonDTO2);
         }
