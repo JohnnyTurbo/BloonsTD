@@ -39,7 +39,6 @@ namespace TMG.BloonsTD.UI
         private TowerController _towerController;
         private TowerUpgrade _upgrade1;
         private TowerUpgrade _upgrade2;
-
         private void Awake()
         {
             SetupEvents();
@@ -113,7 +112,6 @@ namespace TMG.BloonsTD.UI
 
         private void OnMoneyChanged(int newMoneyValue)
         {
-            if(_upgrade1 == null || _upgrade2 == null){return;}
             SetupUpgradeButton(_upgrade1, _upgradeButtonDTO1);
             SetupUpgradeButton(_upgrade2, _upgradeButtonDTO2);
         }
@@ -129,7 +127,9 @@ namespace TMG.BloonsTD.UI
             var nameText = upgradeButtonDTO.NameText;
             var costText = upgradeButtonDTO.CostText;
             var iconImage = upgradeButtonDTO.Icon;
-            
+
+            button.image.color = Color.white;
+            iconImage.color = Color.white;
             nameText.text = upgrade.Name;
             iconImage.sprite = upgrade.Icon;
             button.onClick.RemoveAllListeners();
