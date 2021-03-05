@@ -50,6 +50,11 @@ namespace TMG.BloonsTD.Gameplay
                 _gameController.BeginVictory();
                 return;
             }
+            if (_curGameStatistics.Rounds != 1)
+            {
+                OnRoundComplete?.Invoke(_curRound);
+            }
+            
             _curRound = _rounds[CurRoundIndex];
             _bloonsLeft = _curRound.TotalBloonCount;
             OnQueueNextRound?.Invoke(_curRound);
@@ -101,8 +106,6 @@ namespace TMG.BloonsTD.Gameplay
             _bloonsLeft -= numberToDecrement;
             if (_bloonsLeft <= 0)
             {
-                //TODO: Check for victory
-                OnRoundComplete?.Invoke(_curRound);
                 QueueNextRound();
             }
         }
