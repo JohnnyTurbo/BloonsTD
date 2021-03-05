@@ -2,6 +2,6 @@ namespace TMG.BloonsTD.Gameplay
 {
     public interface IUpgradeFrequency
     {
-        void SetFrequency(float newShotsPerMinute);
+        void SetFrequency(float newCooldownTime);
     }
 }

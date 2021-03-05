@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TMG.BloonsTD.Gameplay
 {
-    public abstract class TowerAttack : IUpgradeRange
+    public abstract class TowerAttack : IUpgradeRange, IUpgradeFrequency
     {
         private WaitForSeconds _attackCooldownTime;
         private CircleCollider2D _detectionCollider;
@@ -69,6 +69,17 @@ namespace TMG.BloonsTD.Gameplay
             return true;
         }
 
+        public void SetRange(float newRangeValue)
+        {
+            Range = newRangeValue;
+            _towerBloonDetector.SetRange(newRangeValue);
+        }
+
+        public void SetFrequency(float newCooldownTime)
+        {
+            _attackCooldownTime = new WaitForSeconds(newCooldownTime);
+        }
+
         private Vector3 DetermineTargetLocation(IReadOnlyList<BloonController> bloons)
         {
             switch (TowerTargetType)
@@ -88,12 +99,6 @@ namespace TMG.BloonsTD.Gameplay
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-
-        public void SetRange(float newRangeValue)
-        {
-            Range = newRangeValue;
-            _towerBloonDetector.SetRange(newRangeValue);
         }
 
         protected static Quaternion GetOrientationToTarget(Vector3 position, Vector3 targetLocation)
