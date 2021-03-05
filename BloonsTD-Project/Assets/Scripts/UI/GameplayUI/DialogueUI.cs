@@ -31,7 +31,9 @@ namespace TMG.BloonsTD.UI
 
         private void DisplayPreRoundComment(RoundProperties nextRound)
         {
-            DisplayDialogue(nextRound.PreRoundComment);
+            var rewardText = nextRound.RoundNumber == 1 ? "" :
+                $"Round {nextRound.RoundNumber - 1} passed. {102 - nextRound.RoundNumber} money awarded. ";
+            DisplayDialogue(rewardText + nextRound.PreRoundComment);
         }
         private void DisplayDialogue(string textToDisplay)
         {
