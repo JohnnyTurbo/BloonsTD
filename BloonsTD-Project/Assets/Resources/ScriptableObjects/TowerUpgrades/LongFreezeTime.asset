@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c3ef47b37d44e2a27597a8445c10f4, type: 3}
   m_Name: LongFreezeTime
   m_EditorClassIdentifier: 
-  _name: LongFreezeTime
+  _name: Long Freeze Time
   _upgradeType: 2
   _cost: 450
   _description: 

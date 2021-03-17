@@ -20,7 +20,7 @@ namespace TMG.BloonsTD.Gameplay
 
         public void SetRange(float newRangeValue)
         {
-            transform.localScale = Vector3.one * newRangeValue;
+            transform.localScale = Vector3.one * (newRangeValue * .01f);
         }
     }
 }

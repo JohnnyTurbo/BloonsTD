@@ -22,7 +22,7 @@ MonoBehaviour:
   _rendererPrefab: {fileID: 4501395930580348430, guid: 9d9e040806aec5b4e987e2037a2276f0,
     type: 3}
   _colliderRadius: 0.36
-  _range: 10
+  _range: 60
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
   _towerAttackType: 2

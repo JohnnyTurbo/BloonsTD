@@ -21,7 +21,7 @@ MonoBehaviour:
   _rendererPrefab: {fileID: 8515468468446057532, guid: 50854a4a6619d0a42b68e0fb468f04b4,
     type: 3}
   _colliderRadius: 0.36
-  _range: 15
+  _range: 100
   _canBePlacedOffPath: 1
   _canBePlacedOnPath: 0
   _towerAttackType: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
     type: 3}
   _numberProjectiles: 0
   _freezeDuration: 0
-  _towerUpgradePropertiesPath1: {fileID: 11400000, guid: 14814f7d89501b24cb1f4801df362bb1,
+  _towerUpgradePropertiesPath1: {fileID: 11400000, guid: 4e0e4ab56b21fd748965259503a9a29f,
     type: 2}
-  _towerUpgradePropertiesPath2: {fileID: 11400000, guid: 4e0e4ab56b21fd748965259503a9a29f,
+  _towerUpgradePropertiesPath2: {fileID: 11400000, guid: e6931368d6032d94a8d5f3abec65b104,
     type: 2}

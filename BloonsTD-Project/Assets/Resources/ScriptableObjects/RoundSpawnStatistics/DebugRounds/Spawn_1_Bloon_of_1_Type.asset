@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnGroups:
   - _initialSpawnDelay: 0
-    _bloonType: 4
+    _bloonType: 1
     _numberInGroup: 1
     _timeBetweenBloons: 1
   _preRoundComment: 

@@ -17,5 +17,5 @@ MonoBehaviour:
   _cost: 100
   _description: 
   _upgradeIcon: {fileID: 21300000, guid: b33ce5a17ab92fe4c9fabd6531133dc9, type: 3}
-  _upgradeValue: 150
+  _upgradeValue: 125
   _weapon: {fileID: 0}

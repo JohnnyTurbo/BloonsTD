@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47c3ef47b37d44e2a27597a8445c10f4, type: 3}
-  m_Name: ExtraRangeDarts
+  m_Name: ExtraRangeTacks
   m_EditorClassIdentifier: 
-  _name: Extra Range Darts
+  _name: Extra Range Tacks
   _upgradeType: 0
-  _cost: 250
+  _cost: 150
   _description: 
   _upgradeIcon: {fileID: 21300000, guid: b33ce5a17ab92fe4c9fabd6531133dc9, type: 3}
-  _upgradeValue: 20
+  _upgradeValue: 80
   _weapon: {fileID: 0}

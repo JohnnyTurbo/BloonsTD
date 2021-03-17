@@ -18,4 +18,4 @@ MonoBehaviour:
   _description: 
   _upgradeIcon: {fileID: 0}
   _upgradeValue: 0
-  _weapon: {fileID: 0}
+  _weapon: {fileID: 4236017124761958150, guid: bd647c62c4baaeb499442cfb975a6d96, type: 3}
